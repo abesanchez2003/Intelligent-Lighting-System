@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "gpio.h": "c",
-        "task.h": "c"
+        "task.h": "c",
+        "vector": "cpp"
     }
 }
