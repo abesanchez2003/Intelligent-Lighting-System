@@ -10,6 +10,7 @@
 #include <string>
 #include <cstring>
 #include <nvs_flash.h>
+#include <ledpwmtest.h>
 
 #define LED_PIN GPIO_NUM_2  // ESP32 onboard LED
 #define POT_RES GPIO_NUM_35
@@ -86,9 +87,7 @@ int connect_wifi(std:: string ssid, std:: string pwd){
     }
 }
 
-extern "C" void app_main(void) {
-
-
+void testWifi(){
     volatile uint32_t *output = (volatile uint32_t *)(0x3FF44000 + 0x04);
     volatile uint32_t *enableoutput = (volatile uint32_t *)(0x3FF44000 + 0x20);
     std:: string ssid, pwd;
@@ -106,6 +105,32 @@ extern "C" void app_main(void) {
         *output = 1 << 0;
 
     } 
+}
+
+extern "C" void app_main(void) {
+    int arr[4];
+    double duty; 
+    ledc_test();
+    ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY));
+
+    ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
+    while(true){
+        /*for(int i = 1; i < 5; i++){
+            duty = 8192.0 / i ;
+            ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, duty);
+            ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
+            vTaskDelay(5000 / portTICK_PERIOD_MS);
+        } */
+        for(int i = 1; i < 5; i++){
+            uint32_t freq = i * 10;
+            ledc_set_freq(LEDC_MODE, LEDC_TIMER, freq);
+            vTaskDelay(5000 / portTICK_PERIOD_MS);
+        }
+        vTaskDelay(5000 / portTICK_PERIOD_MS);
+    }
+
+
+    
 
 
 
