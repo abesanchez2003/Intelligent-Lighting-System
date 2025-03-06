@@ -13,4 +13,14 @@ class LED {
         int LEDC_FREQUENCY;
     public:
         LED(ledc_timer_t LEDC_TIMER, ledc_mode_t LEDC_MODE, int LEDC_OUTPUT_IO, ledc_channel_t LEDC_CHANNEL ):
+        LEDC_TIMER(LEDC_TIMER),
+        LEDC_MODE(LEDC_MODE),
+        LEDC_OUTPUT_IO(LEDC_OUTPUT_IO),
+        LEDC_CHANNEL(LEDC_CHANNEL)
+        {}
+
+        void setBrightness(){
+            
+        }
+
 };
