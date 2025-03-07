@@ -10,7 +10,7 @@
 #include <string>
 #include <cstring>
 #include <nvs_flash.h>
-#include <ledpwmtest.h>
+#include "LED.h"
 
 #define LED_PIN GPIO_NUM_2  // ESP32 onboard LED
 #define POT_RES GPIO_NUM_35
@@ -108,36 +108,40 @@ void testWifi(){
 }
 
 extern "C" void app_main(void) {
-    double duty; 
-    ledc_test();
-    ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY));
+    int duty; 
+    // ledc_test();
+    // ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY));
 
-    ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
-    while(true){
-        for(int i = 1; i < 5; i++){
-            duty = 8192.0 / i ;
-            ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, duty);
-            ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
-            vTaskDelay(5000 / portTICK_PERIOD_MS);
-        } 
-        for(int i = 1; i < 5; i++){
-            uint32_t freq = i * 10;
-            ledc_set_freq(LEDC_MODE, LEDC_TIMER, freq);
-            vTaskDelay(5000 / portTICK_PERIOD_MS);
-        }
-        vTaskDelay(5000 / portTICK_PERIOD_MS);
-    }
-    volatile uint32_t *output = (volatile uint32_t *)(0x3FF44000 + 0x04);
-    volatile uint32_t *enableoutput = (volatile uint32_t *)(0x3FF44000 + 0x20);
-    while(true){
-        *enableoutput = 1;
-        *output = 1 << 0;
-    }
-
+    // ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
+    // while(true){
+    //     for(int i = 1; i < 5; i++){
+    //         duty = 8192.0 / i ;
+    //         ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, duty);
+    //         ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
+    //         vTaskDelay(5000 / portTICK_PERIOD_MS);
+    //     } 
+    //     for(int i = 1; i < 5; i++){
+    //         uint32_t freq = i * 10;
+    //         ledc_set_freq(LEDC_MODE, LEDC_TIMER, freq);
+    //         vTaskDelay(5000 / portTICK_PERIOD_MS);
+    //     }
+    //     vTaskDelay(5000 / portTICK_PERIOD_MS);
+    // }
 
     
+    LED Green(0,LEDC_CHANNEL_0);
+    LED Blue(2,LEDC_CHANNEL_1);
+    std:: string ssid, pwd;
+    ssid = "fivegigas";
+    pwd = "twosimps";
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        nvs_flash_erase();  // ⚠️ If NVS is corrupted, erase and re-init
+        nvs_flash_init();
+    }
 
-
-
-
+    int wifi = connect_wifi(ssid, pwd);
+    if(wifi == 1){
+        
+    }
 }
