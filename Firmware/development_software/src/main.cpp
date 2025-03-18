@@ -11,6 +11,10 @@
 #include <cstring>
 #include <nvs_flash.h>
 #include "LED.h"
+#include "esp_adc_cal.h"
+#include "esp_adc/adc_continuous.h" 
+#include "driver/adc.h"
+
 
 #define LED_PIN GPIO_NUM_2  // ESP32 onboard LED
 #define POT_RES GPIO_NUM_35
@@ -67,7 +71,7 @@ int connect_wifi(std:: string ssid, std:: string pwd){
         else
         {
             ESP_LOGD(TAG, "WiFi Start Status: %s", esp_err_to_name(start_wifi));
-        }
+        } 
         esp_wifi_set_mode(WIFI_MODE_STA);
 
         esp_err_t wifi_connect = esp_wifi_connect(); // attmepting wifi connection 
@@ -108,7 +112,7 @@ void testWifi(){
 }
 
 extern "C" void app_main(void) {
-    int duty; 
+    //int duty; 
     // ledc_test();
     // ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY));
 
@@ -129,19 +133,65 @@ extern "C" void app_main(void) {
     // }
 
     
-    LED Green(0,LEDC_CHANNEL_0);
-    LED Blue(2,LEDC_CHANNEL_1);
-    std:: string ssid, pwd;
-    ssid = "fivegigas";
-    pwd = "twosimps";
-    esp_err_t ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        nvs_flash_erase();  // ⚠️ If NVS is corrupted, erase and re-init
-        nvs_flash_init();
+    //LED Green(0,LEDC_CHANNEL_0);
+    LED Blue(23,LEDC_CHANNEL_1);
+    // LED Y(23,LEDC_CHANNEL_2);
+    // LED RED(6,LEDC_CHANNEL_3);
+    // while (true) {
+    //     Green.setBrightness(8191);
+    //     Blue.setBrightness(8191);
+    //     Y.setBrightness(8191);
+    //     RED.setBrightness(8191);
+    // }
+    //gpio_num_t outputVolt = GPIO_NUM_26; // so this will be outputting 3.3V or high volt that will connect to one of the pot terminals
+    gpio_num_t pot_input = GPIO_NUM_36; // this will be the actual voltage divider terminal and will be read in to correspond with loights
+    //gpio_config_t outputvoltconfig{};
+    gpio_config_t pot_config {};
+
+    //outputvoltconfig.pin_bit_mask = (1ULL << outputVolt);
+    //outputvoltconfig.mode = GPIO_MODE_OUTPUT; // setting gpio to high
+   //gpio_config(&outputvoltconfig);
+    
+    pot_config.pin_bit_mask = (1ULL << pot_input); //configuring voltage divider by the pot
+    pot_config.mode = GPIO_MODE_INPUT;
+    gpio_config(&pot_config);
+
+    adc_continuous_handle_cfg_t handle_config {}; // setting paramaters for adc vaue storage
+    handle_config.max_store_buf_size = 512;
+    handle_config.conv_frame_size = 64;
+
+   adc_continuous_handle_t adc_handle;
+   ESP_ERROR_CHECK(adc_continuous_new_handle(&handle_config, &adc_handle));
+   adc_continuous_config_t adc_config {};
+
+   adc_digi_pattern_config_t adc_arr [1];
+   adc_arr[0].atten = ADC_ATTEN_DB_11;
+   adc_arr[0].channel = ADC_CHANNEL_0;
+   //adc_arr[0].bit_width = ADC_BITWIDTH_12;
+   adc_config.sample_freq_hz = 1000;
+   adc_config.pattern_num = 1;
+   adc_config.conv_mode = ADC_CONV_SINGLE_UNIT_1;
+   adc_config.format = ADC_DIGI_OUTPUT_FORMAT_TYPE1;
+   adc_config.adc_pattern = adc_arr;
+
+   ESP_ERROR_CHECK(adc_continuous_config(adc_handle, &adc_config));
+   ESP_ERROR_CHECK(adc_continuous_start(adc_handle));
+   uint8_t adc_data[64];
+   uint32_t read_len = 0;
+   static const char* TAG = "MAIN";
+
+
+    while(true){
+        //if(adc_continuous_read(adc_handle,adc_data,sizeof(adc_data),&read_len,1000) == ESP_OK){
+            //int raw_value = adc_data[0] | (adc_data[1] << 8);
+            int raw_value = adc1_get_raw(ADC1_CHANNEL_0);
+            int brightness = (raw_value * 8191) / 4095;
+            //printf("ADC Raw: %d | PWM: %d\n", raw_value, brightness);
+            Blue.setBrightness(brightness);
+        //}
+        vTaskDelay(pdMS_TO_TICKS(10));
+     
     }
 
-    int wifi = connect_wifi(ssid, pwd);
-    if(wifi == 1){
-        
-    }
+    
 }
