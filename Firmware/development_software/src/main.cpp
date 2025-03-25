@@ -112,26 +112,11 @@ void testWifi(){
 }
 
 extern "C" void app_main(void) {
-    //int duty; 
-    // ledc_test();
-    // ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY));
+    int SYSTEM_STATUS;
 
-    // ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
-    // while(true){
-    //     for(int i = 1; i < 5; i++){
-    //         duty = 8192.0 / i ;
-    //         ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, duty);
-    //         ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
-    //         vTaskDelay(5000 / portTICK_PERIOD_MS);
-    //     } 
-    //     for(int i = 1; i < 5; i++){
-    //         uint32_t freq = i * 10;
-    //         ledc_set_freq(LEDC_MODE, LEDC_TIMER, freq);
-    //         vTaskDelay(5000 / portTICK_PERIOD_MS);
-    //     }
-    //     vTaskDelay(5000 / portTICK_PERIOD_MS);
-    // }
-
+    //SYSTEM STATUS is 1 for MANUAL OPERATION
+    // SYSTEM STATUS is 2 for SEMI-AUTOMATIC OPERATION
+    // SYSTEM STATUS is 3 for AUTOMATIC OPERATION
     
     //LED Green(0,LEDC_CHANNEL_0);
     LED Blue(23,LEDC_CHANNEL_1);
@@ -143,55 +128,97 @@ extern "C" void app_main(void) {
     //     Y.setBrightness(8191);
     //     RED.setBrightness(8191);
     // }
-    //gpio_num_t outputVolt = GPIO_NUM_26; // so this will be outputting 3.3V or high volt that will connect to one of the pot terminals
-    gpio_num_t pot_input = GPIO_NUM_36; // this will be the actual voltage divider terminal and will be read in to correspond with loights
-    //gpio_config_t outputvoltconfig{};
-    gpio_config_t pot_config {};
+   
+    int bright_knob_voltage;
+    int warmth_knob_voltage;
 
-    //outputvoltconfig.pin_bit_mask = (1ULL << outputVolt);
-    //outputvoltconfig.mode = GPIO_MODE_OUTPUT; // setting gpio to high
-   //gpio_config(&outputvoltconfig);
+    double cct;
+
+    // Configure ADC1 capture width
+    // 12 bit decimal value from 0 to 4095
+    adc1_config_width(ADC_WIDTH_BIT_12); 
+    // Configure the ADC1 channel (ADC1_CHANNEL_6 - pin 34), and setting attenuation (ADC_ATTEN_DB_11)
+    adc1_channel_t brightnessknob = ADC1_CHANNEL_6;
+    adc1_channel_t cct_knob = ADC1_CHANNEL_7;
+    adc1_channel_t light_sensor = ADC1_CHANNEL_7;
+
+
+
+    adc1_config_channel_atten(brightnessknob, ADC_ATTEN_DB_11);
+    LED warm(21,LEDC_CHANNEL_0);
+    LED cold(4,LEDC_CHANNEL_2);
+    static int prev_system_brightness_knob_voltage = -1;
+    int ambient_light;
+    int TARGET_LUX;
+
+
+    while (true) 
+    {
+        // Take an ADC1 reading on a single channel (ADC1_CHANNEL_6 pin 34)
+        // 11dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 0 - 3.9V
+        // 4053 ~ 3.86V
+        
+        switch(SYSTEM_STATUS){
+            case 1 :{   // MANUAL MODE
+
+            // temperature adjustment knob
+            int cct_knob_voltage = adc1_get_raw(cct_knob);
+            
+            double warm_bright_perc = (warm.getBrightness() / 8191.0) * 100.0;
+            double cold_bright_perc = (cold.getBrightness() / 8191.0) * 100.0;
+            cct = ( warm_bright_perc * 2700.0) + (cold_bright_perc * 6500);
+            int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
+            cold.setBrightness(cct_knob_brightness);
+            warm.setBrightness(8191 - cold.getBrightness());
+
+            // brightness adjustmentknob
+            
+            int system_brightness_knob_voltage = adc1_get_raw(brightnessknob);
+
+            if(prev_system_brightness_knob_voltage == -1){ // first iteration check to avoid large jump and set to baseline brightness
+                prev_system_brightness_knob_voltage = system_brightness_knob_voltage;
+            }
+
+            int prev_system_brightness = (prev_system_brightness_knob_voltage * 8191) / 4095;
+            int system_brightness = (system_brightness_knob_voltage * 8191) / 4095;
+
+            int system_brightness_change = system_brightness - prev_system_brightness;
+            if(abs(system_brightness_change) > 5){
+                warm.setBrightness(warm.getBrightness() + system_brightness_change);
+                cold.setBrightness(cold.getBrightness() + system_brightness_change);
+                prev_system_brightness_knob_voltage = system_brightness_knob_voltage;
+            }
+        }
+        case 2: { // SEMI_AUTOMATIC
+            // temperature adjustment knob
+            int cct_knob_voltage = adc1_get_raw(cct_knob);
+            
+            double warm_bright_perc = (warm.getBrightness() / 8191.0) * 100.0;
+            double cold_bright_perc = (cold.getBrightness() / 8191.0) * 100.0;
+            cct = ( warm_bright_perc * 2700.0) + (cold_bright_perc * 6500);
+            int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
+            cold.setBrightness(cct_knob_brightness);
+            warm.setBrightness(8191 - cold.getBrightness());
+
+            // automatic system brightness 
+            
+
+
+        }
+
+
+
+
+        }
+        // bright_knob_voltage = adc1_get_raw(ADC1_CHANNEL_6);
+        // int brightness = (bright_knob_voltage * 8191) /4095;
+        // double brightness_percent = ((double)brightness / 8191.0) * 100.0;
+        // printf("%.2f%%\n", brightness_percent);
+        // Blue.setBrightness(brightness);
     
-    pot_config.pin_bit_mask = (1ULL << pot_input); //configuring voltage divider by the pot
-    pot_config.mode = GPIO_MODE_INPUT;
-    gpio_config(&pot_config);
-
-    adc_continuous_handle_cfg_t handle_config {}; // setting paramaters for adc vaue storage
-    handle_config.max_store_buf_size = 512;
-    handle_config.conv_frame_size = 64;
-
-   adc_continuous_handle_t adc_handle;
-   ESP_ERROR_CHECK(adc_continuous_new_handle(&handle_config, &adc_handle));
-   adc_continuous_config_t adc_config {};
-
-   adc_digi_pattern_config_t adc_arr [1];
-   adc_arr[0].atten = ADC_ATTEN_DB_11;
-   adc_arr[0].channel = ADC_CHANNEL_0;
-   //adc_arr[0].bit_width = ADC_BITWIDTH_12;
-   adc_config.sample_freq_hz = 1000;
-   adc_config.pattern_num = 1;
-   adc_config.conv_mode = ADC_CONV_SINGLE_UNIT_1;
-   adc_config.format = ADC_DIGI_OUTPUT_FORMAT_TYPE1;
-   adc_config.adc_pattern = adc_arr;
-
-   ESP_ERROR_CHECK(adc_continuous_config(adc_handle, &adc_config));
-   ESP_ERROR_CHECK(adc_continuous_start(adc_handle));
-   uint8_t adc_data[64];
-   uint32_t read_len = 0;
-   static const char* TAG = "MAIN";
-
-
-    while(true){
-        //if(adc_continuous_read(adc_handle,adc_data,sizeof(adc_data),&read_len,1000) == ESP_OK){
-            //int raw_value = adc_data[0] | (adc_data[1] << 8);
-            int raw_value = adc1_get_raw(ADC1_CHANNEL_0);
-            int brightness = (raw_value * 8191) / 4095;
-            //printf("ADC Raw: %d | PWM: %d\n", raw_value, brightness);
-            Blue.setBrightness(brightness);
-        //}
-        vTaskDelay(pdMS_TO_TICKS(10));
-     
+        vTaskDelay(100 / portTICK_PERIOD_MS);
     }
+
 
     
 }

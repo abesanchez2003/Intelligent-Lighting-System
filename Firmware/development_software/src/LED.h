@@ -18,7 +18,7 @@ class LED{
         LED(int LEDC_OUTPUT_IO, ledc_channel_t LEDC_CHANNEL, bool isOn = true, ledc_timer_t LEDC_TIMER = LEDC_TIMER_0, 
             ledc_mode_t LEDC_MODE = LEDC_LOW_SPEED_MODE, 
             ledc_timer_bit_t LEDC_DUTY_RES = LEDC_TIMER_13_BIT, 
-            int LEDC_DUTY = 8191, int LEDC_FREQUENCY  = 5000 );
+            int LEDC_DUTY = 0, int LEDC_FREQUENCY  = 5000 );
         int getBrightness();
         int getFreq();
         void setBrightness(int duty);
