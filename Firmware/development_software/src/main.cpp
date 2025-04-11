@@ -119,7 +119,7 @@ extern "C" void app_main(void) {
     // SYSTEM STATUS is 3 for AUTOMATIC OPERATION
     
     //LED Green(0,LEDC_CHANNEL_0);
-    LED Blue(23,LEDC_CHANNEL_1);
+    //LED Blue(23,LEDC_CHANNEL_1);
     // LED Y(23,LEDC_CHANNEL_2);
     // LED RED(6,LEDC_CHANNEL_3);
     // while (true) {
@@ -138,15 +138,15 @@ extern "C" void app_main(void) {
     // 12 bit decimal value from 0 to 4095
     adc1_config_width(ADC_WIDTH_BIT_12); 
     // Configure the ADC1 channel (ADC1_CHANNEL_6 - pin 34), and setting attenuation (ADC_ATTEN_DB_11)
-    adc1_channel_t brightnessknob = ADC1_CHANNEL_6;
-    adc1_channel_t cct_knob = ADC1_CHANNEL_7;
-    adc1_channel_t light_sensor = ADC1_CHANNEL_7;
+    adc1_channel_t brightnessknob = ADC1_CHANNEL_4;
+    adc1_channel_t cct_knob = ADC1_CHANNEL_5;
+    adc1_channel_t light_sensor = ADC1_CHANNEL_3;
 
 
 
     adc1_config_channel_atten(brightnessknob, ADC_ATTEN_DB_11);
-    LED warm(21,LEDC_CHANNEL_0);
-    LED cold(4,LEDC_CHANNEL_2);
+    LED warm(1,LEDC_CHANNEL_0);
+    LED cold(2,LEDC_CHANNEL_2);
     static int prev_system_brightness_knob_voltage = -1;
     int ambient_light;
     int TARGET_LUX;
@@ -157,7 +157,7 @@ extern "C" void app_main(void) {
         // Take an ADC1 reading on a single channel (ADC1_CHANNEL_6 pin 34)
         // 11dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 0 - 3.9V
         // 4053 ~ 3.86V
-        
+        SYSTEM_STATUS = 1;
         switch(SYSTEM_STATUS){
             case 1 :{   // MANUAL MODE
 
