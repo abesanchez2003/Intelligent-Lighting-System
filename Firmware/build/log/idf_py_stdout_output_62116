@@ -1,0 +1,3571 @@
+Command: /Users/abe/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/abe/esp/esp-idf/tools/idf_monitor.py -p /dev/cu.usbserial-FTDY5B37 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/abe/Documents/CAPSTONE_FIRMWARE/capstone_firmware/build/capstone_firmware.elf /Users/abe/Documents/CAPSTONE_FIRMWARE/capstone_firmware/build/bootloader/bootloader.elf -m '/Users/abe/.espressif/python_env/idf5.5_py3.9_env/bin/python' '/Users/abe/esp/esp-idf/tools/idf.py' '-p' '/dev/cu.usbserial-FTDY5B37'
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x15c8
+load:0x403c8700,len:0xd24
+load:0x403cb700,len:0x2f60
+entry 0x403c8924
+[0;32mI (24) boot: ESP-IDF v5.5-dev-2916-g1c468f6825 2nd stage bootloader[0m
+[0;32mI (25) boot: compile time Apr 11 2025 14:57:15[0m
+[0;32mI (25) boot: Multicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (29) boot: efuse block revision: v1.3[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (37) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (40) boot.esp32s3: SPI Flash Size : 4MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3c020020 size=0bafch ( 47868) map[0m
+[0;32mI (96) esp_image: segment 1: paddr=0001bb24 vaddr=3fc92900 size=02b18h ( 11032) load[0m
+[0;32mI (99) esp_image: segment 2: paddr=0001e644 vaddr=40374000 size=019d4h (  6612) load[0m
+[0;32mI (104) esp_image: segment 3: paddr=00020020 vaddr=42000020 size=1c058h (114776) map[0m
+[0;32mI (131) esp_image: segment 4: paddr=0003c080 vaddr=403759d4 size=0cef4h ( 52980) load[0m
+[0;32mI (142) esp_image: segment 5: paddr=00048f7c vaddr=600fe000 size=0001ch (    28) load[0m
+[0;32mI (148) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (148) boot: Disabling RNG early entropy source...[0m
+[0;32mI (160) cpu_start: Multicore app[0m
+[0;32mI (169) cpu_start: Pro cpu start user code[0m
+[0;32mI (169) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (169) app_init: Application information:[0m
+[0;32mI (169) app_init: Project name:     capstone_firmware[0m
+[0;32mI (174) app_init: App version:      1[0m
+[0;32mI (177) app_init: Compile time:     Apr 11 2025 14:56:59[0m
+[0;32mI (182) app_init: ELF file SHA256:  b05c6ecf0...[0m
+[0;32mI (187) app_init: ESP-IDF:          v5.5-dev-2916-g1c468f6825[0m
+[0;32mI (192) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (196) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (200) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (204) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (210) heap_init: At 3FC95D98 len 00053978 (334 KiB): RAM[0m
+[0;32mI (215) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (220) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (226) heap_init: At 600FE01C len 00001FCC (7 KiB): RTCRAM[0m
+[0;32mI (232) spi_flash: detected chip: generic[0m
+[0;32mI (235) spi_flash: flash io: dio[0m
+[0;33mW (238) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (245) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (251) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (258) main_task: Started on CPU0[0m
+[0;32mI (288) main_task: Calling app_main()[0m
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 1782	cold brightness: 9973
+Brightness knob raw ADC: 891
+warm brightness: 32	cold brightness: 8223
+Brightness knob raw ADC: 907
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 909
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 909
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 909
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 909
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 909
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 909
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 910
+warm brightness: 46	cold brightness: 8237
+Brightness knob raw ADC: 933
+warm brightness: 438	cold brightness: 8629
+Brightness knob raw ADC: 1152
+warm brightness: 442	cold brightness: 8633
+Brightness knob raw ADC: 1373
+warm brightness: 466	cold brightness: 8657
+Brightness knob raw ADC: 1606
+warm brightness: 810	cold brightness: 9001
+Brightness knob raw ADC: 2011
+warm brightness: 16	cold brightness: 8207
+Brightness knob raw ADC: 2019
+warm brightness: 24	cold brightness: 8215
+Brightness knob raw ADC: 2031
+warm brightness: 1152	cold brightness: 9343
+Brightness knob raw ADC: 2607
+warm brightness: 50	cold brightness: 8241
+Brightness knob raw ADC: 2632
+warm brightness: 510	cold brightness: 8701
+Brightness knob raw ADC: 2887
+warm brightness: 404	cold brightness: 8595
+Brightness knob raw ADC: 3089
+warm brightness: 284	cold brightness: 8475
+Brightness knob raw ADC: 3231
+warm brightness: 234	cold brightness: 8425
+Brightness knob raw ADC: 3348
+warm brightness: 330	cold brightness: 8521
+Brightness knob raw ADC: 3513
+warm brightness: 236	cold brightness: 8427
+Brightness knob raw ADC: 3631
+warm brightness: 274	cold brightness: 8465
+Brightness knob raw ADC: 3768
+warm brightness: 10	cold brightness: 8201
+Brightness knob raw ADC: 3773
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3774
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3771
+warm brightness: 10	cold brightness: 8201
+Brightness knob raw ADC: 3776
+warm brightness: 14	cold brightness: 8205
+Brightness knob raw ADC: 3783
+warm brightness: -16	cold brightness: 8175
+Brightness knob raw ADC: 3775
+warm brightness: 14	cold brightness: 8205
+Brightness knob raw ADC: 3782
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3782
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3783
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3783
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3783
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3781
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3782
+warm brightness: -12	cold brightness: 8179
+Brightness knob raw ADC: 3776
+warm brightness: 12	cold brightness: 8203
+Brightness knob raw ADC: 3782
+warm brightness: -14	cold brightness: 8177
+Brightness knob raw ADC: 3775
+warm brightness: 14	cold brightness: 8205
+Brightness knob raw ADC: 3782
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3781
+warm brightness: -12	cold brightness: 8179
+Brightness knob raw ADC: 3775
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3775
+warm brightness: 14	cold brightness: 8205
+Brightness knob raw ADC: 3782
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3781
+warm brightness: -12	cold brightness: 8179
+Brightness knob raw ADC: 3775
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3775
+warm brightness: 12	cold brightness: 8203
+Brightness knob raw ADC: 3781
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3782
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3782
+warm brightness: -14	cold brightness: 8177
+Brightness knob raw ADC: 3775
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3776
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3775
+warm brightness: 16	cold brightness: 8207
+Brightness knob raw ADC: 3783
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3782
+warm brightness: -14	cold brightness: 8177
+Brightness knob raw ADC: 3775
+warm brightness: 16	cold brightness: 8207
+Brightness knob raw ADC: 3783
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3783
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3781
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3781
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3783
+warm brightness: -16	cold brightness: 8175
+Brightness knob raw ADC: 3775
+warm brightness: 16	cold brightness: 8207
+Brightness knob raw ADC: 3783
+warm brightness: -16	cold brightness: 8175
+Brightness knob raw ADC: 3775
+warm brightness: 14	cold brightness: 8205
+Brightness knob raw ADC: 3782
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3781
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3783
+warm brightness: -16	cold brightness: 8175
+Brightness knob raw ADC: 3775
+warm brightness: 16	cold brightness: 8207
+Brightness knob raw ADC: 3783
+warm brightness: -16	cold brightness: 8175
+Brightness knob raw ADC: 3775
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3775
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3775
+warm brightness: -404	cold brightness: 7787
+Brightness knob raw ADC: 3573
+warm brightness: -2380	cold brightness: 5811
+Brightness knob raw ADC: 2383
+warm brightness: -2188	cold brightness: 6003
+Brightness knob raw ADC: 1289
+warm brightness: -1702	cold brightness: 6489
+Brightness knob raw ADC: 438
+warm brightness: -876	cold brightness: 7315
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 1626	cold brightness: 9817
+Brightness knob raw ADC: 813
+warm brightness: 6565	cold brightness: 14756
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: -8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 2620	cold brightness: 10811
+Brightness knob raw ADC: 1310
+warm brightness: 5571	cold brightness: 13762
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: -1257	cold brightness: 6934
+Brightness knob raw ADC: 3467
+warm brightness: -176	cold brightness: 8015
+Brightness knob raw ADC: 3379
+warm brightness: -188	cold brightness: 8003
+Brightness knob raw ADC: 3285
+warm brightness: -76	cold brightness: 8115
+Brightness knob raw ADC: 3247
+warm brightness: -192	cold brightness: 7999
+Brightness knob raw ADC: 3151
+warm brightness: -144	cold brightness: 8047
+Brightness knob raw ADC: 3079
+warm brightness: -20	cold brightness: 8171
+Brightness knob raw ADC: 3069
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3069
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3067
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3063
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3063
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3065
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3063
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3064
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3064
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3064
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3064
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3063
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3065
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3064
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3064
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3063
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3063
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3063
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3065
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3065
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3061
+warm brightness: -1344	cold brightness: 6847
+Brightness knob raw ADC: 2389
+warm brightness: -884	cold brightness: 7307
+Brightness knob raw ADC: 1947
+warm brightness: -144	cold brightness: 8047
+Brightness knob raw ADC: 1875
+warm brightness: -2864	cold brightness: 5327
+Brightness knob raw ADC: 443
+warm brightness: -886	cold brightness: 7305
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 822	cold brightness: 9013
+Brightness knob raw ADC: 411
+warm brightness: 3236	cold brightness: 11427
+Brightness knob raw ADC: 2029
+warm brightness: 3136	cold brightness: 11327
+Brightness knob raw ADC: 3597
+warm brightness: 44	cold brightness: 8235
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3623
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3623
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: -10	cold brightness: 8181
+Brightness knob raw ADC: 3616
+warm brightness: 10	cold brightness: 8201
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3619
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: -12	cold brightness: 8179
+Brightness knob raw ADC: 3615
+warm brightness: 10	cold brightness: 8201
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3623
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3619
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3623
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3619
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3623
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3619
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3623
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3619
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3623
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3619
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3623
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3621
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3620
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3622
+warm brightness: -1022	cold brightness: 7169
+Brightness knob raw ADC: 3111
+warm brightness: -3264	cold brightness: 4927
+Brightness knob raw ADC: 1479
+warm brightness: -2958	cold brightness: 5233
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 658	cold brightness: 8849
+Brightness knob raw ADC: 329
+warm brightness: 2274	cold brightness: 10465
+Brightness knob raw ADC: 1466
+warm brightness: 5259	cold brightness: 13450
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: -4309	cold brightness: 3882
+Brightness knob raw ADC: 1941
+warm brightness: -658	cold brightness: 7533
+Brightness knob raw ADC: 1612
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1611
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1611
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1611
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1609
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1610
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1612
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 1609
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1609
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1609
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1610
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1610
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1611
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1611
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1611
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1612
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1610
+warm brightness: -386	cold brightness: 7805
+Brightness knob raw ADC: 1417
+warm brightness: -576	cold brightness: 7615
+Brightness knob raw ADC: 1129
+warm brightness: -246	cold brightness: 7945
+Brightness knob raw ADC: 1006
+warm brightness: -46	cold brightness: 8145
+Brightness knob raw ADC: 983
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 983
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 983
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 981
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 983
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 984
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 981
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 983
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 983
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 983
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 985
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 985
+warm brightness: 168	cold brightness: 8359
+Brightness knob raw ADC: 1069
+warm brightness: 1924	cold brightness: 10115
+Brightness knob raw ADC: 2031
+warm brightness: -68	cold brightness: 8123
+Brightness knob raw ADC: 1997
+warm brightness: -10	cold brightness: 8181
+Brightness knob raw ADC: 1992
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1992
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1993
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1991
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 1991
+warm brightness: 64	cold brightness: 8255
+Brightness knob raw ADC: 2023
+warm brightness: 3274	cold brightness: 11465
+Brightness knob raw ADC: 3660
+warm brightness: 14	cold brightness: 8205
+Brightness knob raw ADC: 3667
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3667
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3667
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3667
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3668
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3667
+warm brightness: 857	cold brightness: 9048
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: -625	cold brightness: 7566
+Brightness knob raw ADC: 3783
+warm brightness: -828	cold brightness: 7363
+Brightness knob raw ADC: 3369
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 10	cold brightness: 8201
+Brightness knob raw ADC: 3375
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3375
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3369
+warm brightness: 10	cold brightness: 8201
+Brightness knob raw ADC: 3374
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3369
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3369
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3369
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3369
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3369
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3369
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3369
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3369
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3369
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3369
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3373
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3369
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3372
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3370
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3371
+warm brightness: 704	cold brightness: 8895
+Brightness knob raw ADC: 3723
+warm brightness: 745	cold brightness: 8936
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: -1317	cold brightness: 6874
+Brightness knob raw ADC: 3437
+warm brightness: -448	cold brightness: 7743
+Brightness knob raw ADC: 3213
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3215
+warm brightness: 62	cold brightness: 8253
+Brightness knob raw ADC: 3246
+warm brightness: 110	cold brightness: 8301
+Brightness knob raw ADC: 3301
+warm brightness: 518	cold brightness: 8709
+Brightness knob raw ADC: 3560
+warm brightness: 738	cold brightness: 8929
+Brightness knob raw ADC: 3929
+warm brightness: 100	cold brightness: 8291
+Brightness knob raw ADC: 3979
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3979
+warm brightness: 32	cold brightness: 8223
+Brightness knob raw ADC: 3995
+warm brightness: 201	cold brightness: 8392
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: -271	cold brightness: 7920
+Brightness knob raw ADC: 3960
+warm brightness: -338	cold brightness: 7853
+Brightness knob raw ADC: 3791
+warm brightness: 609	cold brightness: 8800
+Brightness knob raw ADC: 4095
+warm brightness: -257	cold brightness: 7934
+Brightness knob raw ADC: 3967
+warm brightness: -424	cold brightness: 7767
+Brightness knob raw ADC: 3755
+warm brightness: 324	cold brightness: 8515
+Brightness knob raw ADC: 3917
+warm brightness: 60	cold brightness: 8251
+Brightness knob raw ADC: 3947
+warm brightness: -366	cold brightness: 7825
+Brightness knob raw ADC: 3764
+warm brightness: -10	cold brightness: 8181
+Brightness knob raw ADC: 3759
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3763
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3759
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3759
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3759
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3757
+warm brightness: -1442	cold brightness: 6749
+Brightness knob raw ADC: 3036
+warm brightness: -2162	cold brightness: 6029
+Brightness knob raw ADC: 1955
+warm brightness: -1780	cold brightness: 6411
+Brightness knob raw ADC: 1065
+warm brightness: -1012	cold brightness: 7179
+Brightness knob raw ADC: 559
+warm brightness: -1118	cold brightness: 7073
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 586	cold brightness: 8777
+Brightness knob raw ADC: 293
+warm brightness: 416	cold brightness: 8607
+Brightness knob raw ADC: 501
+warm brightness: 350	cold brightness: 8541
+Brightness knob raw ADC: 676
+warm brightness: 140	cold brightness: 8331
+Brightness knob raw ADC: 746
+warm brightness: 150	cold brightness: 8341
+Brightness knob raw ADC: 821
+warm brightness: 276	cold brightness: 8467
+Brightness knob raw ADC: 959
+warm brightness: 236	cold brightness: 8427
+Brightness knob raw ADC: 1077
+warm brightness: 778	cold brightness: 8969
+Brightness knob raw ADC: 1466
+warm brightness: 418	cold brightness: 8609
+Brightness knob raw ADC: 1675
+warm brightness: 668	cold brightness: 8859
+Brightness knob raw ADC: 2009
+warm brightness: 20	cold brightness: 8211
+Brightness knob raw ADC: 2019
+warm brightness: 2384	cold brightness: 10575
+Brightness knob raw ADC: 3211
+warm brightness: 354	cold brightness: 8545
+Brightness knob raw ADC: 3388
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3388
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3387
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3387
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3387
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3385
+warm brightness: 1106	cold brightness: 9297
+Brightness knob raw ADC: 3938
+warm brightness: 10	cold brightness: 8201
+Brightness knob raw ADC: 3943
+warm brightness: 132	cold brightness: 8323
+Brightness knob raw ADC: 4009
+warm brightness: 173	cold brightness: 8364
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 4095
+warm brightness: -1349	cold brightness: 6842
+Brightness knob raw ADC: 3421
+warm brightness: -2888	cold brightness: 5303
+Brightness knob raw ADC: 1977
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 1973
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 1977
+warm brightness: 102	cold brightness: 8293
+Brightness knob raw ADC: 2028
+warm brightness: 2974	cold brightness: 11165
+Brightness knob raw ADC: 3515
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3515
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3515
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3515
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3515
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3515
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3515
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: -8	cold brightness: 8183
+Brightness knob raw ADC: 3515
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3515
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3519
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3515
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3519
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3516
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3520
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 16	cold brightness: 8207
+Brightness knob raw ADC: 3525
+warm brightness: -16	cold brightness: 8175
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3515
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 18	cold brightness: 8209
+Brightness knob raw ADC: 3525
+warm brightness: -16	cold brightness: 8175
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3520
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 6	cold brightness: 8197
+Brightness knob raw ADC: 3519
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 691	cold brightness: 7488
+Brightness knob raw ADC: 3516
+warm brightness: 1687	cold brightness: 6516
+Brightness knob raw ADC: 3519
+warm brightness: 2877	cold brightness: 5302
+Brightness knob raw ADC: 3516
+warm brightness: 3293	cold brightness: 4898
+Brightness knob raw ADC: 3515
+warm brightness: 4209	cold brightness: 3982
+Brightness knob raw ADC: 3515
+warm brightness: 4279	cold brightness: 3912
+Brightness knob raw ADC: 3517
+warm brightness: 7513	cold brightness: 662
+Brightness knob raw ADC: 3513
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3515
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3513
+warm brightness: 6953	cold brightness: 1238
+Brightness knob raw ADC: 3514
+warm brightness: 1209	cold brightness: 6998
+Brightness knob raw ADC: 3518
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3520
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3516
+warm brightness: 7371	cold brightness: 808
+Brightness knob raw ADC: 3513
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3513
+warm brightness: 8171	cold brightness: 20
+Brightness knob raw ADC: 3515
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3519
+warm brightness: -6	cold brightness: 8185
+Brightness knob raw ADC: 3516
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3517
+warm brightness: 8183	cold brightness: -8
+Brightness knob raw ADC: 3513
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3511
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3513
+warm brightness: 8	cold brightness: 8199
+Brightness knob raw ADC: 3517
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 3519
+warm brightness: 2241	cold brightness: 5950
+Brightness knob raw ADC: 3517
+warm brightness: 8183	cold brightness: -8
+Brightness knob raw ADC: 3513
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3511
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3513
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3512
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3513
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3513
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3512
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 3512
+warm brightness: 8197	cold brightness: 6
+Brightness knob raw ADC: 3515
+warm brightness: 8815	cold brightness: 624
+Brightness knob raw ADC: 3827
+warm brightness: 8728	cold brightness: 537
+Brightness knob raw ADC: 4095
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 4095
+warm brightness: 7226	cold brightness: -965
+Brightness knob raw ADC: 3613
+warm brightness: 1001	cold brightness: -7190
+Brightness knob raw ADC: 18
+warm brightness: 8155	cold brightness: -36
+Brightness knob raw ADC: 0
+warm brightness: 9777	cold brightness: 1586
+Brightness knob raw ADC: 793
+warm brightness: 14796	cold brightness: 6605
+Brightness knob raw ADC: 4095
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 4095
+warm brightness: 0	cold brightness: -8191
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 6921	cold brightness: 1270
+Brightness knob raw ADC: 0
+warm brightness: 5035	cold brightness: 3156
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 899	cold brightness: 7292
+Brightness knob raw ADC: 0
+warm brightness: 6157	cold brightness: 2034
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 5837	cold brightness: 2354
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 7411	cold brightness: 780
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 6341	cold brightness: 1850
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 4377	cold brightness: 3814
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 6237	cold brightness: 1954
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 4313	cold brightness: 3878
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 6125	cold brightness: 2066
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 7379	cold brightness: 812
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 7879	cold brightness: 312
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 8191	cold brightness: 0
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw ADC: 0
+warm brightness: 0	cold brightness: 8191
+Brightness knob raw
