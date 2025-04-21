@@ -18,6 +18,7 @@
 
 #define LED_PIN GPIO_NUM_2  // ESP32 onboard LED
 #define POT_RES GPIO_NUM_35
+#define MODE_SELECT GPIO_NUM_17
 void delay()
 {
     for (int i = 0; i < 1000000000; i++)
@@ -111,6 +112,18 @@ void testWifi(){
     } 
 }
 
+double calc_system_temperature(LED warm, LED cold){
+
+    // this function takes in warm and cold channel LED object and calculates the lighting system temperature
+    double warm_bright_perc = (warm.getBrightness() / 8191.0) * 100.0;
+    double cold_bright_perc = (cold.getBrightness() / 8191.0) * 100.0;
+    double  cct = ( warm_bright_perc * 2700.0) + (cold_bright_perc * 6500);
+
+    return cct;
+
+
+}
+
 extern "C" void app_main(void) {
     int SYSTEM_STATUS;
 
@@ -152,6 +165,7 @@ extern "C" void app_main(void) {
     int TARGET_LUX;
 
 
+
     while (true) 
     {
         // warm.setBrightness(8191);
@@ -161,20 +175,26 @@ extern "C" void app_main(void) {
         // 11dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 0 - 3.9V
         // 4053 ~ 3.86V
         SYSTEM_STATUS = 1;
+
+        if(gpio_get_level(MODE_SELECT) == 0){
+            SYSTEM_STATUS = (SYSTEM_STATUS + 1) % 3; // chnag system status bounding it with mod 3
+
+        }
+
         switch(SYSTEM_STATUS){
             case 1 :{   // MANUAL MODE 
 
             // temperature adjustment knob
-            // int cct_knob_voltage = adc1_get_raw(cct_knob);
+            int cct_knob_voltage = adc1_get_raw(cct_knob);
             
-            // double warm_bright_perc = (warm.getBrightness() / 8191.0) * 100.0;
-            // double cold_bright_perc = (cold.getBrightness() / 8191.0) * 100.0;
-            // cct = ( warm_bright_perc * 2700.0) + (cold_bright_perc * 6500);
-            // int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
-            // cold.setBrightness(cct_knob_brightness);
-            // warm.setBrightness(8191 - cold.getBrightness());
+            cct = calc_system_temperature(warm,cold); 
+            
 
-            // brightness adjustmentknob
+            int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
+            cold.setBrightness(cct_knob_brightness);
+            warm.setBrightness(8191 - cold.getBrightness());
+
+            //brightness adjustmentknob
             
             int system_brightness_knob_voltage = adc1_get_raw(brightnessknob);
 
@@ -200,17 +220,18 @@ extern "C" void app_main(void) {
         }
         case 2: { // SEMI_AUTOMATIC
             // temperature adjustment knob
-            int cct_knob_voltage = adc1_get_raw(cct_knob);
+            // int cct_knob_voltage = adc1_get_raw(cct_knob);
             
-            double warm_bright_perc = (warm.getBrightness() / 8191.0) * 100.0;
-            double cold_bright_perc = (cold.getBrightness() / 8191.0) * 100.0;
-            cct = ( warm_bright_perc * 2700.0) + (cold_bright_perc * 6500);
-            int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
-            cold.setBrightness(cct_knob_brightness);
-            warm.setBrightness(8191 - cold.getBrightness());
+            // double warm_bright_perc = (warm.getBrightness() / 8191.0) * 100.0;
+            // double cold_bright_perc = (cold.getBrightness() / 8191.0) * 100.0;
+            // cct = ( warm_bright_perc * 2700.0) + (cold_bright_perc * 6500);
+            // int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
+            // cold.setBrightness(cct_knob_brightness);
+            // warm.setBrightness(8191 - cold.getBrightness());
 
-            // automatic system brightness 
-            
+            // // automatic system brightness 
+            // int light_sensor_voltage = adc1_get_raw(light_sensor);
+
 
 
         }

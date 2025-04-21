@@ -50,7 +50,7 @@ void LED:: setBrightness(int duty){
     if (duty < 0) duty = 0;
     if (duty > 8191) duty = 8191;
     this -> LEDC_DUTY = duty;
-    ESP_ERROR_CHECK(ledc_set_duty( this -> LEDC_MODE, this -> LEDC_CHANNEL,duty));
+    ESP_ERROR_CHECK(ledc_set_duty( this -> LEDC_MODE, this -> LEDC_CHANNEL,this-> LEDC_DUTY));
     ESP_ERROR_CHECK(ledc_update_duty(this -> LEDC_MODE,this -> LEDC_CHANNEL));
 }
 int LED:: getState(){

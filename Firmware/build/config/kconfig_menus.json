@@ -13470,7 +13470,7 @@
                                     },
                                     {
                                         "children": [],
-                                        "depends_on": "BT_CTRL_RUN_IN_FLASH_ONLY && BT_CONTROLLER_ONLY && BT_CONTROLLER_ENABLED",
+                                        "depends_on": "BT_CTRL_RUN_IN_FLASH_ONLY && BT_CONTROLLER_ENABLED",
                                         "help": null,
                                         "id": "BT_CTRL_BLE_SECURITY_ENABLE",
                                         "name": "BT_CTRL_BLE_SECURITY_ENABLE",
@@ -17014,11 +17014,11 @@
                     {
                         "children": [],
                         "depends_on": "SOC_ANA_CMPR_SUPPORTED",
-                        "help": "Ensure the Analog Comparator interrupt is IRAM-Safe by allowing the interrupt handler to be\nexecutable when the cache is disabled (e.g. SPI Flash write).",
-                        "id": "ANA_CMPR_ISR_IRAM_SAFE",
-                        "name": "ANA_CMPR_ISR_IRAM_SAFE",
+                        "help": "Place Analog Comparator ISR handler in IRAM to reduce latency caused by cache miss.",
+                        "id": "ANA_CMPR_ISR_HANDLER_IN_IRAM",
+                        "name": "ANA_CMPR_ISR_HANDLER_IN_IRAM",
                         "range": null,
-                        "title": "Analog comparator ISR IRAM-Safe",
+                        "title": "Place Analog Comparator ISR handler in IRAM to reduce latency",
                         "type": "bool"
                     },
                     {
@@ -17034,17 +17034,65 @@
                     {
                         "children": [],
                         "depends_on": "SOC_ANA_CMPR_SUPPORTED",
-                        "help": "whether to enable the debug log message for Analog Comparator driver.\nNote that, this option only controls the Analog Comparator driver log, won't affect other drivers.",
+                        "help": "Enable this option to allow the Analog Comparator Interrupt Service Routine (ISR)\nto execute even when the cache is disabled. This can be useful in scenarios where the cache\nmight be turned off, but the comparator functionality is still required to operate correctly.",
+                        "id": "ANA_CMPR_ISR_CACHE_SAFE",
+                        "name": "ANA_CMPR_ISR_CACHE_SAFE",
+                        "range": null,
+                        "title": "Allow Analog Comparator ISR to execute when cache is disabled",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SOC_ANA_CMPR_SUPPORTED",
+                        "help": "This will ensure the driver object will not be allocated from a memory region\nwhere its cache can be disabled.",
+                        "id": "ANA_CMPR_OBJ_CACHE_SAFE",
+                        "name": "ANA_CMPR_OBJ_CACHE_SAFE",
+                        "range": null,
+                        "title": null,
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SOC_ANA_CMPR_SUPPORTED",
+                        "help": "If enabled, the driver component will:\n1. ignore the global logging settings\n2. compile all log messages into the binary\n3. set the runtime log level to VERBOSE\nPlease enable this option by caution, as it will increase the binary size.",
                         "id": "ANA_CMPR_ENABLE_DEBUG_LOG",
                         "name": "ANA_CMPR_ENABLE_DEBUG_LOG",
                         "range": null,
-                        "title": "Enable debug log",
+                        "title": "Force enable debug log",
                         "type": "bool"
                     }
                 ],
                 "depends_on": "SOC_ANA_CMPR_SUPPORTED",
                 "id": "component-config-esp-driver-analog-comparator-configurations",
                 "title": "ESP-Driver:Analog Comparator Configurations",
+                "type": "menu"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": "SOC_BITSCRAMBLER_SUPPORTED",
+                        "help": "Place BitScrambler control functions into IRAM for better performance and fewer cache misses.",
+                        "id": "BITSCRAMBLER_CTRL_FUNC_IN_IRAM",
+                        "name": "BITSCRAMBLER_CTRL_FUNC_IN_IRAM",
+                        "range": null,
+                        "title": "Place BitScrambler control functions in IRAM",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SOC_BITSCRAMBLER_SUPPORTED",
+                        "help": "This will ensure the BitScrambler object will not be allocated from a memory region\nwhere its cache can be disabled.",
+                        "id": "BITSCRAMBLER_OBJ_CACHE_SAFE",
+                        "name": "BITSCRAMBLER_OBJ_CACHE_SAFE",
+                        "range": null,
+                        "title": null,
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": "SOC_BITSCRAMBLER_SUPPORTED",
+                "id": "component-config-bitscrambler-configurations",
+                "title": "BitScrambler Configurations",
                 "type": "menu"
             },
             {
@@ -17773,6 +17821,26 @@
                         "name": "TWAI_ISR_CACHE_SAFE",
                         "range": null,
                         "title": "Allow TWAI ISR to execute when cache is disabled",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SOC_TWAI_SUPPORTED",
+                        "help": "This will ensure the TWAI driver object will not be allocated from a memory region\nwhere its cache can be disabled.",
+                        "id": "TWAI_OBJ_CACHE_SAFE",
+                        "name": "TWAI_OBJ_CACHE_SAFE",
+                        "range": null,
+                        "title": null,
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SOC_TWAI_SUPPORTED",
+                        "help": "If enabled, TWAI driver component will:\n1. ignore the global logging settings\n2. compile all log messages into the binary\n3. set the runtime log level to VERBOSE\nPlease enable this option by caution, as it will increase the binary size.",
+                        "id": "TWAI_ENABLE_DEBUG_LOG",
+                        "name": "TWAI_ENABLE_DEBUG_LOG",
+                        "range": null,
+                        "title": "Force enable debug log",
                         "type": "bool"
                     }
                 ],
@@ -22335,7 +22403,17 @@
                     {
                         "children": [],
                         "depends_on": "ESP_WIFI_ENABLED || ESP_HOST_WIFI_ENABLED",
-                        "help": "Only for station in WIFI_PS_MIN_MODEM or WIFI_PS_MAX_MODEM. If no packet has been\nsent within ESP_WIFI_SLP_DEFAULT_MAX_ACTIVE_TIME, a null data packet will be sent\nto maintain the connection with the AP. unit: seconds.",
+                        "help": "Enables bss max idle support for Station and SoftAP. BSS max idle period enables an SoftAP to indicate\na time period during which the AP does not disassociate a STA due to nonreceipt of frames from the STA.\nFor station, max idle period is default 10 (1000TUs) and can be set through\nESP_WIFI_SLP_DEFAULT_MAX_ACTIVE_TIME. For softap, bss max idle parameters will be set through\nbss_max_idle_cfg in wifi_ap_config_t.",
+                        "id": "ESP_WIFI_BSS_MAX_IDLE_SUPPORT",
+                        "name": "ESP_WIFI_BSS_MAX_IDLE_SUPPORT",
+                        "range": null,
+                        "title": "Enable bss max idle support",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "ESP_WIFI_ENABLED || ESP_HOST_WIFI_ENABLED",
+                        "help": "Only for station. If no packet has been sent within ESP_WIFI_SLP_DEFAULT_MAX_ACTIVE_TIME, a null data\npacket will be sent to maintain the connection with the AP. If ESP_WIFI_BSS_MAX_IDLE_SUPPORT is set,\nit will be sent as bss max idle period in association request. unit: seconds.",
                         "id": "ESP_WIFI_SLP_DEFAULT_MAX_ACTIVE_TIME",
                         "name": "ESP_WIFI_SLP_DEFAULT_MAX_ACTIVE_TIME",
                         "range": [
@@ -23887,7 +23965,7 @@
                     },
                     {
                         "children": [],
-                        "depends_on": "CONFIG_WL_SECTOR_SIZE_4096",
+                        "depends_on": null,
                         "help": "If enabled, the buffers used by FATFS will be allocated separately from the rest of the structure.\nThis option is useful when using multiple FATFS instances with different\nsector sizes, as the buffers will be allocated according to the sector size.\nIf disabled, the greatest sector size will be used for all FATFS instances.\n(In most cases, this would be the sector size of Wear Levelling library)\nThis might cause more memory to be used than necessary.",
                         "id": "FATFS_USE_DYN_BUFFERS",
                         "name": "FATFS_USE_DYN_BUFFERS",

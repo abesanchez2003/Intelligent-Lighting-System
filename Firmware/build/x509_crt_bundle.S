@@ -1,4 +1,4 @@
-/* * Data converted from /Users/abe/Documents/CAPSTONE_FIRMWARE/capstone_firmware/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /mnt/c/Users/abecr/CAPSTONE/Capstone-firmware/Intelligent-Lighting-System/Firmware/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)
