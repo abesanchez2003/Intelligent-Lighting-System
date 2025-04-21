@@ -13,7 +13,7 @@ class LED{
     int LEDC_DUTY; // duty cycle for pwm
     int LEDC_FREQUENCY;
     bool isOn;
-
+    int last_duty;
     public:
         LED(int LEDC_OUTPUT_IO, ledc_channel_t LEDC_CHANNEL, bool isOn = true, ledc_timer_t LEDC_TIMER = LEDC_TIMER_0, 
             ledc_mode_t LEDC_MODE = LEDC_LOW_SPEED_MODE, 

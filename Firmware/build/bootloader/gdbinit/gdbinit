@@ -1,2 +1,2 @@
-source /mnt/c/Users/abecr/CAPSTONE/Capstone-firmware/Intelligent-Lighting-System/Firmware/build/bootloader/gdbinit/symbols
-source /mnt/c/Users/abecr/CAPSTONE/Capstone-firmware/Intelligent-Lighting-System/Firmware/build/bootloader/gdbinit/connect
+source /Users/abe/Documents/Capstone_Firmware_Repo/Firmware/build/bootloader/gdbinit/symbols
+source /Users/abe/Documents/Capstone_Firmware_Repo/Firmware/build/bootloader/gdbinit/connect

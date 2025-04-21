@@ -12,7 +12,8 @@ LED:: LED(int LEDC_OUTPUT_IO, ledc_channel_t LEDC_CHANNEL, bool isOn, ledc_timer
     LEDC_DUTY_RES(LEDC_DUTY_RES),
     LEDC_DUTY(LEDC_DUTY),
     LEDC_FREQUENCY(LEDC_FREQUENCY),
-    isOn(isOn)
+    isOn(isOn),
+    last_duty(4096)
 
 {
     if (isOn == false)
@@ -50,6 +51,9 @@ void LED:: setBrightness(int duty){
     if (duty < 0) duty = 0;
     if (duty > 8191) duty = 8191;
     this -> LEDC_DUTY = duty;
+    if(LEDC_DUTY > 0){
+        last_duty = LEDC_DUTY;
+    }
     ESP_ERROR_CHECK(ledc_set_duty( this -> LEDC_MODE, this -> LEDC_CHANNEL,this-> LEDC_DUTY));
     ESP_ERROR_CHECK(ledc_update_duty(this -> LEDC_MODE,this -> LEDC_CHANNEL));
 }
@@ -58,10 +62,11 @@ int LED:: getState(){
 }
 void LED:: setState(bool state){
     this ->isOn = state;
-    if (this -> isOn == true){
-        this -> LEDC_DUTY = 4096;
+    if (this -> isOn){
+        LEDC_DUTY  = last_duty;
     }
     else {
+        last_duty = LEDC_DUTY;
         this -> LEDC_DUTY  = 0;
     }
     setBrightness(this -> LEDC_DUTY);

@@ -19,13 +19,10 @@
 #define LED_PIN GPIO_NUM_2  // ESP32 onboard LED
 #define POT_RES GPIO_NUM_35
 #define MODE_SELECT GPIO_NUM_17
-void delay()
-{
-    for (int i = 0; i < 1000000000; i++)
-    {
+#define MOTION_SENSOR GPIO_NUM_13
+#define OnOff GPIO_NUM_8
+#define TARGET_LUX
 
-    }
-}
 int connect_wifi(std:: string ssid, std:: string pwd){
     //this function will be responsible for establishing wifi connectivity
     // args(ssid, pwd) takes ssid or wifi network name and network password , 
@@ -123,6 +120,84 @@ double calc_system_temperature(LED warm, LED cold){
 
 
 }
+void handleManual(LED& warm, LED& cold, adc1_channel_t brightnessknob,  adc1_channel_t cct_knob, int& prev_system_brightness_knob_voltage){
+    int cct_knob_voltage = adc1_get_raw(cct_knob);
+    double cct = calc_system_temperature(warm, cold); 
+    double cold_ratio = cct_knob_voltage / 4095.0;
+    double warm_ratio = 1.0 - cold_ratio;
+    int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
+
+    int system_brightness_knob_voltage = adc1_get_raw(brightnessknob);
+    if (prev_system_brightness_knob_voltage == -1) {
+        prev_system_brightness_knob_voltage = system_brightness_knob_voltage;
+    }
+
+    int prev_system_brightness = (prev_system_brightness_knob_voltage * 8191) / 4095;
+    int system_brightness = (system_brightness_knob_voltage * 8191) / 4095;
+    int system_brightness_change = system_brightness - prev_system_brightness;
+
+    if (abs(system_brightness_change) > 2 && cold.getState() && warm.getState()) {
+        warm.setBrightness(system_brightness * warm_ratio);
+        cold.setBrightness(system_brightness * cold_ratio);
+    }
+
+    prev_system_brightness_knob_voltage = system_brightness_knob_voltage;
+    printf("warm brightness: %d\tcold brightness: %d\n", warm.getBrightness(), cold.getBrightness());
+    printf("Brightness knob raw ADC: %d\n", system_brightness_knob_voltage);
+}
+void handleSemi(LED& warm, LED& cold, adc1_channel_t cct_knob,  adc1_channel_t light_sensor){
+    int cct_knob_voltage = adc1_get_raw(cct_knob);
+    double cct = calc_system_temperature(warm, cold); 
+    double cold_ratio = cct_knob_voltage / 4095.0;
+    double warm_ratio = 1.0 - cold_ratio;
+    int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
+
+    double light_sensor_voltage = (adc1_get_raw(light_sensor) * 3.3) / 4095;
+    double light_current = (3.3 - light_sensor_voltage) / 10000.0;
+    double lux = light_current / 0.000002;
+    double lux_difference = TARGET_LUX - lux;
+
+    if (abs(lux_difference) > 2) {
+        int brightness = (cold.getBrightness() / cold_ratio) + static_cast<int>(lux_difference);
+        cold.setBrightness(brightness * cold_ratio);
+        warm.setBrightness(brightness * warm_ratio);
+    }
+
+    printf("warm brightness: %d\tcold brightness: %d\n", warm.getBrightness(), cold.getBrightness());
+    printf("light sensor raw ADC: %d\n", adc1_get_raw(light_sensor));
+
+}
+void handleAuto(LED& warm, LED& cold,  adc1_channel_t light_sensor){
+    double preset_cold_ratio = 0.5;
+    double preset_warm_ratio = 0.5;
+
+    double light_sensor_voltage = (adc1_get_raw(light_sensor) * 3.3) / 4095;
+    double light_current = (3.3 - light_sensor_voltage) / 10000.0;
+    double lux = light_current / 0.000002;
+    double lux_difference = TARGET_LUX - lux;
+
+    if (cold.getBrightness() == 0 && warm.getBrightness() == 0) {
+        cold.setState(false);
+        warm.setState(false);
+    }
+
+    if (gpio_get_level(MOTION_SENSOR) == 1 && !cold.getState() && !warm.getState()) {
+        printf("Motion Detected");
+        cold.setState(true);
+        warm.setState(true);
+    }
+
+    if (abs(lux_difference) > 2 && cold.getState() && warm.getState()) {
+        int brightness = (cold.getBrightness() / preset_cold_ratio) + static_cast<int>(lux_difference);
+        cold.setBrightness(brightness * preset_cold_ratio);
+        warm.setBrightness(brightness * preset_warm_ratio);
+    }
+
+    printf("warm brightness: %d\tcold brightness: %d\n", warm.getBrightness(), cold.getBrightness());
+    printf("light sensor raw ADC: %d\n", adc1_get_raw(light_sensor));
+
+
+}
 
 extern "C" void app_main(void) {
     int SYSTEM_STATUS;
@@ -130,21 +205,6 @@ extern "C" void app_main(void) {
     //SYSTEM STATUS is 1 for MANUAL OPERATION
     // SYSTEM STATUS is 2 for SEMI-AUTOMATIC OPERATION
     // SYSTEM STATUS is 3 for AUTOMATIC OPERATION
-    
-    //LED Green(0,LEDC_CHANNEL_0);
-    //LED Blue(23,LEDC_CHANNEL_1);
-    // LED Y(23,LEDC_CHANNEL_2);
-    // LED RED(6,LEDC_CHANNEL_3);
-    // while (true) {
-    //     Green.setBrightness(8191);
-    //     Blue.setBrightness(8191);
-    //     Y.setBrightness(8191);
-    //     RED.setBrightness(8191);
-    // }
-   
-    int bright_knob_voltage;
-    int warmth_knob_voltage;
-
     double cct;
 
     // Configure ADC1 capture width
@@ -154,94 +214,61 @@ extern "C" void app_main(void) {
     adc1_channel_t brightnessknob = ADC1_CHANNEL_4;
     adc1_channel_t cct_knob = ADC1_CHANNEL_5;
     adc1_channel_t light_sensor = ADC1_CHANNEL_3;
-
-
-
     adc1_config_channel_atten(brightnessknob, ADC_ATTEN_DB_11);
+
+
     LED warm(1,LEDC_CHANNEL_0);
     LED cold(2,LEDC_CHANNEL_2);
     static int prev_system_brightness_knob_voltage = -1;
     int ambient_light;
-    int TARGET_LUX;
-
+    SYSTEM_STATUS = 0;
+    bool System_ON = true;
 
 
     while (true) 
     {
-        // warm.setBrightness(8191);
-        // cold.setBrightness(8191);
         vTaskDelay(100 / portTICK_PERIOD_MS);
-        // Take an ADC1 reading on a single channel (ADC1_CHANNEL_6 pin 34)
-        // 11dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 0 - 3.9V
-        // 4053 ~ 3.86V
-        SYSTEM_STATUS = 1;
-
-        if(gpio_get_level(MODE_SELECT) == 0){
-            SYSTEM_STATUS = (SYSTEM_STATUS + 1) % 3; // chnag system status bounding it with mod 3
-
-        }
-
-        switch(SYSTEM_STATUS){
-            case 1 :{   // MANUAL MODE 
-
-            // temperature adjustment knob
-            int cct_knob_voltage = adc1_get_raw(cct_knob);
-            
-            cct = calc_system_temperature(warm,cold); 
-            
-
-            int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
-            cold.setBrightness(cct_knob_brightness);
-            warm.setBrightness(8191 - cold.getBrightness());
-
-            //brightness adjustmentknob
-            
-            int system_brightness_knob_voltage = adc1_get_raw(brightnessknob);
-
-            if(prev_system_brightness_knob_voltage == -1){ // first iteration check to avoid large jump and set to baseline brightness
-                prev_system_brightness_knob_voltage = system_brightness_knob_voltage;
+    
+        // ON/OFF toggle
+        static int prev_onoff = 1;
+        int curr_onoff = gpio_get_level(OnOff);
+        if (curr_onoff == 0 && prev_onoff == 1) {
+            System_ON = !System_ON;
+            printf("System is now: %s\n", System_ON ? "ON" : "OFF");
+            if (!System_ON) {
+                warm.setState(false);
+                cold.setState(false);
             }
+            else
+            {
+                warm.setState(true);
+                cold.setState(false);
+            }
+        }
+        prev_onoff = curr_onoff;
 
-            int prev_system_brightness = (prev_system_brightness_knob_voltage * 8191) / 4095;
-            int system_brightness = (system_brightness_knob_voltage * 8191) / 4095;
+    
+        // Cycle system mode
+        if (gpio_get_level(MODE_SELECT) == 0) {
+            SYSTEM_STATUS = (SYSTEM_STATUS + 1) % 3;
+            printf("System Mode changed\n");
+        }
+    
+        if (System_ON) {
+            switch (SYSTEM_STATUS) {
+                // MANUAL MODE
+                case 0: handleManual(warm, cold, brightnessknob, cct_knob,prev_system_brightness_knob_voltage); break;
+                
+                // SEMI-AUTOMATIC
+                case 1: handleSemi(warm, cold, cct_knob,light_sensor); break;
 
-            int system_brightness_change = system_brightness - prev_system_brightness;
-            if(abs(system_brightness_change) > 5){
-                // warm.setBrightness(warm.getBrightness() + system_brightness_change);
-                // cold.setBrightness(cold.getBrightness() + system_brightness_change);
-                warm.setBrightness(system_brightness);
-                cold.setBrightness(system_brightness);
+                // FULL AUTO
+                case 2: handleAuto(warm, cold, light_sensor); break;
                 
             }
-            prev_system_brightness_knob_voltage = system_brightness_knob_voltage;
-            printf("warm brightness: %d\tcold brightness: %d\n", warm.getBrightness(), cold.getBrightness());
-            printf("Brightness knob raw ADC: %d\n", system_brightness_knob_voltage);
-            break;
-        }
-        case 2: { // SEMI_AUTOMATIC
-            // temperature adjustment knob
-            // int cct_knob_voltage = adc1_get_raw(cct_knob);
-            
-            // double warm_bright_perc = (warm.getBrightness() / 8191.0) * 100.0;
-            // double cold_bright_perc = (cold.getBrightness() / 8191.0) * 100.0;
-            // cct = ( warm_bright_perc * 2700.0) + (cold_bright_perc * 6500);
-            // int cct_knob_brightness = (cct_knob_voltage * 8191) / 4095;
-            // cold.setBrightness(cct_knob_brightness);
-            // warm.setBrightness(8191 - cold.getBrightness());
-
-            // // automatic system brightness 
-            // int light_sensor_voltage = adc1_get_raw(light_sensor);
-
-
-
-        }
-
-
-
-
         }
     
         vTaskDelay(100 / portTICK_PERIOD_MS);
-
     }
 }
+    
