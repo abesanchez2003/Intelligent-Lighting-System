@@ -1,0 +1,2084 @@
+Command: /Users/abe/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/abe/esp/esp-idf/tools/idf_monitor.py -p /dev/cu.usbserial-FTDY5B37 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/abe/Documents/Capstone_Firmware_Repo/Firmware/build/capstone_firmware.elf /Users/abe/Documents/Capstone_Firmware_Repo/Firmware/build/bootloader/bootloader.elf -m '/Users/abe/.espressif/python_env/idf5.5_py3.9_env/bin/python' '/Users/abe/esp/esp-idf/tools/idf.py' '-p' '/dev/cu.usbserial-FTDY5B37'
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x1 (POWERON),boot:0xb (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x15c8
+load:0x403c8700,len:0xd24
+load:0x403cb700,len:0x2f60
+entry 0x403c8924
+[0;32mI (24) boot: ESP-IDF v5.5-dev-2916-g1c468f6825 2nd stage bootloader[0m
+[0;32mI (25) boot: compile time Apr 22 2025 17:04:34[0m
+[0;32mI (25) boot: Multicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (29) boot: efuse block revision: v1.3[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (37) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (40) boot.esp32s3: SPI Flash Size : 4MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3c020020 size=0bcb4h ( 48308) map[0m
+[0;32mI (96) esp_image: segment 1: paddr=0001bcdc vaddr=3fc92900 size=02b28h ( 11048) load[0m
+[0;32mI (99) esp_image: segment 2: paddr=0001e80c vaddr=40374000 size=0180ch (  6156) load[0m
+[0;32mI (104) esp_image: segment 3: paddr=00020020 vaddr=42000020 size=1cddch (118236) map[0m
+[0;32mI (131) esp_image: segment 4: paddr=0003ce04 vaddr=4037580c size=0d0bch ( 53436) load[0m
+[0;32mI (143) esp_image: segment 5: paddr=00049ec8 vaddr=600fe000 size=0001ch (    28) load[0m
+[0;32mI (149) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (149) boot: Disabling RNG early entropy source...[0m
+[0;32mI (161) cpu_start: Multicore app[0m
+[0;32mI (170) cpu_start: Pro cpu start user code[0m
+[0;32mI (170) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (170) app_init: Application information:[0m
+[0;32mI (170) app_init: Project name:     capstone_firmware[0m
+[0;32mI (175) app_init: App version:      b130244-dirty[0m
+[0;32mI (179) app_init: Compile time:     Apr 22 2025 17:04:14[0m
+[0;32mI (184) app_init: ELF file SHA256:  2d63eede6...[0m
+[0;32mI (189) app_init: ESP-IDF:          v5.5-dev-2916-g1c468f6825[0m
+[0;32mI (194) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (198) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (202) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (206) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (212) heap_init: At 3FC95DA8 len 00053968 (334 KiB): RAM[0m
+[0;32mI (217) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (222) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (227) heap_init: At 600FE01C len 00001FCC (7 KiB): RTCRAM[0m
+[0;32mI (234) spi_flash: detected chip: generic[0m
+[0;32mI (236) spi_flash: flash io: dio[0m
+[0;33mW (240) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (247) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (253) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (260) main_task: Started on CPU0[0m
+[0;32mI (290) main_task: Calling app_main()[0m
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+Brightness knob raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3238	cold brightness: 3082
+Brightness knob raw ADC: 3160
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 927	cold brightness: 882
+Brightness knob raw ADC: 905
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 0	cold brightness: 0
+Brightness knob raw ADC: 0
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 0	cold brightness: 0
+Brightness knob raw ADC: 0
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 646	cold brightness: 615
+Brightness knob raw ADC: 631
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3102	cold brightness: 2956
+Brightness knob raw ADC: 3029
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3174	cold brightness: 3024
+Brightness knob raw ADC: 3099
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3170	cold brightness: 3024
+Brightness knob raw ADC: 3097
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3169	cold brightness: 3023
+Brightness knob raw ADC: 3096
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3168	cold brightness: 3022
+Brightness knob raw ADC: 3095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3168	cold brightness: 3022
+Brightness knob raw ADC: 3095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3169	cold brightness: 3023
+Brightness knob raw ADC: 3096
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3168	cold brightness: 3022
+Brightness knob raw ADC: 3095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3171	cold brightness: 3019
+Brightness knob raw ADC: 3095
+GPIO8 level: 1
+GPIO13 level: 0
+System Mode changed
+System Mode changed to: 1
+warm brightness: 1086	cold brightness: 1036
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1125	cold brightness: 1072
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1163	cold brightness: 1109
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1201	cold brightness: 1146
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1240	cold brightness: 1182
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1278	cold brightness: 1219
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1316	cold brightness: 1256
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1354	cold brightness: 1293
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1394	cold brightness: 1328
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1432	cold brightness: 1365
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1470	cold brightness: 1402
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1510	cold brightness: 1437
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1547	cold brightness: 1475
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1585	cold brightness: 1512
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1625	cold brightness: 1547
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1664	cold brightness: 1583
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1702	cold brightness: 1620
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1739	cold brightness: 1658
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1777	cold brightness: 1695
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1816	cold brightness: 1731
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1854	cold brightness: 1768
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1892	cold brightness: 1805
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1931	cold brightness: 1841
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 1970	cold brightness: 1877
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2008	cold brightness: 1914
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2047	cold brightness: 1950
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2085	cold brightness: 1987
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2123	cold brightness: 2024
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2161	cold brightness: 2061
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2200	cold brightness: 2097
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2240	cold brightness: 2132
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2277	cold brightness: 2170
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2315	cold brightness: 2207
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2353	cold brightness: 2244
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2391	cold brightness: 2281
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2430	cold brightness: 2317
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2468	cold brightness: 2354
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2508	cold brightness: 2389
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2547	cold brightness: 2425
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2583	cold brightness: 2464
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2623	cold brightness: 2499
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2661	cold brightness: 2536
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2701	cold brightness: 2571
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2738	cold brightness: 2609
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2777	cold brightness: 2645
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2814	cold brightness: 2683
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2852	cold brightness: 2720
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2890	cold brightness: 2757
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2929	cold brightness: 2793
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 2967	cold brightness: 2830
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3001	cold brightness: 2871
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3044	cold brightness: 2903
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3084	cold brightness: 2938
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3121	cold brightness: 2976
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3159	cold brightness: 3013
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3199	cold brightness: 3048
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3236	cold brightness: 3086
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3274	cold brightness: 3123
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3313	cold brightness: 3159
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3351	cold brightness: 3196
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3393	cold brightness: 3229
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3431	cold brightness: 3266
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3470	cold brightness: 3302
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3501	cold brightness: 3346
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3545	cold brightness: 3377
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3581	cold brightness: 3416
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3621	cold brightness: 3451
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3658	cold brightness: 3489
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3697	cold brightness: 3525
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3735	cold brightness: 3562
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3773	cold brightness: 3599
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3812	cold brightness: 3635
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3854	cold brightness: 3668
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3892	cold brightness: 3705
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3931	cold brightness: 3741
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3967	cold brightness: 3780
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4007	cold brightness: 3815
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4042	cold brightness: 3855
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4080	cold brightness: 3892
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4121	cold brightness: 3926
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4159	cold brightness: 3963
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4186	cold brightness: 4004
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 1677
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 2147
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3994
+light sensor raw ADC: 119
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4193	cold brightness: 3991
+light sensor raw ADC: 244
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3993
+light sensor raw ADC: 551
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 1199
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 1465
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 1196
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 955
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 1548
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 1883
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 1812
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 1775
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 1635
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 2155
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 1163
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 376
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 1175
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 989
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 988
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4189	cold brightness: 3995
+light sensor raw ADC: 36
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4185	cold brightness: 3992
+light sensor raw ADC: 24
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4182	cold brightness: 3989
+light sensor raw ADC: 47
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4179	cold brightness: 3986
+light sensor raw ADC: 39
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4176	cold brightness: 3983
+light sensor raw ADC: 53
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4173	cold brightness: 3979
+light sensor raw ADC: 14
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4171	cold brightness: 3975
+light sensor raw ADC: 23
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4170	cold brightness: 3969
+light sensor raw ADC: 18
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4165	cold brightness: 3968
+light sensor raw ADC: 43
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4162	cold brightness: 3965
+light sensor raw ADC: 39
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4157	cold brightness: 3964
+light sensor raw ADC: 39
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4154	cold brightness: 3961
+light sensor raw ADC: 51
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4153	cold brightness: 3956
+light sensor raw ADC: 55
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4147	cold brightness: 3956
+light sensor raw ADC: 61
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4140	cold brightness: 3957
+light sensor raw ADC: 56
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4143	cold brightness: 3948
+light sensor raw ADC: 54
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4138	cold brightness: 3947
+light sensor raw ADC: 55
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4135	cold brightness: 3944
+light sensor raw ADC: 53
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4132	cold brightness: 3941
+light sensor raw ADC: 61
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4131	cold brightness: 3936
+light sensor raw ADC: 56
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4128	cold brightness: 3933
+light sensor raw ADC: 46
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4117	cold brightness: 3938
+light sensor raw ADC: 44
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4120	cold brightness: 3929
+light sensor raw ADC: 51
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4117	cold brightness: 3926
+light sensor raw ADC: 47
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4116	cold brightness: 3921
+light sensor raw ADC: 48
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4113	cold brightness: 3918
+light sensor raw ADC: 59
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4108	cold brightness: 3917
+light sensor raw ADC: 53
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4108	cold brightness: 3911
+light sensor raw ADC: 47
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4101	cold brightness: 3912
+light sensor raw ADC: 43
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4098	cold brightness: 3909
+light sensor raw ADC: 43
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4097	cold brightness: 3904
+light sensor raw ADC: 43
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4094	cold brightness: 3901
+light sensor raw ADC: 37
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4089	cold brightness: 3900
+light sensor raw ADC: 39
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4088	cold brightness: 3895
+light sensor raw ADC: 35
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4083	cold brightness: 3894
+light sensor raw ADC: 35
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4080	cold brightness: 3891
+light sensor raw ADC: 29
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4077	cold brightness: 3888
+light sensor raw ADC: 39
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4074	cold brightness: 3885
+light sensor raw ADC: 40
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4071	cold brightness: 3882
+light sensor raw ADC: 31
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4070	cold brightness: 3877
+light sensor raw ADC: 33
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4068	cold brightness: 3873
+light sensor raw ADC: 27
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4063	cold brightness: 3872
+light sensor raw ADC: 33
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4060	cold brightness: 3869
+light sensor raw ADC: 36
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4057	cold brightness: 3866
+light sensor raw ADC: 35
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4052	cold brightness: 3865
+light sensor raw ADC: 38
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4049	cold brightness: 3862
+light sensor raw ADC: 41
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4048	cold brightness: 3857
+light sensor raw ADC: 37
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4043	cold brightness: 3856
+light sensor raw ADC: 39
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4042	cold brightness: 3851
+light sensor raw ADC: 37
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4039	cold brightness: 3848
+light sensor raw ADC: 39
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4034	cold brightness: 3847
+light sensor raw ADC: 30
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4031	cold brightness: 3844
+light sensor raw ADC: 36
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4028	cold brightness: 3841
+light sensor raw ADC: 31
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4027	cold brightness: 3836
+light sensor raw ADC: 35
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4022	cold brightness: 3835
+light sensor raw ADC: 24
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4020	cold brightness: 3831
+light sensor raw ADC: 12
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4017	cold brightness: 3828
+light sensor raw ADC: 11
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4012	cold brightness: 3827
+light sensor raw ADC: 17
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4013	cold brightness: 3820
+light sensor raw ADC: 17
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4006	cold brightness: 3821
+light sensor raw ADC: 20
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4003	cold brightness: 3818
+light sensor raw ADC: 38
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4002	cold brightness: 3813
+light sensor raw ADC: 48
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3999	cold brightness: 3810
+light sensor raw ADC: 37
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3994	cold brightness: 3809
+light sensor raw ADC: 57
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3995	cold brightness: 3807
+light sensor raw ADC: 253
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3996	cold brightness: 3811
+light sensor raw ADC: 629
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4000	cold brightness: 3815
+light sensor raw ADC: 779
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3999	cold brightness: 3814
+light sensor raw ADC: 237
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3995	cold brightness: 3811
+light sensor raw ADC: 0
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3996	cold brightness: 3803
+light sensor raw ADC: 0
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3990	cold brightness: 3802
+light sensor raw ADC: 0
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3989	cold brightness: 3796
+light sensor raw ADC: 0
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3983	cold brightness: 3795
+light sensor raw ADC: 0
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3978	cold brightness: 3793
+light sensor raw ADC: 13
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3976	cold brightness: 3788
+light sensor raw ADC: 17
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3970	cold brightness: 3787
+light sensor raw ADC: 13
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3969	cold brightness: 3781
+light sensor raw ADC: 13
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3963	cold brightness: 3780
+light sensor raw ADC: 12
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3962	cold brightness: 3774
+light sensor raw ADC: 14
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3960	cold brightness: 3769
+light sensor raw ADC: 11
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3954	cold brightness: 3768
+light sensor raw ADC: 10
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3951	cold brightness: 3764
+light sensor raw ADC: 12
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3945	cold brightness: 3763
+light sensor raw ADC: 11
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3942	cold brightness: 3759
+light sensor raw ADC: 11
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3938	cold brightness: 3756
+light sensor raw ADC: 10
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3931	cold brightness: 3756
+light sensor raw ADC: 9
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3931	cold brightness: 3749
+light sensor raw ADC: 11
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3924	cold brightness: 3749
+light sensor raw ADC: 7
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3924	cold brightness: 3742
+light sensor raw ADC: 8
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3920	cold brightness: 3739
+light sensor raw ADC: 7
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3919	cold brightness: 3733
+light sensor raw ADC: 9
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3917	cold brightness: 3728
+light sensor raw ADC: 9
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3909	cold brightness: 3729
+light sensor raw ADC: 7
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3908	cold brightness: 3723
+light sensor raw ADC: 10
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3902	cold brightness: 3722
+light sensor raw ADC: 19
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3944	cold brightness: 3755
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 3983	cold brightness: 3791
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4017	cold brightness: 3832
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4056	cold brightness: 3868
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4096	cold brightness: 3903
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4133	cold brightness: 3941
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4171	cold brightness: 3978
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4186	cold brightness: 4004
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4190	cold brightness: 4000
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 0
+GPIO13 level: 0
+System is now: OFF
+GPIO8 level: 1
+GPIO13 level: 0
+GPIO8 level: 1
+GPIO13 level: 0
+GPIO8 level: 1
+GPIO13 level: 0
+GPIO8 level: 1
+GPIO13 level: 0
+GPIO8 level: 1
+GPIO13 level: 0
+GPIO8 level: 0
+GPIO13 level: 0
+System is now: ON
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4186	cold brightness: 4004
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4184	cold brightness: 4006
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4186	cold brightness: 4004
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4188	cold brightness: 4002
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4196	cold brightness: 3994
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4192	cold brightness: 3998
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightness: 4194	cold brightness: 3996
+light sensor raw ADC: 4095
+GPIO8 level: 1
+GPIO13 level: 0
+warm brightnes

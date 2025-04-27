@@ -1,1 +1,14 @@
-c65cf6d793e71ec11335d748e92977d1b85acccf
+bd0b445e8872c5227088e77df292f051e71d60fb a3e70148f8a6af0c8646913bd76cbee044a2c3a7 Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1739924620 -0600	commit: Resolved merge conflicts after re-adding Firmware
+a3e70148f8a6af0c8646913bd76cbee044a2c3a7 dde9b9726d95c6aa34da28cc498980896104b1fa Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1739924892 -0600	commit: Re-added all files in Firmware
+dde9b9726d95c6aa34da28cc498980896104b1fa 9197b5a111b14036e5326d4f1716cc10d9ce49f2 Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1740515179 -0600	reset: moving to origin/main
+9197b5a111b14036e5326d4f1716cc10d9ce49f2 ee92b86510e99035cdeba25a5ed8ee63dace5252 Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1740525109 -0600	commit: Developed PWM code and started LED class
+ee92b86510e99035cdeba25a5ed8ee63dace5252 58bdb7265513948f62a9b3ff608d97b752440785 Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1741228468 -0600	commit: Continueing work on LED class
+58bdb7265513948f62a9b3ff608d97b752440785 de169be3c67beb4bfbf8d7210568ec81b5e4b1bf Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1741394951 -0600	pull origin main: Fast-forward
+de169be3c67beb4bfbf8d7210568ec81b5e4b1bf 2d59032eb43509c87b01765db7407f3b48a3b1c5 Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1742338598 -0500	commit: Continueing work on ADC
+2d59032eb43509c87b01765db7407f3b48a3b1c5 5c205f6e67304f409a98f63fba9d17f5ef7a93ea Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1744325567 -0500	pull origin main: Fast-forward
+5c205f6e67304f409a98f63fba9d17f5ef7a93ea bc56579e760bfca48b1e557d38bec7d7c547a582 Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1744333583 -0500	commit: Updated GPIO targets to match custom controller
+bc56579e760bfca48b1e557d38bec7d7c547a582 7234e9c9b335860d492bba6b489594a6ba164e1c Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1744761384 -0500	commit: Removed old PlatformIO project
+7234e9c9b335860d492bba6b489594a6ba164e1c b3b812eb71f06568b75222c17e652b494cd4b2a6 Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1744761596 -0500	commit: Migrating project to esp-idf
+b3b812eb71f06568b75222c17e652b494cd4b2a6 98eeeac2f755f6c058afb5cbbae7329fd8209792 Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1744761705 -0500	commit: Nuked old project, replaced with new ESP-IDF, Also made some logic changes to ADC readings
+98eeeac2f755f6c058afb5cbbae7329fd8209792 c65cf6d793e71ec11335d748e92977d1b85acccf Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1745259002 -0500	pull origin main: Fast-forward
+c65cf6d793e71ec11335d748e92977d1b85acccf b130244f4378a99be741df20cd74de69ad82fd8c Abraham Sanchez <abe@Abrahams-MacBook-Air.local> 1745273647 -0500	commit: Added motion sensor and incorperated state logic as well as encapsulated modes of operations in respective helper functions
