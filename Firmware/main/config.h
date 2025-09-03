@@ -1,0 +1,6 @@
+#define LED_PIN GPIO_NUM_2  // ESP32 onboard LED
+#define POT_RES GPIO_NUM_35
+#define MODE_SELECT GPIO_NUM_17
+#define MOTION_SENSOR GPIO_NUM_13
+#define OnOff GPIO_NUM_8
+#define TARGET_LUX 150
