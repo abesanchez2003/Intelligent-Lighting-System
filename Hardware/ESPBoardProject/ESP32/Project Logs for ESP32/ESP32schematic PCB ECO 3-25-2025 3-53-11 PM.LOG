@@ -1,0 +1,138 @@
+Added Component: Designator=3.3V in(691213510002)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://uk.rs-online.com/web/p/products/1908580"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "10.1mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Wurth Elektronik"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "691213510002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "710-691213510002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Wurth-Elektronik/691213510002?qs=sPbYRqrBIVmA5yw3GHPHeg%3D%3D"; VariantName = "[No Variations]"
+Added Component: Designator=5V in(691213510002)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://uk.rs-online.com/web/p/products/1908580"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "10.1mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Wurth Elektronik"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "691213510002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "710-691213510002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Wurth-Elektronik/691213510002?qs=sPbYRqrBIVmA5yw3GHPHeg%3D%3D"; VariantName = "[No Variations]"
+Added Component: Designator=24V in(691213510002)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://uk.rs-online.com/web/p/products/1908580"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "10.1mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Wurth Elektronik"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "691213510002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "710-691213510002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Wurth-Elektronik/691213510002?qs=sPbYRqrBIVmA5yw3GHPHeg%3D%3D"; VariantName = "[No Variations]"
+Added Component: Designator=Brightness knob(RK09D113000Q)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.mouser.com/datasheet/2/15/rk09k-2018422.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "25mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "ALPS Electric"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "RK09D113000Q"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=Light Connector(2828373)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "282837-3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/282837-3/te-connectivity?region=europe"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1-1773458-1_EURO_STYLE_QRG&DocType=Data%20Sheet&DocLang=English&PartCntxt=282837-3&DocFormat=pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "10.3mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "TE Connectivity"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "282837-3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "571-2828373"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/TE-Connectivity/282837-3?qs=A%252Bip%252BNCYi6PMRxtBYEOSrQ%3D%3D"; VariantName = "[No Variations]"
+Added Component: Designator=QCold(TO254P469X1042X1967-3P)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "IRLZ44NPBF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/irlz44npbf/infineon-technologies-ag?utm_currency=USD&region=nac"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://www.irf.com/product-info/datasheets/data/irlz44n.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "4.69mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Infineon"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "IRLZ44NPBF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "942-IRLZ44NPBF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Infineon-Technologies/IRLZ44NPBF?qs=9%252BKlkBgLFf15OZZk%252BD0ibg%3D%3D"; VariantName = "[No Variations]"
+Added Component: Designator=QWarm(TO254P469X1042X1967-3P)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "IRLZ44NPBF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/irlz44npbf/infineon-technologies-ag?utm_currency=USD&region=nac"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://www.irf.com/product-info/datasheets/data/irlz44n.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "4.69mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Infineon"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "IRLZ44NPBF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "942-IRLZ44NPBF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Infineon-Technologies/IRLZ44NPBF?qs=9%252BKlkBgLFf15OZZk%252BD0ibg%3D%3D"; VariantName = "[No Variations]"
+Added Component: Designator=Temperature Knob(RK09D113000Q)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.mouser.com/datasheet/2/15/rk09k-2018422.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "25mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "ALPS Electric"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "RK09D113000Q"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+3.3V Pin=3.3V in-1
+Added Pin To Net: NetName=+3.3V Pin=Brightness knob-1
+Added Pin To Net: NetName=+3.3V Pin=Temperature Knob-1
+Added Net: Name=+3.3V
+Added Pin To Net: NetName=+5V Pin=5V in-1
+Added Net: Name=+5V
+Added Pin To Net: NetName=+24V Pin=24V in-1
+Added Pin To Net: NetName=+24V Pin=Light Connector-1
+Added Net: Name=+24V
+Added Pin To Net: NetName=GND Pin=3.3V in-2
+Added Pin To Net: NetName=GND Pin=5V in-2
+Added Pin To Net: NetName=GND Pin=24V in-2
+Added Pin To Net: NetName=GND Pin=Brightness knob-3
+Added Pin To Net: NetName=GND Pin=QCold-2
+Added Pin To Net: NetName=GND Pin=QWarm-2
+Added Net: Name=GND
+Added Net: Name=GPIO0
+Added Pin To Net: NetName=GPIO1 Pin=QWarm-1
+Added Net: Name=GPIO1
+Added Pin To Net: NetName=GPIO2 Pin=QCold-1
+Added Net: Name=GPIO2
+Added Net: Name=GPIO3
+Added Net: Name=GPIO4
+Added Pin To Net: NetName=GPIO5 Pin=Brightness knob-2
+Added Net: Name=GPIO5
+Added Pin To Net: NetName=GPIO6 Pin=Temperature Knob-2
+Added Net: Name=GPIO6
+Added Net: Name=GPIO7
+Added Net: Name=GPIO8
+Added Net: Name=GPIO9
+Added Net: Name=GPIO10
+Added Net: Name=GPIO11
+Added Net: Name=GPIO12
+Added Net: Name=GPIO13
+Added Net: Name=GPIO14
+Added Net: Name=GPIO15
+Added Net: Name=GPIO16
+Added Net: Name=GPIO17
+Added Net: Name=GPIO18
+Added Net: Name=GPIO21
+Added Net: Name=GPIO35
+Added Net: Name=GPIO36
+Added Net: Name=GPIO37
+Added Net: Name=GPIO38
+Added Net: Name=GPIO45
+Added Net: Name=GPIO46
+Added Net: Name=GPIO47
+Added Net: Name=GPIO48
+Added Net: Name=MTCK
+Added Net: Name=MTDI
+Added Net: Name=MTDO
+Added Net: Name=MTMS
+Added Net: Name=NetC2_2
+Added Pin To Net: NetName=NetLight Connector_2 Pin=Light Connector-2
+Added Pin To Net: NetName=NetLight Connector_2 Pin=QCold-3
+Added Net: Name=NetLight Connector_2
+Added Pin To Net: NetName=NetLight Connector_3 Pin=Light Connector-3
+Added Pin To Net: NetName=NetLight Connector_3 Pin=QWarm-3
+Added Net: Name=NetLight Connector_3
+Added Net: Name=U0RXD
+Added Net: Name=U0TXD
+Added Class: Name=ESP32schematic
+Added Rule: Name=Schematic Supply Nets
+Added Rule: Name=Schematic Supply Nets_1
+Added Rule: Name=Schematic Supply Nets_2
+Added Rule: Name=Schematic Supply Nets_3

@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=GND Pin=QCold-2
+Removed Pin From Net: NetName=NetLight Connector_2 Pin=QCold-3
+Removed Pin From Net: NetName=GND Pin=QWarm-2
+Removed Pin From Net: NetName=NetLight Connector_3 Pin=QWarm-3
+Added Pin To Net: NetName=NetLight Connector_2 Pin=QCold-2
+Added Pin To Net: NetName=GND Pin=QCold-3
+Added Pin To Net: NetName=NetLight Connector_3 Pin=QWarm-2
+Added Pin To Net: NetName=GND Pin=QWarm-3

@@ -1,0 +1,7 @@
+Change Component Designator: OldDesignator=USB to Serial NewDesignator=PREC003SAAN-RC Connector
+Added Pin To Net: NetName=GPIO18 Pin=UMain-11
+Added Net: Name=GPIO18
+Added Pin To Net: NetName=USB_D+ Pin=UMain-14
+Added Net: Name=USB_D+
+Added Pin To Net: NetName=USB_D- Pin=UMain-13
+Added Net: Name=USB_D-

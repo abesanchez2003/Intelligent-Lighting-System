@@ -1,0 +1,89 @@
+Removed Pin From Net: NetName=GPIO8 Pin=Cinx2-2
+Removed Pin From Net: NetName=GND Pin=On/Off-1
+Removed Pin From Net: NetName=GND Pin=On/Off-2
+Removed Pin From Net: NetName=GPIO8 Pin=On/Off-3
+Removed Pin From Net: NetName=GPIO8 Pin=On/Off-4
+Removed Pin From Net: NetName=GPIO8 Pin=UMain-12
+Added Component: Designator=On/Off(SW4_1825910-C_TEC)
+Add component (AddParameter): Name = "Actuator Angle"; Value = "0°"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Actuator Color"; Value = "Blue"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Actuator Length"; Value = "0.134inch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Actuator Material"; Value = "Nylon"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Actuator Travel"; Value = "0.254mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Actuator Type"; Value = "Pushbutton"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Body Breadth"; Value = "5.99mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Body Height"; Value = "3.61mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Body Length or Diameter"; Value = "5.99mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Category"; Value = "Pushbutton Switches"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Center Contact Plating"; Value = "Silver"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Circuit Configuration"; Value = "1X1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "https://datasheet.ciiva.com:443/pdfs/VipMasterIC/IC/TYEL/TYEL-S-A0008869674/TYEL-S-A0008812308-1.pdf?src-supplier=IHS+Markit"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "https://datasheet.ciiva.com:443/pdfs/VipMasterIC/IC/TYEL/TYEL-S-A0008869674/TYEL-S-A0008812308-1.pdf?src-supplier=IHS+Markit"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "https://datasheet.ciiva.com/30090/118259100-30090684.pdf?src-supplier=Onlinecomponents.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "https://datasheet.ciiva.com/30090/118259100-30090684.pdf?src-supplier=Onlinecomponents.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink3Description"; Value = "https://datasheet.ciiva.com/45260/eng-cd-1825910-c9-45260029.pdf?src-supplier=Digikey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink3URL"; Value = "https://datasheet.ciiva.com/45260/eng-cd-1825910-c9-45260029.pdf?src-supplier=Digikey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Current(DC)-Max"; Value = "50mA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact DC Max Rating R Load"; Value = ".05A@24VDC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Function"; Value = "OFF-(ON)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Material"; Value = "Copper Alloy"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Resistance"; Value = "0.1mR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Voltage(DC)-Max"; Value = "24V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Dielectric Withstand Volts"; Value = "500VACV"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "End Contact Material"; Value = "Copper Alloy"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "End Contact Plating"; Value = "Silver"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Housing Material"; Value = "Nylon"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Insulation Resistance"; Value = "100MR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "TE Connectivity"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "1-1825910-0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "85°C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-35°C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Technology"; Value = "Through Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Switches"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Operating Force-Max"; Value = "2.06N"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PCB Hole Count"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pricing"; Value = "1=0.15, 10=0.13, 25=0.1232, 100=0.1134, 250=0.10724, 750=0.10016, 1500=0.09591, 3000=0.09183, 5250=0.08864 (USD)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Reach SVHC Compliant"; Value = "Yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHS"; Value = "Yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHS Compliant"; Value = "Yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Stock"; Value = "44150"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "Digikey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number"; Value = "450-1652-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Switch Action"; Value = "MOMENTARY"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Switch Function"; Value = "SPST"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Switch Type"; Value = "Keypad"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Terminal Length"; Value = "0.138inch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Terminal Material"; Value = "Copper Alloy"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "Solder"; VariantName = "[No Variations]"
+Added Component: Designator=R4(RESC2012X70N)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://industrial.panasonic.com/cdbs/www-data/pdf/RDP0000/AOA0000C334.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.7mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "ERJ-S06J103V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "667-ERJ-S06J103V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Panasonic/ERJ-S06J103V?qs=Zyl8A9hlmJqKI11OB00qpA%3D%3D"; VariantName = "[No Variations]"
+Added Component: Designator=R5(RESC2012X70N)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://industrial.panasonic.com/cdbs/www-data/pdf/RDP0000/AOA0000C334.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.7mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "ERJ-S06J103V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "667-ERJ-S06J103V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Panasonic/ERJ-S06J103V?qs=Zyl8A9hlmJqKI11OB00qpA%3D%3D"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=On/Off-1
+Added Pin To Net: NetName=GND Pin=On/Off-2
+Added Pin To Net: NetName=GPIO8 Pin=R4-2
+Added Pin To Net: NetName=GPIO17 Pin=R5-1
+Added Pin To Net: NetName=GPIO8 Pin=R5-2
+Added Pin To Net: NetName=GPIO17 Pin=UMain-11
+Change Net Name : Old Net Name=GPIO8 New Net Name=+3.3V
+Added Pin To Net: NetName=GPIO8 Pin=Cinx2-2
+Added Pin To Net: NetName=GPIO8 Pin=On/Off-3
+Added Pin To Net: NetName=GPIO8 Pin=On/Off-4
+Added Pin To Net: NetName=GPIO8 Pin=R4-1
+Added Pin To Net: NetName=GPIO8 Pin=UMain-12
+Added Net: Name=GPIO8
+Added Rule: Name=Schematic Supply Nets_4
