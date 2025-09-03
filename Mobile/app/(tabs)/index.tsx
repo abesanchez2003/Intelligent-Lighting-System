@@ -18,6 +18,8 @@ import { app } from '../(component)/api/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from 'expo-router';
+import { Modal, TextInput } from 'react-native';
+
 
 const auth = getAuth(app);
 
@@ -27,6 +29,9 @@ export default function HomeScreen() {
   const [userInfo, setUserInfo] = useState<any | undefined>(null);
   const [userName, setUserName] = useState<any | undefined>(null);
   const navigation = useNavigation();
+  const [renameModalVisible, setRenameModalVisible] = useState(false);
+  const [renameRoomIndex, setRenameRoomIndex] = useState<number | null>(null);
+  const [renameRoomValue, setRenameRoomValue] = useState('');
 
   useEffect(() => {
     const auth = getAuth();
@@ -92,6 +97,37 @@ export default function HomeScreen() {
     }
   };
 
+  const handleDeleteRoom = async (index: number) => {
+    try {
+      const updatedRooms = rooms.filter((_, i) => i !== index);
+      setRooms(updatedRooms);
+      const docRef = doc(db, "users", userInfo.uid);
+      await updateDoc(docRef, { rooms: updatedRooms });
+    } catch (error) {
+      console.error("Error deleting room:", error);
+    }
+  };
+
+  const handleRenameRoom = (index: number) => {
+    setRenameRoomIndex(index);
+    setRenameRoomValue(rooms[index]);
+    setRenameModalVisible(true);
+  };
+
+  const confirmRenameRoom = async () => {
+    if (renameRoomIndex !== null && renameRoomValue.trim() !== '') {
+      const updatedRooms = rooms.map((room, i) =>
+        i === renameRoomIndex ? renameRoomValue : room
+      );
+      setRooms(updatedRooms);
+      const docRef = doc(db, "users", userInfo.uid);
+      await updateDoc(docRef, { rooms: updatedRooms });
+      setRenameModalVisible(false);
+      setRenameRoomIndex(null);
+      setRenameRoomValue('');
+    }
+  };
+
   useEffect(() => {
     if (userInfo) {
       fetchRooms(); // Fetch rooms when userInfo is available
@@ -104,18 +140,72 @@ export default function HomeScreen() {
       <FlatList
         data={rooms}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <Pressable style={styles.roomButton}
-          onPress={() => {navigation.navigate("(screensRoom)" as unknown as never)}}
-          >
-            <Text style={styles.roomButtonText}>{item}</Text>
-          </Pressable>
+        renderItem={({ item, index }) => (
+          <View style={styles.roomRow}>
+            <Pressable
+              style={styles.roomButton}
+              onPress={() => navigation.navigate("(screensRoom)" as unknown as never)}
+            >
+              <Text style={styles.roomButtonText}>{item}</Text>
+            </Pressable>
+            <Pressable
+              style={styles.deleteButton}
+              onPress={() => handleDeleteRoom(index)}
+            >
+              <Text style={styles.deleteButtonText}>🗑️</Text>
+            </Pressable>
+            <Pressable
+              style={styles.renameButton}
+              onPress={() => handleRenameRoom(index)}
+            >
+              <Text style={styles.renameButtonText}>✏️</Text>
+            </Pressable>
+          </View>
         )}
+        
       />
       <View style={styles.actions}>
         <Button title="Add Room" onPress={addRoom} />
         <Button title="Remove Room" onPress={removeRoom} />
       </View>
+      <Modal
+        visible={renameModalVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setRenameModalVisible(false)}
+      >
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0,0,0,0.5)'
+        }}>
+          <View style={{
+            backgroundColor: '#fff',
+            padding: 20,
+            borderRadius: 10,
+            width: '80%',
+            alignItems: 'center'
+          }}>
+            <Text style={{ fontSize: 18, marginBottom: 10 }}>Rename Room</Text>
+            <TextInput
+              value={renameRoomValue}
+              onChangeText={setRenameRoomValue}
+              style={{
+                borderWidth: 1,
+                borderColor: '#ccc',
+                borderRadius: 8,
+                padding: 10,
+                width: '100%',
+                marginBottom: 20
+              }}
+              placeholder="Enter new room name"
+            />
+            <Button title="Save" onPress={confirmRenameRoom} />
+            <Button title="Cancel" color="#FF5252" onPress={() => setRenameModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -159,5 +249,30 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Center buttons vertically
     paddingHorizontal: 16, // Add padding to ensure buttons are not cut off
     marginBottom: 16, // Add some bottom margin
+  },
+  roomRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 8,
+  },
+  deleteButton: {
+    marginLeft: 8,
+    backgroundColor: '#FF5252',
+    padding: 8,
+    borderRadius: 8,
+  },
+  deleteButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  renameButton: {
+    marginLeft: 8,
+    backgroundColor: '#FFD600',
+    padding: 8,
+    borderRadius: 8,
+  },
+  renameButtonText: {
+    color: '#333',
+    fontSize: 16,
   },
 });
