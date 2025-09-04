@@ -1,3 +1,5 @@
+#pragma once
+
 #define LED_PIN GPIO_NUM_2  // ESP32 onboard LED
 #define POT_RES GPIO_NUM_35
 #define MODE_SELECT GPIO_NUM_17

@@ -56,9 +56,9 @@ LedSetpoint handleAuto(int light_sensor, bool lights_on, AutoConfig cfg = {}){
     // }
 
     static int base_brightness = 2048;
-    int adjusted_brightness = base_brightness + static_cast<int>(lux_difference * 1);
-    if(adjusted_brightness > 8191) adjusted_brightness = 8191;
-    if(adjusted_brightness < 0) adjusted_brightness = 0;
+    int adjusted_brightness = base_brightness + static_cast<int>(lux_difference * cfg.kp);
+    if(adjusted_brightness > cfg.max_brightness) adjusted_brightness = cfg.max_brightness;
+    if(adjusted_brightness < cfg.min_brightness) adjusted_brightness = cfg.min_brightness;
     base_brightness = adjusted_brightness;
 
     // cold.setBrightness(base_brightness * preset_cold_ratio);

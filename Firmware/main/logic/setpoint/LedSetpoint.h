@@ -1,3 +1,4 @@
+#pragma once
 #include "LED.h"
 #include "esp_adc_cal.h"
 #include "esp_adc/adc_continuous.h" 
@@ -11,6 +12,9 @@ struct LedSetpoint{
 struct AutoConfig {
     double warm_ratio = 0.5;
     double cold_ratio = 0.5;
+    double kp = 1.0;
+    int min_brightness = 0;
+    int max_brightness = 8191;
 };
 
 
