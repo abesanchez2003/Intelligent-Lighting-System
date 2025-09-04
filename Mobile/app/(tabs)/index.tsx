@@ -19,19 +19,21 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from 'expo-router';
 import { Modal, TextInput } from 'react-native';
+import { router } from 'expo-router';
 
 
 const auth = getAuth(app);
 
 
 export default function HomeScreen() {
-  const [rooms, setRooms] = useState<string[]>([]);
+  const [rooms, setRooms] = useState<{ [roomName: string]: { brightness: number; temperature: number } }>({});
   const [userInfo, setUserInfo] = useState<any | undefined>(null);
   const [userName, setUserName] = useState<any | undefined>(null);
   const navigation = useNavigation();
   const [renameModalVisible, setRenameModalVisible] = useState(false);
   const [renameRoomIndex, setRenameRoomIndex] = useState<number | null>(null);
   const [renameRoomValue, setRenameRoomValue] = useState('');
+  const [renameRoomOldName, setRenameRoomOldName] = useState<string | null>(null);
 
   useEffect(() => {
     const auth = getAuth();
@@ -58,7 +60,7 @@ export default function HomeScreen() {
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        setRooms(data.rooms || []); // Set rooms from Firestore or default to an empty array
+        setRooms(data.rooms || {}); // Set rooms from Firestore or default to an empty array
         setUserName(data.Name); // Set userName from Firestore
       } else {
         console.log("No such document!");
@@ -70,8 +72,8 @@ export default function HomeScreen() {
 
   const addRoom = async () => {
     try {
-      const newRoom = `Room ${rooms.length + 1}`;
-      const updatedRooms = [...rooms, newRoom];
+      const newRoomName = `Room ${Object.keys(rooms).length + 1}`;
+      const updatedRooms = { ...rooms, [newRoomName]: { brightness: 50, temperature: 50 } };
       setRooms(updatedRooms);
 
       // Update Firestore
@@ -84,9 +86,13 @@ export default function HomeScreen() {
 
   const removeRoom = async () => {
     try {
-      if (rooms.length === 0) return;
+      const roomNames = Object.keys(rooms);
+      if (roomNames.length === 0) return;
 
-      const updatedRooms = rooms.slice(0, -1);
+      // Remove the last room in the list
+      const roomToRemove = roomNames[roomNames.length - 1];
+      const updatedRooms = { ...rooms };
+      delete updatedRooms[roomToRemove];
       setRooms(updatedRooms);
 
       // Update Firestore
@@ -97,33 +103,30 @@ export default function HomeScreen() {
     }
   };
 
-  const handleDeleteRoom = async (index: number) => {
-    try {
-      const updatedRooms = rooms.filter((_, i) => i !== index);
-      setRooms(updatedRooms);
-      const docRef = doc(db, "users", userInfo.uid);
-      await updateDoc(docRef, { rooms: updatedRooms });
-    } catch (error) {
-      console.error("Error deleting room:", error);
-    }
+  const handleDeleteRoom = async (roomName: string) => {
+    const updatedRooms = { ...rooms };
+    delete updatedRooms[roomName];
+    setRooms(updatedRooms);
+    const docRef = doc(db, "users", userInfo.uid);
+    await updateDoc(docRef, { rooms: updatedRooms });
   };
 
-  const handleRenameRoom = (index: number) => {
-    setRenameRoomIndex(index);
-    setRenameRoomValue(rooms[index]);
+  const handleRenameRoom = (roomName: string) => {
+    setRenameRoomOldName(roomName);
+    setRenameRoomValue(roomName);
     setRenameModalVisible(true);
   };
 
   const confirmRenameRoom = async () => {
-    if (renameRoomIndex !== null && renameRoomValue.trim() !== '') {
-      const updatedRooms = rooms.map((room, i) =>
-        i === renameRoomIndex ? renameRoomValue : room
-      );
+    if (renameRoomOldName && renameRoomValue.trim() !== '' && renameRoomValue !== renameRoomOldName) {
+      const updatedRooms = { ...rooms };
+      updatedRooms[renameRoomValue] = updatedRooms[renameRoomOldName];
+      delete updatedRooms[renameRoomOldName];
       setRooms(updatedRooms);
       const docRef = doc(db, "users", userInfo.uid);
       await updateDoc(docRef, { rooms: updatedRooms });
       setRenameModalVisible(false);
-      setRenameRoomIndex(null);
+      setRenameRoomOldName(null);
       setRenameRoomValue('');
     }
   };
@@ -138,25 +141,25 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Welcome, {userName || "User"}</Text>
       <FlatList
-        data={rooms}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
+        data={Object.keys(rooms)}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
           <View style={styles.roomRow}>
             <Pressable
               style={styles.roomButton}
-              onPress={() => navigation.navigate("(screensRoom)" as unknown as never)}
+              onPress={() => router.push({ pathname: "/(screensRoom)/mainScreen", params: { roomName: item } })}
             >
               <Text style={styles.roomButtonText}>{item}</Text>
             </Pressable>
             <Pressable
               style={styles.deleteButton}
-              onPress={() => handleDeleteRoom(index)}
+              onPress={() => handleDeleteRoom(item)}
             >
               <Text style={styles.deleteButtonText}>🗑️</Text>
             </Pressable>
             <Pressable
               style={styles.renameButton}
-              onPress={() => handleRenameRoom(index)}
+              onPress={() => handleRenameRoom(item)}
             >
               <Text style={styles.renameButtonText}>✏️</Text>
             </Pressable>

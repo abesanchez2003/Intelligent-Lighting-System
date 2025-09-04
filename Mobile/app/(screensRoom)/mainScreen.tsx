@@ -21,18 +21,22 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PanResponder } from 'react-native';
 import { useRef } from 'react';
+import { useLocalSearchParams } from 'expo-router';
 
 
 const screenWidth = Dimensions.get('window').width;
 
 export default function MainScreen() {
-  const [sliderValueTemp, setSliderValueTemp] = useState(0);
-  const [sliderValueBrightness, setSliderValueBrightness] = useState(0);
   const [offOnPress, setOffOnPress] = useState(0);
   const [userInfo, setUserInfo] = useState<any | undefined>(null);
   const [userName, setUserName] = useState<any | undefined>(null);
   const [tempValue, setTempValue] = useState(0);
   const gradientWidth = 300;
+  const { roomName } = useLocalSearchParams();
+  const roomKey = Array.isArray(roomName) ? roomName[0] : roomName;
+  const [rooms, setRooms] = useState<{ [roomName: string]: { brightness: number; temperature: number } }>({});
+  const [brightness, setBrightness] = useState(50);
+  const [temperature, setTemperature] = useState(50);
 
   type Mode = 'movieNight' | 'work';
   const [currentMode, setCurrentMode] = useState<Mode | null>(null);
@@ -52,7 +56,7 @@ export default function MainScreen() {
         const x = evt.nativeEvent.pageX - px;
         const clampedX = Math.max(0, Math.min(x, gradientWidth));
         const value = Math.round((clampedX / gradientWidth) * 100);
-        setTempValue(value);
+        setTemperature(value); // <-- Link to temperature
       });
     },
     onPanResponderRelease: (evt) => {
@@ -60,7 +64,7 @@ export default function MainScreen() {
         const x = evt.nativeEvent.pageX - px;
         const clampedX = Math.max(0, Math.min(x, gradientWidth));
         const value = Math.round((clampedX / gradientWidth) * 100);
-        setTempValue(value);
+        setTemperature(value); // <-- Link to temperature
       });
     },
   });
@@ -80,43 +84,52 @@ export default function MainScreen() {
   }, []);
 
   const getData = async () => {
-    if (!userInfo) {
-      console.log("User info not available");
-      return; // Ensure userInfo is available
-    }
+    if (!userInfo || !roomName) return;
     try {
-      const docRef = doc(db, "users", userInfo.uid); // Assuming userInfo contains uid
+      const docRef = doc(db, "users", userInfo.uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        setUserName(data.Name); // Set userName from Firestore
-        setSliderValueBrightness(data.brightness || 50); // Default to 50 if undefined
-        setSliderValueTemp(data.temperature || 50); // Default to 50 if undefined
-
-        if (data.customModes) {
-          setCustomModes(data.customModes);
+        setRooms(data.rooms || {});
+        if (data.rooms && roomKey) {
+          setBrightness(data.rooms[roomKey]?.brightness ?? 50);
+          setTemperature(data.rooms[roomKey]?.temperature ?? 50);
         }
-      } else {
-        console.log("No such document!");
       }
     } catch (error) {
       console.error("Error fetching rooms:", error);
     }
   };
 
-  const saveUserSettings = async (brightness: number, temperature: number) => {
-    if (!userInfo) {
-      console.error("User info is not available.");
-      return;
-    }
+  // const saveUserSettings = async (brightness: number, temperature: number) => {
+  //   if (!userInfo) {
+  //     console.error("User info is not available.");
+  //     return;
+  //   }
   
+  //   try {
+  //     const docRef = doc(db, "users", userInfo.uid);
+  //     await updateDoc(docRef, { brightness, temperature });
+  //     console.log("User settings saved:", { brightness, temperature });
+  //   } catch (error) {
+  //     console.error("Error saving user settings:", error);
+  //   }
+  // };
+
+  const saveRoomSettings = async () => {
+    if (!userInfo || !roomKey) return;
     try {
+      const updatedRooms = {
+        ...rooms,
+        [roomKey]: { brightness, temperature }
+      };
+      setRooms(updatedRooms);
       const docRef = doc(db, "users", userInfo.uid);
-      await updateDoc(docRef, { brightness, temperature });
-      console.log("User settings saved:", { brightness, temperature });
+      await updateDoc(docRef, { rooms: updatedRooms });
+      console.log("Room settings saved:", updatedRooms[roomKey]);
     } catch (error) {
-      console.error("Error saving user settings:", error);
+      console.error("Error saving room settings:", error);
     }
   };
 
@@ -138,17 +151,17 @@ export default function MainScreen() {
   const toggleMode = (mode: Mode) => {
     if (currentMode === mode) {
       setCurrentMode(null);
-      setSliderValueBrightness(previousValue.brightness);
-      setSliderValueTemp(previousValue.temperature);
+      setBrightness(previousValue.brightness);
+      setTemperature(previousValue.temperature);
     } else {
       setPreviousValue({
-        brightness: sliderValueBrightness,
-        temperature: sliderValueTemp,
+        brightness: brightness,
+        temperature: temperature,
       });
       
       setCurrentMode(mode);
-      setSliderValueBrightness(customModes[mode].brightness);
-      setSliderValueTemp(customModes[mode].temperature);
+      setBrightness(customModes[mode].brightness);
+      setTemperature(customModes[mode].temperature);
     }
   };
   
@@ -158,24 +171,24 @@ export default function MainScreen() {
     }
   }, [userInfo]);
 
-  useEffect(() => {
-    if (userInfo) {
-      saveUserSettings(sliderValueBrightness, sliderValueTemp);
-      saveCustomModes(customModes);
-    }
-  }, [sliderValueBrightness, sliderValueTemp, customModes]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     saveUserSettings(sliderValueBrightness, sliderValueTemp);
+  //     saveCustomModes(customModes);
+  //   }
+  // }, [sliderValueBrightness, sliderValueTemp, customModes]);
 
   useEffect(() => {
     if (currentMode) {
       setCustomModes((prevModes) => ({
         ...prevModes,
         [currentMode]: {
-          brightness: sliderValueBrightness,
-          temperature: sliderValueTemp,
+          brightness: brightness,
+          temperature: temperature,
         },
       }));
     }
-  }, [sliderValueBrightness, sliderValueTemp, currentMode]);
+  }, [brightness, temperature, currentMode]);
 
   const handleSignOut = async () => {
     await auth.signOut();
@@ -232,16 +245,13 @@ export default function MainScreen() {
       </ThemedView>
 
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Temperature Controller</ThemedText>
-        <ThemedText>{sliderValueTemp}</ThemedText>
-        <Slider style={{ width: '100%', height: 40 }} 
-          minimumValue={0} 
-          maximumValue={100}
-          onValueChange={(value) => setSliderValueTemp(value)}
-          step={1}
-          value={sliderValueTemp}
+        <Button
+          title="Save Room Settings"
+          onPress={saveRoomSettings}
+          color="#007BFF"
         />
       </ThemedView>
+
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">ON/OFF Switch</ThemedText>
         <SafeAreaProvider>
@@ -265,15 +275,49 @@ export default function MainScreen() {
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Brightness Controller</ThemedText>
-        <ThemedText>{sliderValueBrightness}</ThemedText>
+        <ThemedText>{brightness}</ThemedText>
         <Slider style={{ width: '100%', height: 40 }} 
           minimumValue={0} 
           maximumValue={100}
-          onValueChange={(value) => setSliderValueBrightness(value)}
+          onValueChange={(value) => setBrightness(value)}
           step={1}
-          value={sliderValueBrightness}
+          value={brightness}
         />
       </ThemedView>
+
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Temperature Controller</ThemedText>
+        <ThemedText>{temperature}</ThemedText>
+        <View
+          ref={gradientRef}
+          style={{ width: gradientWidth, height: 40, borderRadius: 20, overflow: 'hidden' }}
+        >
+          <LinearGradient
+            colors={['#FFFDE4', '#FFD600']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={{ width: '100%', height: '100%' }}
+          />
+          <View
+            style={{ position: 'absolute', width: '100%', height: '100%' }}
+            {...panResponder.panHandlers}
+          />
+          <View
+            style={{
+              position: 'absolute',
+              left: Math.max(0, Math.min((temperature / 100) * gradientWidth - 10, gradientWidth - 20)),
+              top: 10,
+              width: 20,
+              height: 20,
+              borderRadius: 10,
+              backgroundColor: '#FFD600',
+              borderWidth: 2,
+              borderColor: '#FFFDE4',
+            }}
+          />
+        </View>
+      </ThemedView>
+
       <ThemedView style={styles.stepContainer}>
       <ThemedText type="subtitle">Modes</ThemedText>
         <Pressable
@@ -306,38 +350,7 @@ export default function MainScreen() {
           </ThemedText>
         </Pressable>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Temperature Controller</ThemedText>
-        <ThemedText>{tempValue}</ThemedText>
-        <View
-          ref={gradientRef}
-          style={{ width: gradientWidth, height: 40, borderRadius: 20, overflow: 'hidden' }}
-        >
-          <LinearGradient
-            colors={['#FFFDE4', '#FFD600']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={{ width: '100%', height: '100%' }}
-          />
-          <View
-            style={{ position: 'absolute', width: '100%', height: '100%' }}
-            {...panResponder.panHandlers}
-          />
-          <View
-            style={{
-              position: 'absolute',
-              left: Math.max(0, Math.min((tempValue / 100) * gradientWidth - 10, gradientWidth - 20)),
-              top: 10,
-              width: 20,
-              height: 20,
-              borderRadius: 10,
-              backgroundColor: '#FFD600',
-              borderWidth: 2,
-              borderColor: '#FFFDE4',
-            }}
-          />
-        </View>
-      </ThemedView>
+      
       <ThemedView style={styles.stepContainer}>
       <ThemedText type="subtitle">Sign Out</ThemedText>
           <TouchableOpacity style={styles.button} onPress={Modal}>
