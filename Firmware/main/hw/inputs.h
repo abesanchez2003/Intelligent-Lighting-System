@@ -1,8 +1,7 @@
 #pragma once
 #include "driver/gpio.h"
-#include "esp_adc_cal.h"
-#include "esp_adc/adc_continuous.h" 
 #include "driver/adc.h"
+#include "esp_adc_cal.h" 
 #include "config.h"
 struct InputSample{
     bool onoff_level;

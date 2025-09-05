@@ -1,7 +1,7 @@
 #include "ApplySetpoint.h"
 
 
-void applySetpoint(const LedSetPoint& sp, LED& warm, LED& cold){
+void applySetpoint(const LedSetpoint& sp, LED& warm, LED& cold){
     if(!sp.on){
         warm.setState(false);
         cold.setState(false);

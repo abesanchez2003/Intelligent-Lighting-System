@@ -1,5 +1,5 @@
 #pragma once
 #include "LED.h"
-#include "logic/LedSetpoint.h"
+#include "LedSetpoint.h"
 
-void applySetpoint(const LedSetPoint& sp, LED& warm, LED& cold);
+void applySetpoint(const LedSetpoint& sp, LED& warm, LED& cold);

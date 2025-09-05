@@ -1,6 +1,20 @@
 {
-    "idf.pythonInstallPath": "/usr/bin/python3",
-    "files.associations": {
-        "istream": "cpp"
-    }
+  "C_Cpp.intelliSenseEngine": "default",
+
+  // Ensure the extension builds the Firmware project (not repo root)
+  "idf.espIdfProjectPath": "${workspaceFolder}/Firmware",
+
+  // Tell it which target you're using
+  "idf.customExtraVars": {
+    "IDF_TARGET": "esp32s3"
+  },
+
+  // Optional: set the debug probe config (you already had this)
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+
+  // Handy defaults for flashing/monitoring
+  "idf.flashType": "UART",
+  "idf.serialBaudRate": 115200
 }

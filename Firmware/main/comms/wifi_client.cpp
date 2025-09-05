@@ -1,5 +1,6 @@
 #include "wifi_client.h"
-
+#include "nvs_flash.h"
+#include "esp_system.h"
 
 int connect_wifi(std:: string ssid, std:: string pwd){
     //this function will be responsible for establishing wifi connectivity
