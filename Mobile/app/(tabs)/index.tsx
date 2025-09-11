@@ -147,15 +147,9 @@ export default function HomeScreen() {
           <View style={styles.roomRow}>
             <Pressable
               style={styles.roomButton}
-              onPress={() => router.push({ pathname: "/(screensRoom)/mainScreen", params: { roomName: item } })}
+              onPress={() => router.push({ pathname: '/(screensRoom)/mainScreen', params: { roomName: item } })}
             >
               <Text style={styles.roomButtonText}>{item}</Text>
-            </Pressable>
-            <Pressable
-              style={styles.deleteButton}
-              onPress={() => handleDeleteRoom(item)}
-            >
-              <Text style={styles.deleteButtonText}>🗑️</Text>
             </Pressable>
             <Pressable
               style={styles.renameButton}
@@ -163,13 +157,18 @@ export default function HomeScreen() {
             >
               <Text style={styles.renameButtonText}>✏️</Text>
             </Pressable>
+            <Pressable
+              style={styles.deleteButton}
+              onPress={() => handleDeleteRoom(item)}
+            >
+              <Text style={styles.deleteButtonText}>🗑️</Text>
+            </Pressable>
           </View>
         )}
         
       />
       <View style={styles.actions}>
         <Button title="Add Room" onPress={addRoom} />
-        <Button title="Remove Room" onPress={removeRoom} />
       </View>
       <Modal
         visible={renameModalVisible}
@@ -241,10 +240,13 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderRadius: 8,
     alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
   roomButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
+    textAlign: 'center',
   },
   actions: {
     flexDirection: 'row',
@@ -263,6 +265,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF5252',
     padding: 8,
     borderRadius: 8,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   deleteButtonText: {
     color: '#fff',
@@ -273,6 +278,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFD600',
     padding: 8,
     borderRadius: 8,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   renameButtonText: {
     color: '#333',
