@@ -15,6 +15,7 @@
 #include "mqtt_client.h"
 #include "LedSetpoint.h"
 #include "inputs.h"
+#include "task_mqtt.h"
 class mqtt_client {
 private:
     esp_mqtt_client_handle_t client;
@@ -23,7 +24,7 @@ private:
 public:
     static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data);
     static void mqtt_start(mqtt_client self, std:: string broker_url);
-    void mqtt_publish_task(void *pvParameters, InputSample sample, std:: string topic);
+    void mqtt_publish_task(void *pvParameters);
     
     
 };

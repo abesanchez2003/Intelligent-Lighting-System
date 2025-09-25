@@ -56,33 +56,30 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 }
 
 
-static void mqtt_start(mqtt_client self,std:: string broker_url)
-{
-    esp_mqtt_client_config_t mqtt_cfg = {
-        .broker.address.uri = broker_url,
-    };
+void mqtt_publish_task(void *pvParameters) {
+    QueueHandle_t queue = (QueueHandle_t) pvParameters;
+    topic_container msg;
+    const char *topic = NULL;
 
+    while (1) {
+        if (xQueueReceive(queue, &msg, portMAX_DELAY)) {
+            // pick topic string based on enum
+            switch (msg.type) {
+                case BRIGHTNESS_FETCH:   topic = "lighting/room1/fetch/brightness"; break;
+                case TEMPERATURE_FETCH:  topic = "lighting/room1/fetch/temperature"; break;
+                case AMBIENT_FETCH:      topic = "lighting/room1/fetch/ambient"; break;
+                default: topic = "lighting/room1/fetch/unknown"; break;
+            }
 
-    esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
-    self -> client = client;
-    /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
-    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
-    esp_mqtt_client_start(client);
-}
+            char payload[32];
+            snprintf(payload, sizeof(payload), "%.2f", msg.value);
 
-void mqtt_publish_task(void *pvParameters,InputSample sample, std:: string topic){
-    char datatosend[20];
-    if(topic == "lighting/room1/fetch/brightness" ){
-        auto value = sample.brightness_raw;
-    } else if (topic == "lighting/room1/fetch/ambient"){
-        auto value = sample.ambient_raw;
-    }
-    while(1){
-        sprintf(datatosend, "%d", value);
-        int msg_id = esp_mqtt_client_publish(client, topic,datatosend);
-        if(msg_id == 0) ESP_LOGI(TAG, "Sent data %d",value);
-        else ESP_LOGI(TAG, "Error msg_id: %d while sending data",msg_id);
-        vTaskDelay(pdMS_TO_TICKS(2000));
-
+            int msg_id = esp_mqtt_client_publish(client,topic,payload,0, 0,msg.retain);
+            if (msg_id >= 0) {
+                ESP_LOGI("MQTT", "Published %s = %s", topic, payload);
+            } else {
+                ESP_LOGE("MQTT", "Publish failed for %s", topic);
+            }
+        }
     }
 }
