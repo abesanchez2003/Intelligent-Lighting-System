@@ -2,11 +2,11 @@
 #include "nvs_flash.h"
 #include "esp_system.h"
 
-int connect_wifi(std:: string ssid, std:: string pwd){
+int connect_wifi(std:: string& ssid, std:: string& pwd){
     //this function will be responsible for establishing wifi connectivity
     // args(ssid, pwd) takes ssid or wifi network name and network password , 
     static const char* TAG = "connect_wifi";
-    if(ssid.length() != 0 && pwd.length() != 0){
+    if(ssid.length() != 0 /*&& pwd.length() != 0 */){
 
         ESP_LOGD(TAG, "Attempting Wifi connection");
 
@@ -32,6 +32,12 @@ int connect_wifi(std:: string ssid, std:: string pwd){
         ESP_LOGD(TAG, "WiFi Password %s",wifi_credents.sta.password);
 
         esp_err_t setCredentials = esp_wifi_set_config(WIFI_IF_STA, &wifi_credents); // setting wifi credentials
+        // if (pwd.empty()) {
+        // //wifi_credents.sta.threshold.authmode = WIFI_AUTH_OPEN;     // open network
+        // wifi_credents.sta.threshold.authmode = WIFI_AUTH_WPA2_ENTERPRISE;
+        // } else {
+        wifi_credents.sta.threshold.authmode = WIFI_AUTH_WPA2_PSK; // typical PSK
+        //}
 
         if(setCredentials == ESP_OK){
             ESP_LOGD(TAG, "Credentials Set Successfully");
