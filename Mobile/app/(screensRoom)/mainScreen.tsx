@@ -1,4 +1,6 @@
 import { Image, StyleSheet, Platform, Touchable, TouchableOpacity } from 'react-native';
+import * as Haptics from 'expo-haptics';
+import { Animated } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -29,6 +31,8 @@ import { router } from 'expo-router';
 const screenWidth = Dimensions.get('window').width;
 
 export default function MainScreen() {
+  // Animation state for feedback
+  const [animValue] = useState(new Animated.Value(0));
   const [offOnPress, setOffOnPress] = useState(0);
   const [userInfo, setUserInfo] = useState<any | undefined>(null);
   const [userName, setUserName] = useState<any | undefined>(null);
@@ -109,21 +113,30 @@ export default function MainScreen() {
     }
   };
 
-  const saveRoomSettings = async () => {
+
+  // Auto-save brightness, temperature, and on state to Firebase
+  useEffect(() => {
     if (!userInfo || !roomKey) return;
-    try {
-      const updatedRooms = {
-        ...rooms,
-        [roomKey]: { brightness, temperature, on: isOn }
-      };
-      setRooms(updatedRooms);
-      const docRef = doc(db, "users", userInfo.uid);
-      await updateDoc(docRef, { rooms: updatedRooms });
-      console.log("Room settings saved:", updatedRooms[roomKey]);
-    } catch (error) {
-      console.error("Error saving room settings:", error);
-    }
-  };
+    const docRef = doc(db, "users", userInfo.uid);
+    getDoc(docRef)
+      .then((docSnap) => {
+        if (docSnap.exists()) {
+          const currentRooms = docSnap.data().rooms || {};
+          const updatedRooms = {
+            ...currentRooms,
+            [roomKey]: { brightness, temperature, on: isOn }
+          };
+          setRooms(updatedRooms);
+          return updateDoc(docRef, { rooms: updatedRooms });
+        }
+      })
+      .then(() => {
+        console.log("Room settings auto-saved for", roomKey);
+      })
+      .catch((error) => {
+        console.error("Error auto-saving room settings:", error);
+      });
+  }, [brightness, temperature, isOn, userInfo, roomKey]);
 
   const saveCustomModes = async (modes: Record<string, { brightness: number; temperature: number; on: boolean }>) => {
     if (!userInfo) {
@@ -201,13 +214,13 @@ export default function MainScreen() {
     );
   };
 
-  // --- Mode CRUD State ---
+
   const [addModeModalVisible, setAddModeModalVisible] = useState(false);
   const [newModeName, setNewModeName] = useState('');
   const [renameModeModalVisible, setRenameModeModalVisible] = useState(false);
   const [renameModeOldName, setRenameModeOldName] = useState<string | null>(null);
   const [renameModeValue, setRenameModeValue] = useState('');
-  // --- Mode CRUD Functions ---
+
   const addMode = async () => {
     if (!newModeName.trim() || customModes[newModeName]) return;
     const updatedModes = {
@@ -332,30 +345,37 @@ export default function MainScreen() {
             </ThemedView>
 
             <ThemedView style={styles.stepContainer}>
-              <Button
-                title="Save Room Settings"
-                onPress={saveRoomSettings}
-                color="#007BFF"
-              />
-            </ThemedView>
-
-            <ThemedView style={styles.stepContainer}>
               <SafeAreaProvider>
                 <SafeAreaView>
                   <Pressable
                     onPress={() => {
                       setIsOn(current => !current);
                       sendCommandToPi(isOn ? 'turn_off_light' : 'turn_on_light');
+                      Haptics.selectionAsync();
                     }}
-                    style={({pressed}) => [
+                    style={({ pressed }) => [
                       {
-                        backgroundColor: pressed ? 'rgb(56, 58, 60)' : 'black',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: isOn ? '#4CAF50' : '#888',
+                        padding: 12,
+                        borderRadius: 24,
+                        marginVertical: 8,
+                        opacity: pressed ? 0.7 : 1,
                       },
                     ]}
                   >
-                    <ThemedText type="defaultSemiBold">{isOn ? 'ON' : 'OFF'}</ThemedText>
+                    <Ionicons
+                      name={isOn ? 'power' : 'power-outline'}
+                      size={28}
+                      color={isOn ? 'white' : '#eee'}
+                      style={{ marginRight: 8 }}
+                    />
+                    <ThemedText type="defaultSemiBold" style={{ color: 'white', fontSize: 18 }}>
+                      {isOn ? 'On' : 'Off'}
+                    </ThemedText>
                   </Pressable>
-
                 </SafeAreaView>
               </SafeAreaProvider>
             </ThemedView>
