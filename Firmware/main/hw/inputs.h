@@ -26,4 +26,5 @@ public:
     void init();
     InputSample read();
 
+
 };

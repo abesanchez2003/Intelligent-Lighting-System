@@ -2,7 +2,7 @@
 #include "config.h"
 double calc_system_temperature(LED warm, LED cold){
     // this function takes in warm and cold channel LED object and calculates the lighting system temperature
-
+    
     double warm_bright_perc = (warm.getBrightness() / 8191.0) * 100.0;
     double cold_bright_perc = (cold.getBrightness() / 8191.0) * 100.0;
     double  cct = ( warm_bright_perc * 2700.0) + (cold_bright_perc * 6500);
@@ -71,4 +71,10 @@ LedSetpoint handleAuto(int light_sensor, bool lights_on, AutoConfig cfg = {}){
     //printf("System Brightness: %d", SYSTEM_BRIGHTNESS);
     if(!lights_on) return {false,0,cfg.warm_ratio,cfg.cold_ratio};
     return {lights_on, adjusted_brightness, cfg.warm_ratio, cfg.cold_ratio};
+}
+bool isEqual(LedSetpoint old, LedSetpoint current){
+    if(old.brightness == current.brightness && old.cold_ratio == current.cold_ratio && old.warm_ratio == current.warm_ratio && old.on == current.on){
+        return true;
+    }
+    return false;
 }

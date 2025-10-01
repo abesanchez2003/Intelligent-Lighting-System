@@ -3,6 +3,7 @@
 #include "esp_adc_cal.h"
 //#include "esp_adc/adc_continuous.h" 
 #include "driver/adc.h"
+#include <cmath>
 struct LedSetpoint{
     bool on;
     int brightness;
@@ -21,3 +22,4 @@ struct AutoConfig {
 LedSetpoint handleManual(int brightnessknob, int cct_knob, int& prev_system_brightness_knob_voltage);
 LedSetpoint handleAuto(int light_sensor, bool motion_level, AutoConfig cfg);
 double calc_system_temperature(LED warm, LED cold);
+bool isEqual(LedSetpoint old, LedSetpoint current);

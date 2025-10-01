@@ -9,6 +9,7 @@ idf_component_register(
     logic/setpoint/LedSetpoint.cpp
     policy/LightingController.cpp
     comms/wifi_client.cpp
+    comms/mqtt_client_wrapper.cpp
   INCLUDE_DIRS
     .
     hw
@@ -16,6 +17,7 @@ idf_component_register(
     logic/setpoint
     policy
     comms
+    tasks
   REQUIRES
     driver
     nvs_flash
@@ -23,4 +25,6 @@ idf_component_register(
     esp_event
     esp_netif
     esp_adc_cal
+    mqtt
+    freertos
 )

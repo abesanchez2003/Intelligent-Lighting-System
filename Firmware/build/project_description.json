@@ -1,7 +1,7 @@
 {
     "version":            "1",
     "project_name":       "capstone_firmware",
-    "project_version":    "6ed4376-dirty",
+    "project_version":    "03df0e9-dirty",
     "project_path":       "/Users/abe/capstone/Intelligent-Lighting-System/Firmware",
     "idf_path":           "/Users/abe/esp/esp-idf",
     "build_dir":          "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/build",
@@ -843,13 +843,13 @@
             "dir": "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main",
             "type": "LIBRARY",
             "lib": "__idf_main",
-            "reqs": [ "driver", "nvs_flash", "esp_wifi", "esp_event", "esp_netif", "esp_adc_cal" ],
+            "reqs": [ "driver", "nvs_flash", "esp_wifi", "esp_event", "esp_netif", "esp_adc_cal", "mqtt", "freertos" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/build/esp-idf/main/libmain.a",
-            "sources": [ "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/main.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/hw/inputs.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/hw/ApplySetpoint.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/hw/led.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/logic/setpoint/LedSetpoint.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/policy/LightingController.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/comms/wifi_client.cpp" ],
-            "include_dirs": [ ".", "hw", "logic", "logic/setpoint", "policy", "comms" ]
+            "sources": [ "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/main.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/hw/inputs.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/hw/ApplySetpoint.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/hw/led.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/logic/setpoint/LedSetpoint.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/policy/LightingController.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/comms/wifi_client.cpp", "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/main/comms/mqtt_client_wrapper.cpp" ],
+            "include_dirs": [ ".", "hw", "logic", "logic/setpoint", "policy", "comms", "tasks" ]
         },
         "mbedtls": {
             "alias": "idf::mbedtls",

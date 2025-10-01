@@ -11,6 +11,7 @@ enum Mode {
     MANUAL
 };
 
+
 class Light_Controller {
 private:
     Mode SYSTEM_MODE = Mode::MANUAL;
@@ -22,6 +23,7 @@ private:
     bool user_override = false;
     MotionType motion_type = MotionType:: UNKNOWN;
     uint32_t timeout_ms = 30000;
+
 
 public:
     void step(const InputSample& s,unsigned long now);
