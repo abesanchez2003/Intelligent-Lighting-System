@@ -38,30 +38,8 @@ extern "C" void app_main(void) {
     }
     int a = connect_wifi(ssid,pwd);
 
-    //initiliaze mqtt
-    QueueHandle_t outbound = xQueueCreate(16, sizeof(topic_container));
-    QueueHandle_t inbound = xQueueCreate(16, sizeof(control_topic_structure));
-    Light_Controller controller_;
-    static InputSample shared_inputs = {};
 
-
-    // publish task initilizing
-    static task_mqtt producer(outbound, &shared_inputs);
-    producer.start();
-
-    //control task initializing
-    static task_control control_task(inbound, controller_);
-
-    mqtt_client mqtt;
-    std:: string broker_url;
-    mqtt.mqtt_start(broker_url, q);
-
-
-
-
-
-
-    // initiliazing LEDs, LED controller, and inputs
+     // initiliazing LEDs, LED controller, and inputs
     double cct;   
     LED warm(1,LEDC_CHANNEL_0);
     LED cold(2,LEDC_CHANNEL_2);
@@ -75,6 +53,32 @@ extern "C" void app_main(void) {
     Light_Controller controller;
     LedSetpoint old_sp;
 
+    // initiliaze change queue/mailbox
+    QueueHandle_t actuator_q = xQueueCreate(1,sizeof(LedSetpoint));
+
+
+
+     actuator act(&actuator_q, &warm,&cold);
+    //initiliaze mqtt
+    QueueHandle_t outbound = xQueueCreate(16, sizeof(topic_container));
+    QueueHandle_t inbound = xQueueCreate(16, sizeof(control_topic_structure));
+    Light_Controller* controller_;
+    static InputSample shared_inputs = {};
+
+      
+    
+    // publish task initilizing
+    static task_mqtt producer(outbound, &shared_inputs, controller_);
+    producer.start();
+
+    //control task initializing
+    static task_control control_task(inbound, controller_,&act, &cfg);
+
+    mqtt_client mqtt;
+    std:: string broker_url;
+    Queues qs;
+    mqtt.mqtt_start(broker_url, qs);
+    control_task.start();
 
 
     while (true) 
@@ -82,7 +86,7 @@ extern "C" void app_main(void) {
         auto s = inputs.read();
         auto old_sample = s;
         shared_inputs = s;
-        controller_ = controller;
+        controller_ = &controller;
         controller.step(s,millis());
         if(controller.isSystemOn()){
             LedSetpoint sp;
@@ -100,13 +104,14 @@ extern "C" void app_main(void) {
                     continue;
                 }
                 else{
-                    applySetpoint(sp,warm,cold);
+                   act.setTarget(sp);
                 }
                 old_sp = sp;            
             
         } else {
-            applySetpoint({false,0,0.5,0.5},warm,cold);
+            act.setTarget({false,0,0.5,0.5});
         }
+        act.tick();
     
         vTaskDelay(100 / portTICK_PERIOD_MS);
     }

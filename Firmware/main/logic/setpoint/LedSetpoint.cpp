@@ -42,7 +42,7 @@ LedSetpoint handleAuto(int light_sensor, bool lights_on, AutoConfig cfg = {}){
     double light_sensor_voltage = (light_sensor * 3.3) / 4095;
     double light_current = (3.3 - light_sensor_voltage) / 10000.0;
     double lux = light_current / 0.000002;
-    double lux_difference = TARGET_LUX - lux;
+    double lux_difference = cfg.target_lux - lux;
 
     // if (cold.getBrightness() == 0 && warm.getBrightness() == 0) {
     //     cold.setState(false);

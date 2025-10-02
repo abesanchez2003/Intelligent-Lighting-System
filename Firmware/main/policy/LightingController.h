@@ -30,6 +30,7 @@ public:
     bool isSystemOn() const;
     Mode getMode() const;
     void cycleMode();
+    void set_motion_type(MotionType type);
 
     
                                                                   

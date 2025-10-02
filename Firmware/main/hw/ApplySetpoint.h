@@ -3,10 +3,24 @@
 #include "LedSetpoint.h"
 #include "freertos/queue.h"
 
-void applySetpoint(const LedSetpoint& sp, LED& warm, LED& cold);
+
 
 class actuator{
-    actuator(Queuehandle_t queue, )
+public: 
+    actuator(Queuehandle_t queue, LED* warm, LED* cold): actuator_queue(queue), warm(warm), cold(cold) {};
+    void setTarget(LedSetpoint sp);
+    void applySetpoint(const LedSetpoint& sp);
+    void tick();
+    LedSetpoint getCurSetpoint();
+    QueueHandle_t getQueue();
 private: 
-    Queuehandle_t actuator_queue;
-}
+    QueueHandle_t actuator_queue;
+    LED* warm;
+    LED* cold;
+    LedSetpoint curSetpoint;
+
+
+};
+
+
+

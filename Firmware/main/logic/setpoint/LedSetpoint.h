@@ -16,6 +16,7 @@ struct AutoConfig {
     double kp = 1.0;
     int min_brightness = 0;
     int max_brightness = 8191;
+    double target_lux = 300.0;
 };
 
 
