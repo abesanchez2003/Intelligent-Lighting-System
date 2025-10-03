@@ -1,3 +1,4 @@
+import { sendLightingCommand } from '../(commands)/lightcommand';
 import { Image, StyleSheet, Platform, Touchable, TouchableOpacity } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { Animated } from 'react-native';
@@ -515,15 +516,53 @@ export default function MainScreen() {
                     <Button title="Cancel" color="#FF5252" onPress={() => setRenameModeModalVisible(false)} />
                   </View>
                 </View>
+
               </RNModal>
             </ThemedView>
-          
+
+            {/* Firestore Command Buttons */}
+            <ThemedView style={styles.stepContainer}>
+              <Button
+                title="Send Brightness Command"
+                onPress={() => {
+                  sendLightingCommand({
+                    command: "set_brightness",
+                    topic: "lighting/room1/control/brightness",
+                    value: brightness,
+                    target: 'pi'
+                  });
+                }}
+              />
+              <Button
+                title="Send Temp Command"
+                onPress={() => {
+                  sendLightingCommand({
+                    command: "set_temperature",
+                    topic: "lighting/room1/control/temperature",
+                    value: temperature,
+                    target: 'pi'
+                  });
+                }}
+              />
+              <Button
+                title="Send ML Command"
+                onPress={() => {
+                  sendLightingCommand({
+                    command: "set_ml_target_lux",
+                    topic: "lighting/room1/control/ML_Target_Lux",
+                    value: 2500,
+                    target: 'pi'
+                  });
+                }}
+              />
+            </ThemedView>
+
           </ScrollView>
         </GestureHandlerRootView>
       </Provider>
     </SafeAreaView>
-  );
-}
+      );
+    }
 
 const styles = StyleSheet.create({
   titleContainer: {
