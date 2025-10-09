@@ -73,7 +73,7 @@ LedSetpoint handleAuto(int light_sensor, bool lights_on, AutoConfig cfg = {}){
     return {lights_on, adjusted_brightness, cfg.warm_ratio, cfg.cold_ratio};
 }
 bool isEqual(LedSetpoint old, LedSetpoint current){
-    if(old.brightness == current.brightness && old.cold_ratio == current.cold_ratio && old.warm_ratio == current.warm_ratio && old.on == current.on){
+    if(abs(old.brightness - current.brightness) < 50 && abs(old.cold_ratio - current.cold_ratio) > 0.05 && (abs(old.warm_ratio - current.warm_ratio > 0.05) && old.on == current.on)){
         return true;
     }
     return false;

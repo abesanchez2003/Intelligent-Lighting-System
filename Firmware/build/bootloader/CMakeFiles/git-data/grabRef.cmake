@@ -18,7 +18,7 @@ set(HEAD_HASH)
 file(READ "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/build/bootloader/CMakeFiles/git-data/HEAD" HEAD_CONTENTS LIMIT 1024)
 
 string(STRIP "${HEAD_CONTENTS}" HEAD_CONTENTS)
-set(GIT_DIR "/Users/abe/esp/esp-idf/.git")
+set(GIT_DIR "/Users/abe/esp/v5.5.1/esp-idf/.git")
 # handle git-worktree
 if(EXISTS "${GIT_DIR}/commondir")
 	file(READ "${GIT_DIR}/commondir" GIT_DIR_NEW LIMIT 1024)

@@ -1,8 +1,8 @@
 #pragma once
-#include "LightingController.h"
 #include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
+#include "freertos/task.h"   // if you use TaskHandle_t here
+#include "freertos/queue.h"  // for QueueHandle_t
+#include "LightingController.h"
 #include "LedSetpoint.h"
 #include "ApplySetpoint.h"
 
@@ -69,6 +69,14 @@ private:
         // will do other commands later just trying to get baseline
         case TARGET_LUX_CONTROL:
             cfg_-> target_lux = command.value.double_val;
+
+        case OCCUPANCY_STATE:
+            if(command.value.bool_val == true){
+                controller_ -> set_motion_type(MotionType :: HUMAN);
+            }
+            else {
+                controller_ -> set_motion_type(MotionType:: NOT_HUMAN);
+            }
             
             
         

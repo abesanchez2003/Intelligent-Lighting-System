@@ -1,0 +1,2 @@
+source /Users/abe/capstone/Intelligent-Lighting-System/Firmware/build/bootloader/gdbinit/symbols
+source /Users/abe/capstone/Intelligent-Lighting-System/Firmware/build/bootloader/gdbinit/connect

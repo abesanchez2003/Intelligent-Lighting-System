@@ -1,9 +1,9 @@
 
 #pragma once
-#include "mqtt_client_wrapper.h"
 #include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
+#include "freertos/task.h"   // if you use TaskHandle_t here
+#include "freertos/queue.h"  // for QueueHandle_t
+#include "mqtt_client_wrapper.h"
 #include <string>
 #include "inputs.h"
 #include "LightingController.h"
@@ -27,7 +27,7 @@ struct topic_container{
 
 class task_mqtt {
 public:
-    explicit task_mqtt(QueueHandle_t pub_q, const InputSample* inputs, Light_Controller* controller: pub_q_(pub_q), inputs_(inputs), controller_(controller)){};
+    explicit task_mqtt(QueueHandle_t pub_q, const InputSample* inputs, Light_Controller* controller): pub_q_(pub_q), inputs_(inputs), controller_(controller){};
     void start(const char* name = "task_mqtt",
                uint32_t stack_words = 4096,
                UBaseType_t prio = 5) {
@@ -61,7 +61,7 @@ private:
             m.type = TEMPERATURE_FETCH; m.value = temp; xQueueSend(pub_q_, &m, portMAX_DELAY);
             m.type = MODE_FETCH; m.value = mode; xQueueSend(pub_q_, &m, portMAX_DELAY);
             m.type = MOTION_FETCH; m.value = motion; xQueueSend(pub_q_, &m, portMAX_DELAY);
-            vTaskDelay(pdMS_TO_TICKS(2000));
+            vTaskDelay(pdMS_TO_TICKS(5000));
 
         }
     }    

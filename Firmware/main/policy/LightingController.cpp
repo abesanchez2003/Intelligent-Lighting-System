@@ -11,7 +11,9 @@ Mode Light_Controller::getMode() const {
 void Light_Controller::cycleMode() {
     this->SYSTEM_MODE = (this->SYSTEM_MODE == Mode::MANUAL) ? Mode::AUTO : Mode::MANUAL;
 }
-
+void Light_Controller:: set_motion_type(MotionType type) {
+    this -> motion_type = type;
+}
 
 // Update implementation (policy logic goes here)
 void Light_Controller::step(const InputSample& s, unsigned long now) {

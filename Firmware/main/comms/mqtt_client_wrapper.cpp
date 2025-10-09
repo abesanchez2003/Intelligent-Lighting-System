@@ -9,10 +9,21 @@ void mqtt_client:: mqtt_event_handler(void *handler_args, esp_event_base_t base,
     auto* event = static_cast<esp_mqtt_event_handle_t>(event_data); 
     auto  client = event->client;
     int msg_id;
+    const char*  topic = "lighting/room1/camera/humandetection";
     switch ((esp_mqtt_event_id_t)event_id) {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
+        esp_mqtt_client_subscribe_single(client,topic, 0);
+        topic = "lighting/room1/control/brightness";
+        esp_mqtt_client_subscribe_single(client,topic, 0);
+        topic = "lighting/room1/control/temperature";
+        esp_mqtt_client_subscribe_single(client,topic, 0);
+        topic = "lighting/room1/control/mode";
+        esp_mqtt_client_subscribe_single(client,topic, 0);
+        topic = "lighting/room1/control/ML_Target_Lux";
+        esp_mqtt_client_subscribe_single(client,topic, 0);
         break;
+
     case MQTT_EVENT_DISCONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_DISCONNECTED");
         break;
@@ -27,10 +38,10 @@ void mqtt_client:: mqtt_event_handler(void *handler_args, esp_event_base_t base,
         break;
     case MQTT_EVENT_DATA:
         ESP_LOGI(TAG, "MQTT_EVENT_DATA");
-        handle_ctrl_q(event);
+        //handle_ctrl_q(event);
         printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
         printf("DATA=%.*s\r\n", event->data_len, event->data);
-        handle_ctrl_q(event);
+        self -> handle_ctrl_q(event);
         
         
         
@@ -60,8 +71,8 @@ void mqtt_client:: mqtt_publish_task(void) {
                 case BRIGHTNESS_FETCH:   topic = "lighting/room1/fetch/brightness"; break;
                 case TEMPERATURE_FETCH:  topic = "lighting/room1/fetch/temperature"; break;
                 case AMBIENT_FETCH:      topic = "lighting/room1/fetch/ambient"; break;
-                case MODE_FETCH:         topic = "lighting/room1/fetch/mode" break;
-                case MOTION_FETCH:       topic = "lighting/room1/fetch/motion" break;
+                case MODE_FETCH:         topic = "lighting/room1/fetch/mode"; break;
+                case MOTION_FETCH:       topic = "lighting/room1/fetch/motion" ;break;
                 default: topic = "lighting/room1/fetch/unknown"; break;
             }
 
@@ -83,27 +94,32 @@ void mqtt_client:: mqtt_start(const std:: string& broker_url, Queues queues )
 {
     queues_ = queues; // store queue so publish task can see it
     esp_mqtt_client_config_t mqtt_cfg = {};
-    mqtt_cfg.uri = broker_url.c_str();
+     mqtt_cfg.broker.address.uri = broker_url.c_str();          // was: uri
+    mqtt_cfg.credentials.client_id = "esp32-abe";               // was: client_id
+    mqtt_cfg.credentials.username  = "hivemq.client.1759460841503"; // was: username
+    mqtt_cfg.credentials.authentication.password = "J1t.#cu9V0UYDkrR,d&3"; // was: password
+    mqtt_cfg.session.keepalive = 60;                            // was: keepalive
+    mqtt_cfg.broker.verification.crt_bundle_attach = esp_crt_bundle_attach; // was: crt_bundle_attach
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
     client_ = client;
     /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
-    esp_mqtt_client_register_event(client, MQTT_EVENT_ANY, &mqtt_client:: mqtt_event_handler, this);
-    esp_mqtt_client_start(client);
+    esp_mqtt_client_register_event(client_, MQTT_EVENT_ANY, &mqtt_client:: mqtt_event_handler, this);
+    esp_mqtt_client_start(client_);
     xTaskCreate(&mqtt_client::publish_task_entry,"mqtt_pub", 4096,this, 6, nullptr);
 
 }
 
-control_topic_type map_topic(char* topic){
-    if(topic == "lighting/room1/camera/humandetection"){
+control_topic_type mqtt_client:: map_topic(const char* topic) {
+    if(std:: strcmp (topic,"lighting/room1/camera/humandetection") == 0){
         return control_topic_type:: OCCUPANCY_STATE;
     }
-    else if(topic == "lighting/room1/control/brightness"){
+    else if(strcmp(topic,"lighting/room1/control/brightness") == 0){
         return control_topic_type:: BRIGHTNESS_CONTROL;
     }
-    else if(topic == "lighting/room1/control/temperature"){
+    else if(strcmp(topic,"lighting/room1/control/temperature") == 0){
         return control_topic_type:: TEMPERATURE_CONTROL;
     }
-    else if(topic == "lighting/room1/control/mode"){
+    else if(strcmp(topic,"lighting/room1/control/mode") == 0){
         return control_topic_type:: MODE_CONTROL;
     }
     else {
@@ -112,8 +128,8 @@ control_topic_type map_topic(char* topic){
     }
 
 }
-void mqtt_client:: handle_ctrl_q(auto* event){
-    char* topic = event -> topic;
+void mqtt_client:: handle_ctrl_q(esp_mqtt_event_handle_t event){
+    const char* topic = event -> topic;
     control_topic_structure top_cont;
     top_cont.topic = map_topic(topic);
   switch (top_cont.topic) {
@@ -139,7 +155,7 @@ void mqtt_client:: handle_ctrl_q(auto* event){
         // unknown topic 
         break;
     }
-    xQueueSend(queues_.ctrlq, &top_cont, portMAX_DELAY);
+    xQueueSend(queues_.ctrl_q, &top_cont, portMAX_DELAY);
 
 
 

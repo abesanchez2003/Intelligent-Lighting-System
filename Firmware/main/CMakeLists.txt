@@ -24,7 +24,7 @@ idf_component_register(
     esp_wifi
     esp_event
     esp_netif
-    esp_adc_cal
+    esp_adc
     mqtt
     freertos
 )

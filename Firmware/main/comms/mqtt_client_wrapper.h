@@ -1,4 +1,7 @@
 #pragma once
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h" 
+#include "freertos/queue.h"  
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
@@ -15,13 +18,14 @@
 #include "LedSetpoint.h"
 #include "inputs.h"
 #include "task_mqtt.h"
-#include "freertos/queue.h"
 #include "task_control.h"
+#include "esp_crt_bundle.h"
+#include <cstring>
 
 struct Queues {
-    QueueHandle_t pub_q;
-    QueueHandle_t ctrl_q;
-}
+    QueueHandle_t pub_q {};
+    QueueHandle_t ctrl_q {};
+};
 
 class mqtt_client {
 private:
@@ -34,12 +38,12 @@ private:
     int parse_int(char* data, int data_len);
     double parse_double(char* data, int data_len);
 public:
-    mqtt_client() : client_(nullptr), queues_(nullptr) {}
+    mqtt_client() : client_(nullptr), queues_{} {}
     static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data);
     void mqtt_start(const std:: string& broker_url, Queues queues );
     void mqtt_publish_task(void);
-    void handle_ctrl_q(auto* event);
-    control_topic_type map_topic(char* topic);
+    void handle_ctrl_q(esp_mqtt_event_handle_t event);
+    control_topic_type map_topic(const char* topic);
 
     
     
