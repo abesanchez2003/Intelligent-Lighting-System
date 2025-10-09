@@ -1,3 +1,4 @@
+import { sendLightingCommand } from '../(commands)/lightcommand';
 import { Image, StyleSheet, Platform, Touchable, TouchableOpacity } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { Animated } from 'react-native';
@@ -8,7 +9,9 @@ import { Dimensions } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { useEffect, useState } from 'react';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import { View, Button, Pressable, Text } from 'react-native';
+import { View, Button, Pressable, Text, Switch } from 'react-native';
+  // ML Ambient Lighting Toggle
+  const [useMLAmbient, setUseMLAmbient] = useState(false);
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import { doc, getDocs, collection, getDoc } from "firebase/firestore";
 import { Modal as RNModal } from 'react-native';
@@ -286,6 +289,7 @@ export default function MainScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ height: 12 }} />
       <View style={{ marginTop: 10, marginLeft: 8 }}></View>
         <Provider>
         <Menu
@@ -515,15 +519,53 @@ export default function MainScreen() {
                     <Button title="Cancel" color="#FF5252" onPress={() => setRenameModeModalVisible(false)} />
                   </View>
                 </View>
+
               </RNModal>
             </ThemedView>
-          
+
+            {/* Firestore Command Buttons */}
+            <ThemedView style={styles.stepContainer}>
+              <Button
+                title="Send Brightness Command"
+                onPress={() => {
+                  sendLightingCommand({
+                    command: "set_brightness",
+                    topic: "lighting/room1/control/brightness",
+                    value: brightness,
+                    target: 'pi'
+                  });
+                }}
+              />
+              <Button
+                title="Send Temp Command"
+                onPress={() => {
+                  sendLightingCommand({
+                    command: "set_temperature",
+                    topic: "lighting/room1/control/temperature",
+                    value: temperature,
+                    target: 'pi'
+                  });
+                }}
+              />
+              <Button
+                title="Send ML Command"
+                onPress={() => {
+                  sendLightingCommand({
+                    command: "set_ml_target_lux",
+                    topic: "lighting/room1/control/ML_Target_Lux",
+                    value: 2500,
+                    target: 'pi'
+                  });
+                }}
+              />
+            </ThemedView>
+
           </ScrollView>
         </GestureHandlerRootView>
       </Provider>
     </SafeAreaView>
-  );
-}
+      );
+    }
 
 const styles = StyleSheet.create({
   titleContainer: {

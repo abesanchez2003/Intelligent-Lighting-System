@@ -289,30 +289,17 @@ export default function MainScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* Top bar with Dropdown (left) and ML Switch (right) */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 12 }}>
-        {/* Dropdown Menu Anchor (left) */}
-        <Pressable onPress={openMenu} style={{ flexDirection: 'row', alignItems: 'center', padding: 8 }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#c2c2c2ff', marginRight: 4 }}>{roomKey}</Text>
-          <Ionicons name="chevron-down" size={22} color="#c2c2c2ff" />
-        </Pressable>
-        {/* ML Ambient Lighting Switch (right) */}
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={{ fontSize: 16, fontWeight: 'bold', marginRight: 8 }}>Use ML for Ambient</Text>
-          <Switch
-            value={useMLAmbient}
-            onValueChange={setUseMLAmbient}
-          />
-        </View>
-      </View>
+      <View style={{ height: 12 }} />
       <View style={{ marginTop: 10, marginLeft: 8 }}></View>
         <Provider>
         <Menu
           visible={menuVisible}
           onDismiss={closeMenu}
           anchor={
-            // Anchor is now the Pressable in the top bar
-            null
+            <Pressable onPress={openMenu} style={{ flexDirection: 'row', alignItems: 'center', padding: 8 }}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#c2c2c2ff', marginRight: 4 }}>{roomKey}</Text>
+              <Ionicons name="chevron-down" size={22} color="#c2c2c2ff" />
+            </Pressable>
           }
         >
           {Object.keys(rooms).map(roomName => (
