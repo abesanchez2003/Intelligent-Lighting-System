@@ -9,7 +9,9 @@ import { Dimensions } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { useEffect, useState } from 'react';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import { View, Button, Pressable, Text } from 'react-native';
+import { View, Button, Pressable, Text, Switch } from 'react-native';
+  // ML Ambient Lighting Toggle
+  const [useMLAmbient, setUseMLAmbient] = useState(false);
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import { doc, getDocs, collection, getDoc } from "firebase/firestore";
 import { Modal as RNModal } from 'react-native';
@@ -287,16 +289,30 @@ export default function MainScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      {/* Top bar with Dropdown (left) and ML Switch (right) */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 12 }}>
+        {/* Dropdown Menu Anchor (left) */}
+        <Pressable onPress={openMenu} style={{ flexDirection: 'row', alignItems: 'center', padding: 8 }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#c2c2c2ff', marginRight: 4 }}>{roomKey}</Text>
+          <Ionicons name="chevron-down" size={22} color="#c2c2c2ff" />
+        </Pressable>
+        {/* ML Ambient Lighting Switch (right) */}
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={{ fontSize: 16, fontWeight: 'bold', marginRight: 8 }}>Use ML for Ambient</Text>
+          <Switch
+            value={useMLAmbient}
+            onValueChange={setUseMLAmbient}
+          />
+        </View>
+      </View>
       <View style={{ marginTop: 10, marginLeft: 8 }}></View>
         <Provider>
         <Menu
           visible={menuVisible}
           onDismiss={closeMenu}
           anchor={
-            <Pressable onPress={openMenu} style={{ flexDirection: 'row', alignItems: 'center', padding: 8 }}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#c2c2c2ff', marginRight: 4 }}>{roomKey}</Text>
-              <Ionicons name="chevron-down" size={22} color="#c2c2c2ff" />
-            </Pressable>
+            // Anchor is now the Pressable in the top bar
+            null
           }
         >
           {Object.keys(rooms).map(roomName => (

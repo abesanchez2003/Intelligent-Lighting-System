@@ -38,3 +38,7 @@ yarn-error.*
 app-example
 
 flask_app/lightingcontrol-84527-firebase-adminsdk-fbsvc-027b0a982b.json
+
+flask_app/
+
+venv/
