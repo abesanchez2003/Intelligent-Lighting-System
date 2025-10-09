@@ -1,0 +1,34 @@
+features = [
+    'ambient_light_lux', 'temperature_celsius', 'motion_detected', 'occupancy_count',
+    'day_of_week', 'weather_condition', 'special_event_flag',
+    'prev_hour_energy_usage_kwh', 'traffic_density'
+]
+with 14.27
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
+
+model = GradientBoostingRegressor(n_estimators=52, max_depth=4, random_state=5)
+with rmse of 13.52088010982652
+
+features = [
+    'ambient_light_lux', 'motion_detected', 'occupancy_count',
+    'day_of_week', 'weather_condition', 'special_event_flag',
+    'prev_hour_energy_usage_kwh'
+]
+target = 'adjusted_light_intensity'
+
+# Drop rows with any missing values
+# Filter out unwanted rows before encoding and training
+# Remove only rows where BOTH ambient_light_lux > 3000 AND adjusted_light_intensity > 65
+df_clean = df.dropna()
+df_clean = df_clean[~((df_clean['ambient_light_lux'] > 3000) & (df_clean['adjusted_light_intensity'] > 65))]
+
+# Continue with encoding and modeling
+df_encoded = pd.get_dummies(df_clean[features])
+X = df_encoded
+y = df_clean[target]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
+
+model = GradientBoostingRegressor(n_estimators=52, max_depth=4, random_state=5)
+rmse of 10.520540965426907
