@@ -78,6 +78,14 @@ export default function LoginScreen() {
                 }}>
                 <Text style={{ color : '#fff', fontSize : 16 }}>{isLoading ? 'Loading...' : 'Sign Up'}</Text>
             </Ripple>
+            {/* Forgot Password */}
+            <Ripple 
+                style={{ marginTop : 20, padding : 10, borderRadius : 5 }}
+                onPress={() => {
+                    navigation.navigate('(component)/(auth)/forgotpwd' as unknown as never); // navigation to the forgot password screen
+                }}>
+                <Text style={{ color : '#4CAF50', fontSize : 16 }}>{isLoading ? 'Loading...' : 'Forgot Password?'}</Text>
+            </Ripple>
         </View>
     );
 }
