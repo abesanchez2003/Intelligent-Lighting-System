@@ -11,7 +11,8 @@ enum control_topic_type{
     TEMPERATURE_CONTROL,
     MODE_CONTROL,
     TARGET_LUX_CONTROL,
-    OCCUPANCY_STATE
+    OCCUPANCY_STATE,
+    ONOFF
 };
 
 struct control_topic_structure {
@@ -57,6 +58,7 @@ private:
         case BRIGHTNESS_CONTROL:
             sp.brightness = command.value.int_val;
             act_ -> setTarget(sp);
+            printf("MQTT path: act=%p q=%p bri=%d\n", act_, act_->getQueue(), sp.brightness);
             break;
         case TEMPERATURE_CONTROL:
             sp.warm_ratio = command.value.double_val;
@@ -69,6 +71,7 @@ private:
         // will do other commands later just trying to get baseline
         case TARGET_LUX_CONTROL:
             cfg_-> target_lux = command.value.double_val;
+            break;
 
         case OCCUPANCY_STATE:
             if(command.value.bool_val == true){
@@ -77,6 +80,7 @@ private:
             else {
                 controller_ -> set_motion_type(MotionType:: NOT_HUMAN);
             }
+            break;
             
             
         
@@ -92,7 +96,8 @@ private:
             control_topic_structure receive;
             if(ctrl_q_ != 0){
                 if(xQueueReceive(ctrl_q_, &receive,portMAX_DELAY)){
-                    printf("Queue Item recieved parsing command");
+                    printf("Queue Item recieved parsing command\n");
+                    printf("Contrrol topic: %d\n ", receive.topic);
                     parse_command(receive);
 
                 }

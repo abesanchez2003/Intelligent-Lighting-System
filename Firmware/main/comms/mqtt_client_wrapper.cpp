@@ -109,17 +109,22 @@ void mqtt_client:: mqtt_start(const std:: string& broker_url, Queues queues )
 
 }
 
-control_topic_type mqtt_client:: map_topic(const char* topic) {
-    if(std:: strcmp (topic,"lighting/room1/camera/humandetection") == 0){
+control_topic_type mqtt_client:: map_topic(const char* topic, int topic_len) {
+    char buf[128];
+    int len = (topic_len < sizeof(buf) - 1) ? topic_len : sizeof(buf) - 1;
+    memcpy(buf, topic, len);
+    buf[len] = '\0';
+
+    if(std:: strcmp (buf,"lighting/room1/camera/humandetection") == 0){
         return control_topic_type:: OCCUPANCY_STATE;
     }
-    else if(strcmp(topic,"lighting/room1/control/brightness") == 0){
+    else if(strcmp(buf,"lighting/room1/control/brightness") == 0){
         return control_topic_type:: BRIGHTNESS_CONTROL;
     }
-    else if(strcmp(topic,"lighting/room1/control/temperature") == 0){
+    else if(strcmp(buf,"lighting/room1/control/temperature") == 0){
         return control_topic_type:: TEMPERATURE_CONTROL;
     }
-    else if(strcmp(topic,"lighting/room1/control/mode") == 0){
+    else if(strcmp(buf,"lighting/room1/control/mode") == 0){
         return control_topic_type:: MODE_CONTROL;
     }
     else {
@@ -130,15 +135,16 @@ control_topic_type mqtt_client:: map_topic(const char* topic) {
 }
 void mqtt_client:: handle_ctrl_q(esp_mqtt_event_handle_t event){
     const char* topic = event -> topic;
+    int topic_len = event -> topic_len;
     control_topic_structure top_cont;
-    top_cont.topic = map_topic(topic);
+    top_cont.topic = map_topic(topic, topic_len);
   switch (top_cont.topic) {
     case control_topic_type::BRIGHTNESS_CONTROL:
     case control_topic_type::TEMPERATURE_CONTROL:
     case control_topic_type::OCCUPANCY_STATE:
         // parse payload as integer, assign to top_cont.value.int_val
         top_cont.value.int_val = parse_int(event -> data, event -> data_len);
-
+        printf("Parsed Int");
         break;
 
     case control_topic_type::MODE_CONTROL:
@@ -153,6 +159,7 @@ void mqtt_client:: handle_ctrl_q(esp_mqtt_event_handle_t event){
 
     default:
         // unknown topic 
+        printf("handle_ctrl_q: Unknown topic");
         break;
     }
     xQueueSend(queues_.ctrl_q, &top_cont, portMAX_DELAY);

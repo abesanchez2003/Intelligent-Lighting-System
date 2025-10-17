@@ -1,5 +1,6 @@
 #pragma once
 #include "inputs.h"
+#include "cstdio"
 enum MotionType{
     UNKNOWN,
     HUMAN,
@@ -20,7 +21,7 @@ private:
     //Mode PREV_SYSTEM_MODE;
     int prev_onoff = -1;
     int prev_mode = -1;
-    bool user_override = false;
+    bool user_override = true;
     MotionType motion_type = MotionType:: UNKNOWN;
     uint32_t timeout_ms = 30000;
 
@@ -31,6 +32,7 @@ public:
     Mode getMode() const;
     void cycleMode();
     void set_motion_type(MotionType type);
+    void printStatus();
 
     
                                                                   

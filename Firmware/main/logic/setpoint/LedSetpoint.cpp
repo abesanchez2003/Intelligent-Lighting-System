@@ -37,11 +37,8 @@ LedSetpoint handleManual(int brightnessknob, int cct_knob, int& prev_system_brig
     // printf("Brightness knob raw ADC: %d\n", system_brightness_knob_voltage);
 }
 
-LedSetpoint handleAuto(int light_sensor, bool lights_on, AutoConfig cfg = {}){
+LedSetpoint handleAuto(double lux, bool lights_on, LedSetpoint cur, AutoConfig cfg = {}){
     static int SYSTEM_BRIGHTNESS = 4096;
-    double light_sensor_voltage = (light_sensor * 3.3) / 4095;
-    double light_current = (3.3 - light_sensor_voltage) / 10000.0;
-    double lux = light_current / 0.000002;
     double lux_difference = cfg.target_lux - lux;
 
     // if (cold.getBrightness() == 0 && warm.getBrightness() == 0) {
@@ -54,8 +51,9 @@ LedSetpoint handleAuto(int light_sensor, bool lights_on, AutoConfig cfg = {}){
     //     cold.setState(true);
     //     warm.setState(true);
     // }
-
-    static int base_brightness = 2048;
+    //int w = (int)lroundf(sp.brightness * sp.warm_ratio);
+    //int c = sp.brightness - w;
+    int base_brightness = cur.brightness;
     int adjusted_brightness = base_brightness + static_cast<int>(lux_difference * cfg.kp);
     if(adjusted_brightness > cfg.max_brightness) adjusted_brightness = cfg.max_brightness;
     if(adjusted_brightness < cfg.min_brightness) adjusted_brightness = cfg.min_brightness;
@@ -72,9 +70,17 @@ LedSetpoint handleAuto(int light_sensor, bool lights_on, AutoConfig cfg = {}){
     if(!lights_on) return {false,0,cfg.warm_ratio,cfg.cold_ratio};
     return {lights_on, adjusted_brightness, cfg.warm_ratio, cfg.cold_ratio};
 }
-bool isEqual(LedSetpoint old, LedSetpoint current){
-    if(abs(old.brightness - current.brightness) < 50 && abs(old.cold_ratio - current.cold_ratio) > 0.05 && (abs(old.warm_ratio - current.warm_ratio > 0.05) && old.on == current.on)){
-        return true;
-    }
-    return false;
+ bool nearlySameSetpoint(const LedSetpoint& a, const LedSetpoint& b) {
+    if (a.on != b.on) return false;
+
+    const int   BRI_TOL = 32;     // counts (0..8191)
+    const float RAT_TOL = 0.01f;  // 1%
+
+    if (std::abs(a.brightness - b.brightness) > BRI_TOL) return false;
+
+    // Normalize (avoid double-comparing warm & cold)
+    auto norm = [](float r){ return clamp_val(r, 0.0f, 1.0f); };
+    float aw = norm(a.warm_ratio),  bw = norm(b.warm_ratio);
+
+    return std::fabs(aw - bw) <= RAT_TOL;
 }

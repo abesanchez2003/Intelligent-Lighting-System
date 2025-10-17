@@ -16,11 +16,15 @@ struct AutoConfig {
     double kp = 1.0;
     int min_brightness = 0;
     int max_brightness = 8191;
-    double target_lux = 300.0;
+    double target_lux = 650.0;
 };
 
 
 LedSetpoint handleManual(int brightnessknob, int cct_knob, int& prev_system_brightness_knob_voltage);
-LedSetpoint handleAuto(int light_sensor, bool motion_level, AutoConfig cfg);
+LedSetpoint handleAuto(double light_sensor, bool motion_level, LedSetpoint cur, AutoConfig cfg );
 double calc_system_temperature(LED warm, LED cold);
-bool isEqual(LedSetpoint old, LedSetpoint current);
+template <typename T>
+static inline T clamp_val(T v, T lo, T hi) {
+    return (v < lo) ? lo : (v > hi) ? hi : v;
+}
+bool nearlySameSetpoint(const LedSetpoint& a, const LedSetpoint& b);
