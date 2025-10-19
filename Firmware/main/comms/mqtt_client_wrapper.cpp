@@ -22,6 +22,12 @@ void mqtt_client:: mqtt_event_handler(void *handler_args, esp_event_base_t base,
         esp_mqtt_client_subscribe_single(client,topic, 0);
         topic = "lighting/room1/control/ML_Target_Lux";
         esp_mqtt_client_subscribe_single(client,topic, 0);
+        topic = "lighting/room1/control/OnOFF";
+        esp_mqtt_client_subscribe_single(client,topic,0);
+        topic = "lighting/room1/control/mode";
+        esp_mqtt_client_subscribe_single(client,topic,0);
+        topic = "lighting/room1/control/manual_Target_Lux";
+        esp_mqtt_client_subscribe_single(client,topic,0);
         break;
 
     case MQTT_EVENT_DISCONNECTED:
@@ -96,8 +102,8 @@ void mqtt_client:: mqtt_start(const std:: string& broker_url, Queues queues )
     esp_mqtt_client_config_t mqtt_cfg = {};
      mqtt_cfg.broker.address.uri = broker_url.c_str();          // was: uri
     mqtt_cfg.credentials.client_id = "esp32-abe";               // was: client_id
-    mqtt_cfg.credentials.username  = "hivemq.client.1759460841503"; // was: username
-    mqtt_cfg.credentials.authentication.password = "J1t.#cu9V0UYDkrR,d&3"; // was: password
+    mqtt_cfg.credentials.username  = "hivemq.client.1760800984669"; // was: username
+    mqtt_cfg.credentials.authentication.password = "39vRp#$f6gOM0kCAKz>!"; // was: password
     mqtt_cfg.session.keepalive = 60;                            // was: keepalive
     mqtt_cfg.broker.verification.crt_bundle_attach = esp_crt_bundle_attach; // was: crt_bundle_attach
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
@@ -127,6 +133,9 @@ control_topic_type mqtt_client:: map_topic(const char* topic, int topic_len) {
     else if(strcmp(buf,"lighting/room1/control/mode") == 0){
         return control_topic_type:: MODE_CONTROL;
     }
+    else if(strcmp(buf, "lighting/room1/control/OnOFF") == 0){
+        return control_topic_type:: ONOFF;
+    }
     else {
         return control_topic_type:: TARGET_LUX_CONTROL;
 
@@ -140,8 +149,8 @@ void mqtt_client:: handle_ctrl_q(esp_mqtt_event_handle_t event){
     top_cont.topic = map_topic(topic, topic_len);
   switch (top_cont.topic) {
     case control_topic_type::BRIGHTNESS_CONTROL:
-    case control_topic_type::TEMPERATURE_CONTROL:
     case control_topic_type::OCCUPANCY_STATE:
+    case control_topic_type :: ONOFF:
         // parse payload as integer, assign to top_cont.value.int_val
         top_cont.value.int_val = parse_int(event -> data, event -> data_len);
         printf("Parsed Int");
@@ -153,6 +162,7 @@ void mqtt_client:: handle_ctrl_q(esp_mqtt_event_handle_t event){
         break;
 
     case control_topic_type::TARGET_LUX_CONTROL:
+    case control_topic_type::TEMPERATURE_CONTROL:
         // parse payload as double/float, assign to top_cont.value.double_val
         top_cont.value.double_val = parse_double(event -> data, event -> data_len);
         break;

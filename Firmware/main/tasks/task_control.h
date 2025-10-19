@@ -81,10 +81,12 @@ private:
                 controller_ -> set_motion_type(MotionType:: NOT_HUMAN);
             }
             break;
+        case ONOFF:
+                controller_ -> setOnOff(command.value.bool_val);
+                break;
             
-            
-        
         default:
+            printf("Unknown command");
             break;
         }
 

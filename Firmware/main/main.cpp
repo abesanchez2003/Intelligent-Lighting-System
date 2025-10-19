@@ -106,7 +106,7 @@ extern "C" void app_main(void) {
     static task_control control_task(inbound, controller_,&act, &cfg);
 
     mqtt_client mqtt;
-    std:: string broker_url = "mqtts://esp-testing-770c93f8.a02.usw2.aws.hivemq.cloud";
+    std:: string broker_url = "mqtts://esp32testing-d4f1c09c.a02.usw2.aws.hivemq.cloud";
     Queues qs;
     qs.pub_q = outbound;
     qs.ctrl_q = inbound;
@@ -142,16 +142,20 @@ extern "C" void app_main(void) {
                 case AUTO:
                     LedSetpoint cur = act.getCurSetpoint();
                     sp = handleAuto(s.ambient_raw,controller.isSystemOn(),cur,cfg);
+                    printf("Current Target Lux: %f\n", cfg.target_lux);
                     break;
                     
             }
                 // LedSetpoint current = act.getCurSetpoint();
                
                 
-                if (!nearlySameSetpoint(old_sp,sp)) {
+                if (!nearlySameSetpoint(old_sp,sp) && controller.getMode() == MANUAL) {
                 act.setTarget(sp);
                 old_sp = sp;
-                }            
+                }
+                if(controller.getMode() == AUTO){
+                    act.setTarget(sp);
+                }           
             
         } else {
             sp = {false,0,0.5,0.5};

@@ -14,6 +14,14 @@ void Light_Controller::cycleMode() {
 void Light_Controller:: set_motion_type(MotionType type) {
     this -> motion_type = type;
 }
+void Light_Controller:: setOnOff(bool mode){
+    if(mode == true){
+        system_on = true;
+    }
+    else{
+        system_on = false;
+    }
+}
 
 // Update implementation (policy logic goes here)
 void Light_Controller::step(const InputSample& s, unsigned long now) {

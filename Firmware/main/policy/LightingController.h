@@ -33,6 +33,7 @@ public:
     void cycleMode();
     void set_motion_type(MotionType type);
     void printStatus();
+    void setOnOff(bool mode);
 
     
                                                                   
