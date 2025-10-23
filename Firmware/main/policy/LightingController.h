@@ -1,6 +1,7 @@
 #pragma once
 #include "inputs.h"
 #include "cstdio"
+#include "LED.h"
 enum MotionType{
     UNKNOWN,
     HUMAN,
@@ -24,9 +25,12 @@ private:
     bool user_override = true;
     MotionType motion_type = MotionType:: UNKNOWN;
     uint32_t timeout_ms = 30000;
-
+    
 
 public:
+    Light_Controller(LED* warm, LED* cold) : warm_(warm), cold_(warm) {};
+    LED* warm_;
+    LED* cold_;
     void step(const InputSample& s,unsigned long now);
     bool isSystemOn() const;
     Mode getMode() const;
@@ -34,6 +38,7 @@ public:
     void set_motion_type(MotionType type);
     void printStatus();
     void setOnOff(bool mode);
+
 
     
                                                                   

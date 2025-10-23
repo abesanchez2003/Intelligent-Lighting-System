@@ -46,7 +46,10 @@ private:
         topic_container m;
         while(true){
             // pushing brightness, ambient, temp topic to queue 
-            double brightness = inputs_ -> brightness_raw;
+            int cold_brightness = controller_->cold_ ->getBrightness();
+            int warm_brightness = controller_ -> warm_ -> getBrightness();
+            double brightness = (cold_brightness + warm_brightness) / 2.0;
+            brightness = (brightness / 4095) * 100;
             double ambient = inputs_ -> ambient_raw;
             double temp = inputs_ -> cct_raw;
             double mode = 0;

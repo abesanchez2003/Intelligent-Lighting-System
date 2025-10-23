@@ -80,7 +80,7 @@ extern "C" void app_main(void) {
     bool System_ON = true;
     InputManager inputs;
     inputs.init();
-    Light_Controller controller;
+    Light_Controller controller(&warm,&cold);
     LedSetpoint old_sp;
     // initiliaze change queue/mailbox
     QueueHandle_t actuator_q = xQueueCreate(1,sizeof(LedSetpoint)); 
