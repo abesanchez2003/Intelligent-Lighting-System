@@ -73,8 +73,8 @@ LedSetpoint handleAuto(double lux, bool lights_on, LedSetpoint cur, AutoConfig c
  bool nearlySameSetpoint(const LedSetpoint& a, const LedSetpoint& b) {
     if (a.on != b.on) return false;
 
-    const int   BRI_TOL = 32;     // counts (0..8191)
-    const float RAT_TOL = 0.01f;  // 1%
+    const int   BRI_TOL = 500;     // counts (0..8191)
+    const float RAT_TOL = 0.20f;  // 1%
 
     if (std::abs(a.brightness - b.brightness) > BRI_TOL) return false;
 

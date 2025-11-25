@@ -19,6 +19,7 @@
 #include "mqtt_client_wrapper.h"
 #include "task_mqtt.h"
 #include "task_control.h"
+#include "Timeutils.h"
 
 static EventGroupHandle_t s_wifi_event_group;
 static const int GOT_IP_BIT = BIT0;
@@ -34,10 +35,6 @@ static inline bool nearlySameManual(const LedSetpoint& a, const LedSetpoint& b) 
            (a.on == b.on);
 }
 
-static inline uint32_t millis() {
-    // esp_timer_get_time() returns microseconds since boot
-    return static_cast<uint32_t>(esp_timer_get_time() / 1000ULL);
-}
 static void on_got_ip(void*, esp_event_base_t base, int32_t id, void* data) {
     xEventGroupSetBits(s_wifi_event_group, GOT_IP_BIT);
 }
@@ -106,7 +103,7 @@ extern "C" void app_main(void) {
     static task_control control_task(inbound, controller_,&act, &cfg);
 
     mqtt_client mqtt;
-    std:: string broker_url = "mqtts://esp32testing-d4f1c09c.a02.usw2.aws.hivemq.cloud";
+    std:: string broker_url = "mqtts://lightingsys-f32f9e74.a02.usw2.aws.hivemq.cloud";
     Queues qs;
     qs.pub_q = outbound;
     qs.ctrl_q = inbound;
@@ -114,6 +111,13 @@ extern "C" void app_main(void) {
     control_task.start();
 
     printf("MAIN:   act=%p q=%p\n", &act, actuator_q);
+    static bool last_on = true;
+    LedSetpoint off_sp{false, 0, 0.5, 0.5};     // Whatever CCT you like when off
+    // static bool last_on = true;                 // initialize to your power-on default
+    // static LedSetpoint old_sp{true, 0, 0.5, 0.5}; // track last sent target
+     inputs.motion_interrupt_init(controller_);
+     inputs.mode_interrupt_init(controller_);
+     inputs.onoff_interrupt_init(controller_);
 
 
     while (true) 
@@ -122,8 +126,22 @@ extern "C" void app_main(void) {
         auto old_sample = s;
         shared_inputs = s;
         controller.step(s,millis());
+        bool sys_on = controller.isSystemOn();
         bool prev_on_off = controller.isSystemOn();
         LedSetpoint sp;
+        // --- Handle OFF state first, with edge detection ---
+        if (!sys_on) {
+            if (last_on) {
+                // Falling edge: just once, send OFF target and cancel any transitions
+                // (call any actuator method you have that cancels fades)
+                // act.cancelTransitions(); // if available
+                act.setTarget(off_sp);
+                old_sp = off_sp;
+                // printf("System turned OFF -> sent off_sp\n");
+            }
+            
+        }
+        last_on = sys_on;
         if(controller.isSystemOn()){
             switch (controller.getMode()){
                 case  MANUAL:
@@ -141,9 +159,9 @@ extern "C" void app_main(void) {
                     break;
                 case AUTO:
                     LedSetpoint cur = act.getCurSetpoint();
-                    sp = handleAuto(s.ambient_raw,controller.isSystemOn(),cur,cfg);
-                    printf("Current Target Lux: %f\n", cfg.target_lux);
-                    break;
+                //     sp = handleAuto(s.ambient_raw,controller.isSystemOn(),cur,cfg);
+                //     printf("Current Target Lux: %f\n", cfg.target_lux);
+                //     break;
                     
             }
                 // LedSetpoint current = act.getCurSetpoint();
@@ -153,19 +171,27 @@ extern "C" void app_main(void) {
                 act.setTarget(sp);
                 old_sp = sp;
                 }
-                if(controller.getMode() == AUTO){
-                    act.setTarget(sp);
-                }           
+                // if(controller.getMode() == AUTO){
+                //     act.setTarget(sp);
+                // }           
             
-        } else {
-            sp = {false,0,0.5,0.5};
-            act.setTarget(sp);
-            old_sp = sp;
-            printf("Else branch triggered in main \n");
-        }
+        }//else {
+        //     sp = {false,0,0.5,0.5};
+        //     //if (!nearlySameSetpoint(old_sp,sp)){
+        //     //if(sp.on == false && old_sp.on == true){
+        //     act.setTarget(sp);
+        //     old_sp = sp;
+
+            
+                
+
+            
+            
+        //     printf("Else branch triggered in main \n");
+        // }
         //act.tick();
 
-        inputs.printInputSample(s);
+        //inputs.printInputSample(s);
 
         controller.printStatus();
         // printf("OnOff raw=%d\n", gpio_get_level(OnOff));

@@ -1,4 +1,22 @@
 #include "inputs.h"
+#include "LightingController.h"
+static void IRAM_ATTR motion_isr(void *arg)
+{
+    auto *ctrl = static_cast<Light_Controller *>(arg);
+    ctrl->motion_irq_flag = true;   // very lightweight
+}
+static void IRAM_ATTR mode_isr(void* arg)
+{
+    auto* ctrl = static_cast<Light_Controller*>(arg);
+    ctrl->mode_irq_flag = true;
+}
+
+static void IRAM_ATTR onoff_isr(void* arg)
+{
+    auto* ctrl = static_cast<Light_Controller*>(arg);
+    ctrl->onoff_irq_flag = true;
+}
+
 esp_err_t InputManager::ci2c_master_init(void)
 {
     i2c_master_bus_config_t  bus_config = {};
@@ -98,7 +116,7 @@ InputSample InputManager:: read(){
     InputSample s;
     s.onoff_level     = (gpio_get_level(OnOff) == 0);
     s.mode_level      = (gpio_get_level(MODE_SELECT) == 0);
-    s.motion_level    = (gpio_get_level(MOTION_SENSOR) == 1);
+    //s.motion_level    = (gpio_get_level(MOTION_SENSOR) == 1);
     s.brightness_raw  = adc1_get_raw(brightnessknob);
     s.cct_raw         = adc1_get_raw(cct_knob);
     esp_err_t ret = read_ambient();
@@ -116,4 +134,53 @@ void InputManager:: printInputSample(InputSample sample){
     printf("Motion Level:   %s\n", sample.motion_level ? "true" : "false");
     printf("On/Off Level:   %s\n", sample.onoff_level ? "true" : "false");
     printf("-----------------------\n");
+}
+void InputManager:: motion_interrupt_init(Light_Controller *ctrl)
+{
+    gpio_config_t io_conf = {
+        .pin_bit_mask = 1ULL << MOTION_SENSOR,
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_POSEDGE,   // or ANYEDGE / NEGEDGE if you prefer
+    };
+    gpio_config(&io_conf);
+
+    // Install ISR service (do this only once globally in your app)
+    gpio_install_isr_service(0);
+
+    // Attach your ISR to GPIO13
+    gpio_isr_handler_add(MOTION_SENSOR, motion_isr, ctrl);
+}
+void InputManager:: mode_interrupt_init(Light_Controller* ctrl){
+    gpio_config_t io_conf = {
+        .pin_bit_mask = 1ULL << MODE_SELECT,
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_POSEDGE,   // or ANYEDGE / NEGEDGE if you prefer
+    };
+    gpio_config(&io_conf);
+
+    // Install ISR service (do this only once globally in your app)
+    gpio_install_isr_service(0);
+
+    // Attach your ISR to GPIO13
+    gpio_isr_handler_add(MODE_SELECT, mode_isr, ctrl);
+}
+void InputManager:: onoff_interrupt_init(Light_Controller* ctrl){
+    gpio_config_t io_conf = {
+        .pin_bit_mask = 1ULL << OnOff,
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_POSEDGE,   // or ANYEDGE / NEGEDGE if you prefer
+    };
+    gpio_config(&io_conf);
+
+    // Install ISR service (do this only once globally in your app)
+    gpio_install_isr_service(0);
+
+    // Attach your ISR to GPIO13
+    gpio_isr_handler_add(OnOff,onoff_isr, ctrl);
 }

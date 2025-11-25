@@ -38,7 +38,7 @@ public:
 private:
     QueueHandle_t pub_q_;
     const InputSample* inputs_;
-    const Light_Controller* controller_;
+    Light_Controller* controller_;
     static void task_entry(void* pv) {
         static_cast<task_mqtt*>(pv)->run();
     }
@@ -53,7 +53,8 @@ private:
             double ambient = inputs_ -> ambient_raw;
             double temp = inputs_ -> cct_raw;
             double mode = 0;
-            double motion = inputs_ -> motion_level;
+            bool motion_latched = controller_->consume_motion_event();
+            double motion = motion_latched ? 1.0 : 0.0;
             if(controller_ -> getMode() == AUTO){
                 mode = 1;
             }

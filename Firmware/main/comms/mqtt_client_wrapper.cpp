@@ -14,19 +14,19 @@ void mqtt_client:: mqtt_event_handler(void *handler_args, esp_event_base_t base,
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
         esp_mqtt_client_subscribe_single(client,topic, 0);
-        topic = "lighting/room1/control/brightness";
+        topic = "lighting/8DNYTXQGVI/control/brightness";
         esp_mqtt_client_subscribe_single(client,topic, 0);
-        topic = "lighting/room1/control/temperature";
+        topic = "lighting/8DNYTXQGVI/control/temperature";
         esp_mqtt_client_subscribe_single(client,topic, 0);
-        topic = "lighting/room1/control/mode";
+        topic = "lighting/8DNYTXQGVI/control/mode";
         esp_mqtt_client_subscribe_single(client,topic, 0);
-        topic = "lighting/room1/control/ML_Target_Lux";
+        topic = "lighting/8DNYTXQGVI/control/ML_Target_Lux";
         esp_mqtt_client_subscribe_single(client,topic, 0);
-        topic = "lighting/room1/control/OnOFF";
+        topic = "lighting/8DNYTXQGVI/control/OnOFF";
         esp_mqtt_client_subscribe_single(client,topic,0);
-        topic = "lighting/room1/control/mode";
+        topic = "lighting/8DNYTXQGVI/control/mode";
         esp_mqtt_client_subscribe_single(client,topic,0);
-        topic = "lighting/room1/control/manual_Target_Lux";
+        topic = "lighting/8DNYTXQGVI/control/manual_Target_Lux";
         esp_mqtt_client_subscribe_single(client,topic,0);
         break;
 
@@ -74,12 +74,12 @@ void mqtt_client:: mqtt_publish_task(void) {
         if (xQueueReceive(queues_.pub_q, &msg, portMAX_DELAY)) {
             // pick topic string based on enum
             switch (msg.type) {
-                case BRIGHTNESS_FETCH:   topic = "lighting/room1/fetch/brightness"; break;
-                case TEMPERATURE_FETCH:  topic = "lighting/room1/fetch/temperature"; break;
-                case AMBIENT_FETCH:      topic = "lighting/room1/fetch/ambient"; break;
-                case MODE_FETCH:         topic = "lighting/room1/fetch/mode"; break;
-                case MOTION_FETCH:       topic = "lighting/room1/fetch/motion" ;break;
-                default: topic = "lighting/room1/fetch/unknown"; break;
+                case BRIGHTNESS_FETCH:   topic = "lighting/8DNYTXQGVI/fetch/brightness"; break;
+                case TEMPERATURE_FETCH:  topic = "lighting/8DNYTXQGVI/fetch/temperature"; break;
+                case AMBIENT_FETCH:      topic = "lighting/8DNYTXQGVI/fetch/ambient"; break;
+                case MODE_FETCH:         topic = "lighting/8DNYTXQGVI/fetch/mode"; break;
+                case MOTION_FETCH:       topic = "lighting/8DNYTXQGVI/fetch/motion" ;break;
+                default: topic = "lighting/8DNYTXQGVI/fetch/unknown"; break;
             }
 
             char payload[32];
@@ -102,8 +102,8 @@ void mqtt_client:: mqtt_start(const std:: string& broker_url, Queues queues )
     esp_mqtt_client_config_t mqtt_cfg = {};
      mqtt_cfg.broker.address.uri = broker_url.c_str();          // was: uri
     mqtt_cfg.credentials.client_id = "esp32-abe";               // was: client_id
-    mqtt_cfg.credentials.username  = "hivemq.client.1760800984669"; // was: username
-    mqtt_cfg.credentials.authentication.password = "39vRp#$f6gOM0kCAKz>!"; // was: password
+    mqtt_cfg.credentials.username  = "hivemq.client.1764109121929"; // was: username
+    mqtt_cfg.credentials.authentication.password = "RYodWr#>t7k<SE4wU&39"; // was: password
     mqtt_cfg.session.keepalive = 60;                            // was: keepalive
     mqtt_cfg.broker.verification.crt_bundle_attach = esp_crt_bundle_attach; // was: crt_bundle_attach
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
@@ -121,20 +121,23 @@ control_topic_type mqtt_client:: map_topic(const char* topic, int topic_len) {
     memcpy(buf, topic, len);
     buf[len] = '\0';
 
-    if(std:: strcmp (buf,"lighting/room1/camera/humandetection") == 0){
+    if(std:: strcmp (buf,"lighting/8DNYTXQGVI/camera/humandetection") == 0){
         return control_topic_type:: OCCUPANCY_STATE;
     }
-    else if(strcmp(buf,"lighting/room1/control/brightness") == 0){
+    else if(strcmp(buf,"lighting/8DNYTXQGVI/control/brightness") == 0){
         return control_topic_type:: BRIGHTNESS_CONTROL;
     }
-    else if(strcmp(buf,"lighting/room1/control/temperature") == 0){
+    else if(strcmp(buf,"lighting/8DNYTXQGVI/control/temperature") == 0){
         return control_topic_type:: TEMPERATURE_CONTROL;
     }
-    else if(strcmp(buf,"lighting/room1/control/mode") == 0){
+    else if(strcmp(buf,"lighting/8DNYTXQGVI/control/mode") == 0){
         return control_topic_type:: MODE_CONTROL;
     }
-    else if(strcmp(buf, "lighting/room1/control/OnOFF") == 0){
+    else if(strcmp(buf, "lighting/8DNYTXQGVI/control/OnOFF") == 0){
         return control_topic_type:: ONOFF;
+    }
+    else if(strcmp(buf,"lighting/8DNYTXQGVI/controlai/brightness") == 0){
+        return control_topic_type:: AI;
     }
     else {
         return control_topic_type:: TARGET_LUX_CONTROL;

@@ -8,11 +8,11 @@
 #include "sdkconfig.h"
 #include "driver/i2c_master.h"
 #include "driver/rtc_io.h"
-
+class Light_Controller;
 struct InputSample{
     bool onoff_level;
     bool mode_level;
-    bool motion_level;
+    bool motion_level = 0;
     int brightness_raw;
     int cct_raw;
     float ambient_raw;
@@ -50,6 +50,8 @@ public:
     void init();
     InputSample read();
     void printInputSample(InputSample sample);
-
+    void motion_interrupt_init(Light_Controller* ctrl);
+    void mode_interrupt_init(Light_Controller* ctrl);
+    void onoff_interrupt_init(Light_Controller* ctrl);
 
 };

@@ -12,7 +12,8 @@ enum control_topic_type{
     MODE_CONTROL,
     TARGET_LUX_CONTROL,
     OCCUPANCY_STATE,
-    ONOFF
+    ONOFF,
+    AI
 };
 
 struct control_topic_structure {
@@ -84,6 +85,13 @@ private:
         case ONOFF:
                 controller_ -> setOnOff(command.value.bool_val);
                 break;
+        case AI:
+            if(controller_ -> getMode() == AUTO){
+                sp.brightness = command.value.int_val;
+                act_ -> setTarget(sp);
+                printf("MQTT path: act=%p q=%p bri=%d\n", act_, act_->getQueue(), sp.brightness);
+            }
+            break;
             
         default:
             printf("Unknown command");
