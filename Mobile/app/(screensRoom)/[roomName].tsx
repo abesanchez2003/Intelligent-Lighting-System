@@ -27,6 +27,8 @@ import { useLocalSearchParams } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Menu, Provider } from 'react-native-paper';
 import { router } from 'expo-router';
+import { Modal } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -52,7 +54,8 @@ export default function MainScreen() {
   const [targetLux, setTargetLux] = useState<number>(650);
   const [luxModalVisible, setLuxModalVisible] = useState<boolean>(false);
   const [luxInput, setLuxInput] = useState<string>(String(650));
-
+  const [syncingVisible, setSyncingVisible] = useState(false);
+  const [syncingDone, setSyncingDone] = useState(false);
   // Remove Mode type and use string keys for modes
   const [currentMode, setCurrentMode] = useState<string | null>(null);
   const [customModes, setCustomModes] = useState<Record<string, { brightness: number; temperature: number; on: boolean }>>({
@@ -66,9 +69,11 @@ export default function MainScreen() {
   const [menuVisible, setMenuVisible] = useState(false);
   const openMenu = () => setMenuVisible(true);
   const closeMenu = () => setMenuVisible(false);
+  const [syncingError, setSyncingError] = useState<string | null>(null);
+  const REQUIRED_BOARD_ID = '8DNYTXQGVI';
 
   // MQTT mode: false = Manual (0), true = Auto (1)
-  const [mqttAuto, setMqttAuto] = useState<boolean>(false);
+  const [mode, setmode] = useState<boolean>(false);
   
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -118,6 +123,14 @@ export default function MainScreen() {
           setTemperature(r?.temperature ?? 50);
           setIsOn(r?.on ?? false);
           setBoardId(r?.boardId ?? ''); // load Board ID
+          const autoFromDb = r?.mode;
+          if (typeof autoFromDb === 'number') {
+            setmode(autoFromDb === 1);
+          } else if (typeof autoFromDb === 'boolean') {
+            setmode(autoFromDb);
+          } else {
+            setmode(false);
+          }
         }
       }
     } catch (error) {
@@ -135,7 +148,13 @@ export default function MainScreen() {
           const currentRooms: any = docSnap.data().rooms || {};
           const updatedRooms = {
             ...currentRooms,
-            [roomKey]: { brightness, temperature, on: isOn, boardId },
+              [roomKey]: {
+              brightness,
+              temperature,
+              on: isOn,
+              boardId,
+              mode: mode ? 1 : 0, // store 0/1
+            },
           };
           setRooms(updatedRooms);
           return updateDoc(docRef, { rooms: updatedRooms });
@@ -297,22 +316,41 @@ export default function MainScreen() {
 
               {/* Mode switch (Manual / Auto) */}
               <View style={{ marginLeft: 'auto', marginRight: 8, alignItems: 'center', flexDirection: 'row' }}>
-                <Text style={{ color: '#c2c2c2ff', marginRight: 6 }}>{mqttAuto ? 'Auto' : 'Manual'}</Text>
+                <Text style={{ color: '#c2c2c2ff', marginRight: 6 }}>{mode ? 'Auto' : 'Manual'}</Text>
                 <Switch
-                  value={mqttAuto}
+                  value={mode}
                   onValueChange={async (v) => {
                     // optimistic UI update
-                    setMqttAuto(v);
+                    setmode(v);
                     const newMode = v ? 1 : 0;
-                    try {
+                   try {
+                      // publish to MQTT
                       await sendLightingCommand({
                         topic: `lighting/${topicPrefix}/control/mode`,
                         value: newMode,
                       });
+                      // persist to Firestore immediately
+                      if (userInfo && roomKey) {
+                        const docRef = doc(db, "users", userInfo.uid);
+                        const snap = await getDoc(docRef);
+                        const currentRooms: any = snap.exists() ? (snap.data().rooms || {}) : {};
+                        const updatedRooms = {
+                          ...currentRooms,
+                          [roomKey]: {
+                            ...(currentRooms[roomKey] || {}),
+                            brightness,
+                            temperature,
+                            on: isOn,
+                            boardId,
+                            mode: newMode,
+                          },
+                        };
+                        await updateDoc(docRef, { rooms: updatedRooms });
+                      }
                     } catch (err) {
-                      console.error('Failed to publish mode change:', err);
+                      console.error('Failed to set mode:', err);
                       // revert UI on failure
-                      setMqttAuto(!v);
+                      setmode(!v);
                     }
                   }}
                 />
@@ -370,13 +408,91 @@ export default function MainScreen() {
               <TextInput
                 value={boardId}
                 onChangeText={setBoardId}
+                onEndEditing={() => {
+                 setSyncingDone(false);
+                 setSyncingError(null);
+                 setSyncingVisible(true);
+                 setTimeout(() => {
+                   const currentId = (boardId || '').trim().toUpperCase();
+                   if (currentId === REQUIRED_BOARD_ID) {
+                     setSyncingDone(true);
+                     setSyncingError(null);
+                   } else {
+                     setSyncingDone(true);
+                     setSyncingError('Invalid Board ID. Please check and try again.');
+                   }
+                 }, 3000);
+               }}
                 placeholder="e.g. room1, lab-01"
-                style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 10, marginHorizontal: 12 }}
-              />
+                placeholderTextColor="#aaaaaa"
+                style={{
+                   borderWidth: 1,
+                   borderColor: '#ccc',
+                   borderRadius: 8,
+                   padding: 10,
+                   marginHorizontal: 12,
+                   color: '#ffffff',          // make typed text white
+                   backgroundColor: '#000000' // optional for contrast
+                 }}              />
               <ThemedText style={{ marginLeft: 12, color: '#777' }}>
                 MQTT topics will use: lighting/{topicPrefix}/control/...
               </ThemedText>
             </ThemedView>
+            
+            <Modal
+               visible={syncingVisible}
+               transparent
+               animationType="fade"
+               onRequestClose={() => {
+                 setSyncingVisible(false);
+                 setSyncingDone(false);
+                 setSyncingError(null);
+               }}
+              >
+               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                 <View style={{ backgroundColor: '#1f1f1f', padding: 20, borderRadius: 12, width: '80%', alignItems: 'center' }}>
+                   {!syncingDone ? (
+                     <>
+                       <Text style={{ color: '#fff', fontSize: 18, marginBottom: 12 }}>Syncing…</Text>
+                       <ActivityIndicator size="large" color="#4CAF50" />
+                     </>
+                   ) : (
+                    syncingError ? (
+                      <>
+                        <Text style={{ color: '#ff6b6b', fontSize: 18, marginBottom: 8 }}>Sync failed</Text>
+                        <Text style={{ color: '#ddd', fontSize: 14, marginBottom: 12, textAlign: 'center' }}>
+                          {syncingError}
+                        </Text>
+                        <Pressable
+                          style={{ marginTop: 8, backgroundColor: '#ff6b6b', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}
+                          onPress={() => {
+                            setSyncingVisible(false);
+                            setSyncingDone(false);
+                            setSyncingError(null);
+                          }}
+                        >
+                          <Text style={{ color: '#fff', fontSize: 16 }}>✖ Close</Text>
+                        </Pressable>
+                      </>
+                    ) : (
+                      <>
+                        <Text style={{ color: '#fff', fontSize: 18, marginBottom: 12 }}>Syncing Complete!</Text>
+                        <Pressable
+                          style={{ marginTop: 8, backgroundColor: '#4CAF50', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}
+                          onPress={() => {
+                            setSyncingVisible(false);
+                            setSyncingDone(false);
+                          }}
+                        >
+                          <Text style={{ color: '#fff', fontSize: 16 }}>✔ Close</Text>
+                        </Pressable>
+                      </>
+                    )
+                   )}
+                 </View>
+               </View>
+              </Modal>
+
             <ThemedView style={styles.stepContainer}>
               <SafeAreaProvider>
                 <SafeAreaView>

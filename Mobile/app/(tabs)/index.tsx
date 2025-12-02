@@ -41,6 +41,8 @@ export default function HomeScreen() {
   const [roomKey, setRoomKey] = useState<string>('Home');
   const [syncingVisible, setSyncingVisible] = useState(false);
   const [syncingDone, setSyncingDone] = useState(false);
+  const [syncingError, setSyncingError] = useState<string | null>(null);
+  const REQUIRED_BOARD_ID = '8DNYTXQGVI';
 
   useEffect(() => {
     const auth = getAuth();
@@ -213,13 +215,33 @@ export default function HomeScreen() {
                 onChangeText={async (txt) => {
                   const updatedRooms: any = { ...rooms, [item]: { ...(rooms as any)[item], boardId: txt } };
                   setRooms(updatedRooms);
-                  const docRef = doc(db, "users", userInfo.uid);
-                  await updateDoc(docRef, { rooms: updatedRooms });
-                  setSyncingDone(false);
-                  setSyncingVisible(true);
-                  setTimeout(() => setSyncingDone(true), 3000);
                 }}
-                style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 6, paddingHorizontal: 8, height: 36 }}
+                onEndEditing={async () => {
+                  const docRef = doc(db, "users", userInfo.uid);
+                  await updateDoc(docRef, { rooms });
+                  setSyncingDone(false);
+                  setSyncingError(null);
+                  setSyncingVisible(true);
+                  setTimeout(() => {
+                    const currentId = ((rooms as any)[item]?.boardId || '').trim();
+                    if (currentId === REQUIRED_BOARD_ID) {
+                      setSyncingDone(true);
+                      setSyncingError(null);
+                    } else {
+                      setSyncingDone(true);
+                      setSyncingError('Invalid Board ID. Please check and try again.');
+                    }
+                  }, 3000);
+                }}
+                style={{
+                  borderWidth: 1,
+                  borderColor: '#ccc',
+                  borderRadius: 6,
+                  paddingHorizontal: 8,
+                  height: 36,
+                  color: '#ffffff',          // white text
+                  backgroundColor: '#000000' // optional dark background for contrast
+                }}
                 placeholder="e.g. room1, lab-01"
                 placeholderTextColor="#aaaaaa"
               />
@@ -283,6 +305,7 @@ export default function HomeScreen() {
         onRequestClose={() => {
           setSyncingVisible(false);
           setSyncingDone(false);
+          setSyncingError(null);
         }}
       >
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
@@ -294,16 +317,37 @@ export default function HomeScreen() {
               </>
             ) : (
               <>
-                <Text style={{ color: '#fff', fontSize: 18, marginBottom: 12 }}>Syncing Complete!</Text>
-                <Pressable
-                  style={{ marginTop: 8, backgroundColor: '#4CAF50', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}
-                  onPress={() => {
-                    setSyncingVisible(false);
-                    setSyncingDone(false);
-                  }}
-                >
-                  <Text style={{ color: '#fff', fontSize: 16 }}>✔ Close</Text>
-                </Pressable>
+                {syncingError ? (
+                  <>
+                    <Text style={{ color: '#ff6b6b', fontSize: 18, marginBottom: 12 }}>Sync failed</Text>
+                    <Text style={{ color: '#ddd', fontSize: 14, marginBottom: 12, textAlign: 'center' }}>
+                      {syncingError}
+                    </Text>
+                    <Pressable
+                      style={{ marginTop: 8, backgroundColor: '#ff6b6b', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}
+                      onPress={() => {
+                        setSyncingVisible(false);
+                        setSyncingDone(false);
+                        setSyncingError(null);
+                      }}
+                    >
+                      <Text style={{ color: '#fff', fontSize: 16 }}>✖ Close</Text>
+                    </Pressable>
+                  </>
+                ) : (
+                  <>
+                    <Text style={{ color: '#fff', fontSize: 18, marginBottom: 12 }}>Syncing Complete!</Text>
+                    <Pressable
+                      style={{ marginTop: 8, backgroundColor: '#4CAF50', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}
+                      onPress={() => {
+                        setSyncingVisible(false);
+                        setSyncingDone(false);
+                      }}
+                    >
+                      <Text style={{ color: '#fff', fontSize: 16 }}>✔ Close</Text>
+                    </Pressable>
+                  </>
+                )}
               </>
             )}
           </View>

@@ -69,6 +69,8 @@ export default function MainScreen() {
   const [menuVisible, setMenuVisible] = useState(false);
   const openMenu = () => setMenuVisible(true);
   const closeMenu = () => setMenuVisible(false);
+  const [syncingError, setSyncingError] = useState<string | null>(null);
+  const REQUIRED_BOARD_ID = '8DNYTXQGVI';
 
   // MQTT mode: false = Manual (0), true = Auto (1)
   const [mode, setmode] = useState<boolean>(false);
@@ -407,10 +409,20 @@ export default function MainScreen() {
                 value={boardId}
                 onChangeText={setBoardId}
                 onEndEditing={() => {
-                setSyncingDone(false);
-                setSyncingVisible(true);
-                setTimeout(() => setSyncingDone(true), 3000);
-                }}
+                 setSyncingDone(false);
+                 setSyncingError(null);
+                 setSyncingVisible(true);
+                 setTimeout(() => {
+                   const currentId = (boardId || '').trim().toUpperCase();
+                   if (currentId === REQUIRED_BOARD_ID) {
+                     setSyncingDone(true);
+                     setSyncingError(null);
+                   } else {
+                     setSyncingDone(true);
+                     setSyncingError('Invalid Board ID. Please check and try again.');
+                   }
+                 }, 3000);
+               }}
                 placeholder="e.g. room1, lab-01"
                 placeholderTextColor="#aaaaaa"
                 style={{
@@ -434,6 +446,7 @@ export default function MainScreen() {
                onRequestClose={() => {
                  setSyncingVisible(false);
                  setSyncingDone(false);
+                 setSyncingError(null);
                }}
               >
                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
@@ -444,18 +457,37 @@ export default function MainScreen() {
                        <ActivityIndicator size="large" color="#4CAF50" />
                      </>
                    ) : (
-                     <>
-                       <Text style={{ color: '#fff', fontSize: 18, marginBottom: 12 }}>Syncing Complete!</Text>
-                       <Pressable
-                         style={{ marginTop: 8, backgroundColor: '#4CAF50', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}
-                         onPress={() => {
-                           setSyncingVisible(false);
-                           setSyncingDone(false);
-                         }}
-                       >
-                         <Text style={{ color: '#fff', fontSize: 16 }}>✔ Close</Text>
-                       </Pressable>
-                     </>
+                    syncingError ? (
+                      <>
+                        <Text style={{ color: '#ff6b6b', fontSize: 18, marginBottom: 8 }}>Sync failed</Text>
+                        <Text style={{ color: '#ddd', fontSize: 14, marginBottom: 12, textAlign: 'center' }}>
+                          {syncingError}
+                        </Text>
+                        <Pressable
+                          style={{ marginTop: 8, backgroundColor: '#ff6b6b', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}
+                          onPress={() => {
+                            setSyncingVisible(false);
+                            setSyncingDone(false);
+                            setSyncingError(null);
+                          }}
+                        >
+                          <Text style={{ color: '#fff', fontSize: 16 }}>✖ Close</Text>
+                        </Pressable>
+                      </>
+                    ) : (
+                      <>
+                        <Text style={{ color: '#fff', fontSize: 18, marginBottom: 12 }}>Syncing Complete!</Text>
+                        <Pressable
+                          style={{ marginTop: 8, backgroundColor: '#4CAF50', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}
+                          onPress={() => {
+                            setSyncingVisible(false);
+                            setSyncingDone(false);
+                          }}
+                        >
+                          <Text style={{ color: '#fff', fontSize: 16 }}>✔ Close</Text>
+                        </Pressable>
+                      </>
+                    )
                    )}
                  </View>
                </View>
