@@ -1,7 +1,7 @@
 {
     "idf.flashType": "UART",
-    "idf.monitorPort": "/dev/tty.usbserial-FT98ROPS",
-    "idf.port": "/dev/tty.usbserial-FT98ROPS",
+    "idf.monitorPort": "/dev/tty.usbserial-FTFMEWRF",
+    "idf.port": "/dev/tty.usbserial-FTFMEWRF",
     "files.associations": {
         "complex": "cpp"
     }

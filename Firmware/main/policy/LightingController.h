@@ -1,5 +1,7 @@
 #pragma once
 #include "inputs.h"
+#include "cstdio"
+#include "LED.h"
 enum MotionType{
     UNKNOWN,
     HUMAN,
@@ -10,7 +12,7 @@ enum Mode {
     AUTO,
     MANUAL
 };
-
+struct InputSample;
 
 class Light_Controller {
 private:
@@ -22,15 +24,26 @@ private:
     int prev_mode = -1;
     bool user_override = false;
     MotionType motion_type = MotionType:: UNKNOWN;
-    uint32_t timeout_ms = 30000;
-
+    unsigned long last_motion_ms = 0;   // 0 = never seen motion
+    
 
 public:
-    void step(const InputSample& s,unsigned long now);
+    Light_Controller(LED* warm, LED* cold) : warm_(warm), cold_(cold) {};
+    LED* warm_;
+    LED* cold_;
+    volatile bool motion_irq_flag = false;
+    volatile bool mode_irq_flag = false;
+    volatile bool onoff_irq_flag = false;
+    bool motion_event_latch = false;
+    void step(InputSample& s,unsigned long now);
     bool isSystemOn() const;
     Mode getMode() const;
     void cycleMode();
     void set_motion_type(MotionType type);
+    void printStatus();
+    void setOnOff(bool mode);
+    bool consume_motion_event();
+
 
     
                                                                   

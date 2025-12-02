@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "capstone_firmware",
-    "project_version":    "7a7052e-dirty",
+    "project_version":    "bfa963a-dirty",
     "project_path":       "/Users/abe/capstone/Intelligent-Lighting-System/Firmware",
     "idf_path":           "/Users/abe/esp/v5.5.1/esp-idf",
     "build_dir":          "/Users/abe/capstone/Intelligent-Lighting-System/Firmware/build",

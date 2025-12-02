@@ -43,7 +43,7 @@ public:
     void mqtt_start(const std:: string& broker_url, Queues queues );
     void mqtt_publish_task(void);
     void handle_ctrl_q(esp_mqtt_event_handle_t event);
-    control_topic_type map_topic(const char* topic);
+    control_topic_type map_topic(const char* topic, int topic_len);
 
     
     

@@ -4,7 +4,7 @@
 #define POT_RES GPIO_NUM_35
 #define MODE_SELECT GPIO_NUM_17
 #define MOTION_SENSOR GPIO_NUM_13
-#define OnOff GPIO_NUM_8
+#define OnOff GPIO_NUM_18
 #define TARGET_LUX 150
 #define SDA_PIN GPIO_NUM_7
 #define SCL_PIN GPIO_NUM_9
