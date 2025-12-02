@@ -1,20 +1,25 @@
-import { StyleSheet, Image, Platform } from 'react-native';
+import { StyleSheet, Image, Platform, View, Text, Pressable, ScrollView } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+// Removed ParallaxScrollView in favor of a standard layout with a dropdown header
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { Dimensions } from 'react-native';
-import { useNavigation } from 'expo-router';
+import { useNavigation, router } from 'expo-router';
 import { Alert } from 'react-native';
 import { auth } from '../(component)/api/firebase';
 import { TouchableOpacity } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
-import { useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { ScrollView } from 'react-native';
+import { FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Menu, Provider } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../(component)/api/firebase';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -53,6 +58,41 @@ const customStyles = {
 
 export default function TabThreeScreen() {
   const navigation = useNavigation();
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [rooms, setRooms] = useState<{ [roomName: string]: { brightness: number; temperature: number } }>({});
+  const [userInfo, setUserInfo] = useState<any | undefined>(null);
+  const [roomKey, setRoomKey] = useState<string>('Help');
+
+  useEffect(() => {
+    const a = getAuth();
+    const unsubscribe = onAuthStateChanged(a, (user) => {
+      if (user) setUserInfo(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      if (!userInfo) return;
+      try {
+        const docRef = doc(db, 'users', userInfo.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data() as any;
+          const r = data.rooms || {};
+          setRooms(r);
+          const keys = Object.keys(r);
+          if (keys.length && !roomKey) setRoomKey(keys[0]);
+        }
+      } catch (e) {
+        console.warn('Failed to fetch rooms', e);
+      }
+    };
+    fetchRooms();
+  }, [userInfo]);
+
+  const openMenu = () => setMenuVisible(true);
+  const closeMenu = () => setMenuVisible(false);
   const handleSignOut = async () => {
     await auth.signOut();
     navigation.navigate('(component)/(auth)/login' as unknown as never);
@@ -82,15 +122,29 @@ export default function TabThreeScreen() {
   const [currentPosition, setCurrentPosition] = useState(0);
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/concept403.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <View style={{ flex: 1, padding: 20 }}>
+    <Provider>
+    <SafeAreaView style={{ flex: 1 }}>
+  <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 24 }}>
+        <View style={{ paddingHorizontal: 12, paddingTop: 8, paddingBottom: 4 }}>
+          <Menu
+            visible={menuVisible}
+            onDismiss={closeMenu}
+            anchor={
+                <Pressable onPress={openMenu} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#4CAF50', marginRight: 4 }}>{roomKey}</Text>
+                  <Ionicons name="chevron-down" size={22} color="#4CAF50" />
+                </Pressable>
+            }
+          >
+            <Menu.Item
+              onPress={() => {
+                closeMenu();
+                Modal();
+              }}
+              title="Sign Out"
+            />
+          </Menu>
+        </View>
         <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#4aae4f' }}>
           Setup Instructions:
         </Text>
@@ -138,15 +192,9 @@ export default function TabThreeScreen() {
           />
           <ThemedText type="default">Navigate to the Power Efficiency Tab on the bottom tabs to learn how much power you saved using our system.</ThemedText>
         </ThemedView>
-
-        <ThemedView style={styles.stepContainer2}>
-          <ThemedText type="subtitle">Sign Out</ThemedText>
-          <TouchableOpacity style={styles.button} onPress={Modal}>
-            <ThemedText type="defaultSemiBold">Sign Out</ThemedText>
-          </TouchableOpacity>
-        </ThemedView>
-      </View>
-    </ParallaxScrollView>
+      </ScrollView>
+    </SafeAreaView>
+    </Provider>
   );
 }
 

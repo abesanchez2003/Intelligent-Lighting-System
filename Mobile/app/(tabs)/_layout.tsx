@@ -53,7 +53,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="power"
         options={{
-          title: 'Power Efficiency',
+          title: 'Data',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="light.panel.fill" color={color} />,
         }}
       />

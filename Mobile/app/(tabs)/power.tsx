@@ -1,416 +1,391 @@
-import { StyleSheet, Image, Platform } from 'react-native';
-
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView2 from '@/components/ParallaxScrollView2';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { Dimensions } from 'react-native';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { StyleSheet, View, Text, Pressable, ScrollView, Dimensions, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Provider, Menu, Portal, Dialog, Button, Checkbox } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
 import { LineChart } from 'react-native-chart-kit';
-import { View, Text } from 'react-native';
-import  { TouchableOpacity } from 'react-native';
-import { useNavigation } from 'expo-router';
-import { Alert } from 'react-native';
-import { auth } from '../(component)/api/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { db, auth } from '../(component)/api/firebase';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { router, useNavigation } from 'expo-router';
 
 const screenWidth = Dimensions.get('window').width;
+const API_BASE = 'http://10.247.70.129:5001';
+const RESAMPLE_MINUTES = 15;
 
-// Define the ChartData type
+type MetricKey =
+  | 'power_no_system'
+  | 'power_with_system'
+  | 'ambient_lux'
+  | 'occupancy'
+  | 'brightness_pct';
+
+type SamplePoint = { ts: number; metrics: Partial<Record<MetricKey, number>> };
+
 interface ChartData {
   labels: string[];
-  datasets: {
-    data: number[];
-    color?: (opacity?: number) => string;
-    label?: string;
-  }[];
+  datasets: { data: number[]; color?: (opacity?: number) => string; strokeWidth?: number }[];
 }
 
+const METRIC_DEFS: Record<MetricKey, { label: string; unit: string; color: string }> = {
+  power_no_system: { label: 'Power (No System)', unit: 'W', color: '#e53935' },
+  power_with_system: { label: 'Power (With System)', unit: 'W', color: '#43a047' },
+  ambient_lux: { label: 'Ambient Light', unit: 'lux', color: '#fbc02d' },
+  occupancy: { label: 'Occupancy', unit: '', color: '#3949ab' },
+  brightness_pct: { label: 'Brightness', unit: '%', color: '#26c6da' },
+};
 
-export default function TabTwoScreen() {
+const TIME_RANGES = [1, 6, 12, 24] as const;
+type TimeRange = (typeof TIME_RANGES)[number];
+
+function colorWithOpacity(hex: string, opacity = 1) {
+  const clean = hex.replace('#', '');
+  const bigint = parseInt(clean, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}
+
+function resampleBuffer(points: SamplePoint[], minutes: number): SamplePoint[] {
+  const bucketMs = minutes * 60 * 1000;
+  const buckets = new Map<
+    number,
+    { metrics: Record<MetricKey, { sum: number; count: number; max: number }> }
+  >();
+  for (const p of points) {
+    const b = Math.floor(p.ts / bucketMs) * bucketMs;
+    const agg = buckets.get(b) ?? { metrics: {} as any };
+    buckets.set(b, agg);
+    for (const key of Object.keys(p.metrics) as MetricKey[]) {
+      const v = p.metrics[key];
+      if (typeof v !== 'number') continue;
+      const m = (agg.metrics[key] ??= { sum: 0, count: 0, max: -Infinity });
+      if (key === 'occupancy') {
+        m.max = Math.max(m.max, v);
+      } else {
+        m.sum += v;
+        m.count += 1;
+      }
+    }
+  }
+  return Array.from(buckets.entries())
+    .sort((a, b) => a[0] - b[0])
+    .map(([ts, agg]) => {
+      const metrics: Partial<Record<MetricKey, number>> = {};
+      for (const key of Object.keys(agg.metrics) as MetricKey[]) {
+        const m = agg.metrics[key];
+        metrics[key] = key === 'occupancy' ? (m.max > 0 ? 1 : 0) : (m.count ? m.sum / m.count : 0);
+      }
+      return { ts, metrics };
+    });
+}
+
+export default function PowerAndSensorsScreen() {
   const navigation = useNavigation();
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [rooms, setRooms] = useState<{ [roomName: string]: { brightness: number; temperature: number } }>({});
+  const [userInfo, setUserInfo] = useState<any | undefined>(null);
+  const [roomKey, setRoomKey] = useState<string>('Data');
+
+  useEffect(() => {
+    const a = getAuth();
+    const unsub = onAuthStateChanged(a, (user) => user && setUserInfo(user));
+    return () => unsub();
+  }, []);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      if (!userInfo) return;
+      try {
+        const docRef = doc(db, 'users', userInfo.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data() as any;
+          const r = data.rooms || {};
+          setRooms(r);
+          const keys = Object.keys(r);
+          if (keys.length && (!roomKey || roomKey === 'Power & Sensors')) setRoomKey(keys[0]);
+        }
+      } catch (e) {
+        console.warn('Failed to fetch rooms', e);
+      }
+    };
+    fetchRooms();
+  }, [userInfo]);
+
+  const openMenu = () => setMenuVisible(true);
+  const closeMenu = () => setMenuVisible(false);
   const handleSignOut = async () => {
     await auth.signOut();
     navigation.navigate('(component)/(auth)/login' as unknown as never);
-
-  };
-  const [selectedPoint, setSelectedPoint] = useState<{ value: number; x: number; y: number; color: string } | null>(null);
-
-  const Modal = () => {
-    Alert.alert(
-      "Auth App",
-      "Are you sure you want to sign out?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel", // Optional: Adds a "cancel" style to the button
-        },
-        {
-          text: "Logout",
-          onPress: handleSignOut, // Calls the handleSignOut function
-        },
-      ]
-    );
   };
 
-  // data variable
-  const baseData: ChartData = {
-    labels: ['0:00', '3:00', '6:00', '9:00', '12:00', '15:00', '18:00', '21:00', '24:00'],
-    datasets: [
-      {
-        data: [10, 20, 15, 30, 25, 35, 40, 30, 20], // Example base data for dataset 1
-        color: (opacity = 0) => `rgba(255, 0, 0, ${opacity})`,
-      },
-      {
-        data: [5, 10, 8, 15, 12, 18, 20, 15, 10], // Example base data for dataset 2
-        color: (opacity = 0) => `rgba(60, 179, 113, ${opacity})`,
-      },
-    ],
-  };
+  // Time range + filters
+  const [timeMenuVisible, setTimeMenuVisible] = useState(false);
+  const [timeRange, setTimeRange] = useState<TimeRange>(6);
+  const [filterVisible, setFilterVisible] = useState(false);
+  const defaultSelected: MetricKey[] = ['power_no_system', 'power_with_system', 'ambient_lux', 'occupancy'];
+  const [selectedMetrics, setSelectedMetrics] = useState<Set<MetricKey>>(new Set(defaultSelected));
+  const [draftSelected, setDraftSelected] = useState<Set<MetricKey>>(new Set(defaultSelected));
 
-  const [data, setData] = useState<ChartData>(baseData);
+  // Data
+  const [buffer, setBuffer] = useState<SamplePoint[]>([]);
+  const nowMs = Date.now();
+  const horizonMs = timeRange * 3600 * 1000;
 
-  const [totalData1, setTotalData1] = useState(
-    baseData.datasets[0].data.reduce((sum, value) => sum + value, 0)
-  );
-  const [totalData2, setTotalData2] = useState(
-    baseData.datasets[1].data.reduce((sum, value) => sum + value, 0)
+  const recentBuffer = useMemo(
+    () => buffer.filter(p => (nowMs - p.ts) <= horizonMs && p.ts <= nowMs),
+    [buffer, nowMs, horizonMs]
   );
 
-  // function to fetch data from the database, currently simulating data
+  const resampled = useMemo(
+    () => resampleBuffer(recentBuffer, RESAMPLE_MINUTES),
+    [recentBuffer]
+  );
+
+  const fetchFromApi = async (hours: number) => {
+    try {
+      const res = await fetch(`${API_BASE}/api/samples?hours=${hours}`);
+      const j = await res.json();
+      const points: SamplePoint[] = (j.samples || []).map((s: any) => ({
+        ts: Date.parse(s.ts),
+        metrics: s.metrics,
+      }));
+      setBuffer(points);
+    } catch (e) {
+      console.warn('Fetch failed', e);
+      Alert.alert('Data fetch failed', String(e));
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const newData1 = [
-        {name: '0:00', value: Math.random() * 70},
-        {name: '3:00', value: Math.random() * 10},
-        {name: '6:00', value: Math.random() * 10},
-        {name: '9:00', value: Math.random() * 100},
-        {name: '12:00', value: Math.random() * 10},
-        {name: '15:00', value: Math.random() * 10},
-        {name: '18:00', value: Math.random() * 100},
-        {name: '21:00', value: Math.random() * 100},
-        {name: '24:00', value: Math.random() * 100},
-      ];
+    fetchFromApi(timeRange);
+    const id = setInterval(() => fetchFromApi(timeRange), 30000);
+    return () => clearInterval(id);
+  }, [timeRange]);
 
-      const newData2 = [
-        {name: '0:00', value: Math.random() * 35},
-        {name: '3:00', value: Math.random() * 5},
-        {name: '6:00', value: Math.random() * 5},
-        {name: '9:00', value: Math.random() * 50},
-        {name: '12:00', value: Math.random() * 5},
-        {name: '15:00', value: Math.random() * 5},
-        {name: '18:00', value: Math.random() * 50},
-        {name: '21:00', value: Math.random() * 50},
-        {name: '24:00', value: Math.random() * 50},
-      ];
-
-      const total1 = newData1.reduce((sum, item) =>sum + item.value, 0);
-      const total2 = newData2.reduce((sum, item) =>sum + item.value, 0);
-
-      setTotalData1(total1);
-      setTotalData2(total2);
-
-      // Transform the data into the format required by the chart
-      const transformedData = {
-        labels: newData1.map((item) => item.name),
-        datasets: [
-          {
-            data: newData1.map((item) => item.value),
-            color: (opacity = 0) => `rgba(255, 0, 0, ${opacity})`,
-            area: true,
-            stack: 'total'
-          },
-
-          {
-            data: newData2.map((item) => item.value),
-            color: (opacity = 0) => `rgba(60, 179, 113, ${opacity})`,
-            area: true,
-            stack: 'total'
-          },
-        ],
-      };
-
-      setData(transformedData);
+  const chartData: ChartData = useMemo(() => {
+    const fmt = (t: number) => {
+      const d = new Date(t);
+      const hh = d.getHours().toString().padStart(2, '0');
+      const mm = d.getMinutes().toString().padStart(2, '0');
+      return `${hh}:${mm}`;
     };
-    
-    // Simulate fetching data every 2 seconds
-    const intervalId = setInterval(fetchData, 6000);
+    // Base labels from resampled timestamps
+    let labels = resampled.map((p) => fmt(p.ts));
+    if (labels.length === 0) labels = ['-', '-'];
+    else if (labels.length === 1) labels = [labels[0], labels[0]];
 
-    return () => clearInterval(intervalId);
-  }, []);
+    const datasets = Array.from(selectedMetrics).map((key) => {
+      let data = resampled.map((p) => {
+        const v = p.metrics[key];
+        const n = key === 'occupancy' ? (v && v > 0 ? 1 : 0) : typeof v === 'number' ? v : 0;
+        return Number.isFinite(n) ? n : 0;
+      });
+      if (data.length === 0) data = [0, 0];
+      else if (data.length === 1) data = [data[0], data[0]];
+      return {
+        data,
+        color: (opacity = 1) => colorWithOpacity(METRIC_DEFS[key].color, opacity),
+        strokeWidth: 2,
+      };
+    });
+    return { labels, datasets };
+  }, [resampled, selectedMetrics]);
+
+  // Energy (Wh) from power series
+  const energyWh = useMemo(() => {
+    const calc = (key: MetricKey) => {
+      if (!resampled.length) return 0;
+      let wh = 0;
+      for (let i = 1; i < resampled.length; i++) {
+        const p0 = resampled[i - 1].metrics[key] ?? 0;
+        const p1 = resampled[i].metrics[key] ?? 0;
+        const dtHours = (resampled[i].ts - resampled[i - 1].ts) / (1000 * 60 * 60);
+        wh += ((p0 + p1) / 2) * dtHours;
+      }
+      return wh;
+    };
+    return {
+      withSystem: calc('power_with_system'),
+      noSystem: calc('power_no_system'),
+      saved: calc('power_no_system') - calc('power_with_system'),
+    };
+  }, [resampled]);
+
+  const toggleDraftMetric = (key: MetricKey) => {
+    setDraftSelected((prev) => {
+      const next = new Set(prev);
+      next.has(key) ? next.delete(key) : next.add(key);
+      return next;
+    });
+  };
+  const openFilter = () => {
+    setDraftSelected(new Set(selectedMetrics));
+    setFilterVisible(true);
+  };
+  const applyFilter = () => {
+    setSelectedMetrics(new Set(draftSelected));
+    setFilterVisible(false);
+  };
 
   return (
-    
-      <ParallaxScrollView2
-        headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-        headerImage={
-          <Image
-            source={require('@/assets/images/concept403.png')}
-            style={styles.reactLogo}
-          />
-        }>
-      <View style={styles.chartWrapper}>
-        
-        <View style={styles.yAxisLabelContainer}>
-          {Array.from('Power').map((char, index) => (
-            <Text key={index} style={styles.yAxisLabel}>
-              {char}
-            </Text>
-          ))}
-        </View>
+    <Provider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.headerRow}>
+          <Menu
+            visible={menuVisible}
+            onDismiss={closeMenu}
+            anchor={
+              <Pressable onPress={openMenu} style={styles.headerAnchor}>
+                <Text style={styles.headerTitle}>{roomKey}</Text>
+                <Ionicons name="chevron-down" size={20} color="#4CAF50" />
+              </Pressable>
+            }
+          >
+            <Menu.Item
+              onPress={() => {
+                closeMenu();
+                Alert.alert('Auth App', 'Are you sure you want to sign out?', [
+                  { text: 'Cancel', style: 'cancel' },
+                  { text: 'Logout', onPress: handleSignOut },
+                ]);
+              }}
+              title="Sign Out"
+            />
+          </Menu>
 
-        <View style={styles.chartContainer}>
-          {/* Line Chart */}
-          <LineChart
-            data={data}
-            width={screenWidth} // Adjust width to account for Y-axis label
-            height={300}
-            chartConfig={{
-              backgroundColor: '#ffffff',
-              backgroundGradientFrom: '#ffffff',
-              backgroundGradientTo: '#ffffff',
-              decimalPlaces: 1,
-              color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-              style: {
-                borderRadius: 20,
+          <View style={styles.headerRight}>
+            <Menu
+              visible={timeMenuVisible}
+              onDismiss={() => setTimeMenuVisible(false)}
+              anchor={
+                <Pressable onPress={() => setTimeMenuVisible(true)} style={styles.timeAnchor}>
+                  <Ionicons name="time-outline" size={18} color="#4CAF50" />
+                  <Text style={styles.timeText}>Last {timeRange}h</Text>
+                  <Ionicons name="chevron-down" size={16} color="#4CAF50" />
+                </Pressable>
               }
-            }}
-            bezier
-            style={styles.chartStyle}
-            onDataPointClick={(data) => {
-              setSelectedPoint({
-                value: data.value,
-                x: data.x,
-                y: data.y,
-                color: data.dataset.color ? data.dataset.color(1) : 'rgba(0, 0, 0, 0.8)',
-              });
-            }}
-          />
-
-          {/* Tooltip */}
-          {selectedPoint && (
-            <View
-              style={[
-                styles.tooltip,
-                {
-                  top: selectedPoint.y - 30, // Adjust tooltip position above the point
-                  left: selectedPoint.x + 10, // Adjust tooltip position to the right of the point
-                  backgroundColor: selectedPoint.color,
-                },
-              ]}
             >
-              <Text style={styles.tooltipText}>{`${selectedPoint.value.toFixed(2)} W`}</Text>
-            </View>
-          )}
-          {/* X-Axis Label */}
-          <Text style={styles.xAxisLabel}>Time (Hours)</Text>
-        </View>
-      </View>
+              {TIME_RANGES.map((h) => (
+                <Menu.Item
+                  key={h}
+                  onPress={() => {
+                    setTimeRange(h);
+                    setTimeMenuVisible(false);
+                  }}
+                  title={`Last ${h} hour${h === 1 ? '' : 's'}`}
+                />
+              ))}
+            </Menu>
 
-      {/* Legend */}
-      <View style={styles.legendContainer}>
-        <View style={styles.legendItem}>
-          <View style={[styles.legendColor, { backgroundColor: 'red' }]} />
-          <Text style={styles.legendText}>Power Consumption (Without System)</Text>
-        </View>
-        <View style={styles.legendItem}>
-          <View style={[styles.legendColor, { backgroundColor: 'green' }]} />
-          <Text style={styles.legendText}>Power Consumption (With System)</Text>
-        </View>
-      </View>
-
-      {/* Totals Display */}
-      <View style={styles.totalsContainer}>
-        <Text style={styles.totalText}>Power Used: {totalData2.toFixed(2)} Watts</Text>
-        <Text style={styles.totalText}>Power Saved: {(totalData1 - totalData2).toFixed(2)} Watts</Text>
-      </View> 
-
-      {/* Data Table */}
-      <View style={styles.tableContainer}>
-        {/* Table Header */}
-        <View style={styles.tableRow}>
-          <Text style={[styles.tableCell, styles.tableHeader]}>Time</Text>
-          <Text style={[styles.tableCell, styles.tableHeader]}>Power Consumption (Without System)</Text>
-          <Text style={[styles.tableCell, styles.tableHeader]}>Power Consumption (With System)</Text>
-        </View>
-
-        {/* Table Rows */}
-        {data.labels.map((label, index) => (
-          <View key={index} style={styles.tableRow}>
-            <Text style={styles.tableCell}>{label}</Text>
-            <Text style={styles.tableCell}>{data.datasets[0].data[index].toFixed(2)}</Text>
-            <Text style={styles.tableCell}>{data.datasets[1].data[index].toFixed(2)}</Text>
+            <Pressable onPress={openFilter} style={styles.filterBtn} accessibilityLabel="Select series">
+              <Ionicons name="options-outline" size={20} color="#4CAF50" />
+            </Pressable>
           </View>
-        ))}
-      </View>
+        </View>
 
-      {/* Sign Out Button */}
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Sign Out</ThemedText>
-        <TouchableOpacity style={styles.button} onPress={Modal}>
-          <ThemedText type="defaultSemiBold">Sign Out</ThemedText>
-        </TouchableOpacity>
-      </ThemedView>
-    </ParallaxScrollView2>
-    
-    
+        <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 24 }}>
+          <View style={styles.chartContainer}>
+            <View style={styles.legendRow}>
+              {Array.from(selectedMetrics).map((key) => (
+                <View key={key} style={styles.legendItem}>
+                  <View style={[styles.legendSwatch, { backgroundColor: METRIC_DEFS[key].color }]} />
+                  <Text style={styles.legendText}>{METRIC_DEFS[key].label}</Text>
+                </View>
+              ))}
+            </View>
+
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View>
+                <LineChart
+                  data={chartData}
+                  width={Math.max(screenWidth, chartData.labels.length * 40)}
+                  height={320}
+                  chartConfig={{
+                    backgroundColor: '#ffffff',
+                    backgroundGradientFrom: '#ffffff',
+                    backgroundGradientTo: '#ffffff',
+                    decimalPlaces: 1,
+                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                    propsForDots: { r: '2' },
+                    propsForBackgroundLines: { strokeDasharray: '4 4' },
+                  }}
+                  bezier
+                  style={styles.chartStyle}
+                />
+              </View>
+            </ScrollView>
+            <Text style={styles.axisLabel}>Time</Text>
+          </View>
+
+          <View style={styles.totalsContainer}>
+            <Text style={styles.totalText}>Energy (With System): {energyWh.withSystem.toFixed(1)} Wh</Text>
+            <Text style={styles.totalText}>Energy (No System): {energyWh.noSystem.toFixed(1)} Wh</Text>
+            <Text style={styles.totalText}>Estimated Saved: {Math.max(0, energyWh.saved).toFixed(1)} Wh</Text>
+          </View>
+        </ScrollView>
+
+        <Portal>
+          <Dialog visible={filterVisible} onDismiss={() => setFilterVisible(false)}>
+            <Dialog.Title>Select metrics</Dialog.Title>
+            <Dialog.Content>
+              {Object.keys(METRIC_DEFS).map((k) => {
+                const key = k as MetricKey;
+                const checked = draftSelected.has(key);
+                return (
+                  <Pressable
+                    key={key}
+                    onPress={() => toggleDraftMetric(key)}
+                    style={styles.checkboxRow}
+                    accessibilityRole="checkbox"
+                    accessibilityState={{ checked }}
+                  >
+                    <Checkbox status={checked ? 'checked' : 'unchecked'} />
+                    <View style={styles.checkboxLabelWrap}>
+                      <Text style={styles.checkboxLabel}>{METRIC_DEFS[key].label}</Text>
+                      <View style={[styles.legendSwatch, { backgroundColor: METRIC_DEFS[key].color, marginLeft: 6 }]} />
+                    </View>
+                  </Pressable>
+                );
+              })}
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={() => setFilterVisible(false)}>Cancel</Button>
+              <Button onPress={applyFilter}>Apply</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+      </SafeAreaView>
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
-  chartWrapper: {
-    flexDirection: 'row', // Align Y-axis label and chart horizontally
-    alignItems: 'center',
-    marginBottom: 0, // Add space for the X-axis label
-    paddingLeft: 0,
-  },
-  chartContainer: {
-    flex: 1, // Allow the chart to take up remaining space
-    marginLeft: 0, // Add space between the Y-axis label and the chart
-  },
-  chartStyle: {
-    marginVertical: 8,
-    borderRadius: 16,
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 10,
-  },
-  reactLogo: {
-    height: 300,
-    width: screenWidth,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-  testStyle: {
-    height: 300,
-    width: screenWidth,
-    left: 0,
-  },
-  totalsContainer: {
-    marginTop: 20,
-    alignItems: 'flex-start',
-  },
-  totalText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  button: {
-    padding: 10,
-    borderRadius: 8,
-    height: 55,
-    justifyContent: "center",
-    alignItems: "center",
-    width: 200,
-    marginTop: 0,
-    marginBottom: 20,
-  },
-  xAxisLabel: {
-    textAlign: 'center',
-    marginTop: -25,
-    transform: [{ rotate: '-90deg' }],
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  yAxisLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000',
-    textAlign: 'center',
-    zIndex: 10, // Ensure it appears above the chart
-  },
-  legendContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    marginTop: 16,
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 8,
-  },
-  legendColor: {
-    width: 16,
-    height: 16,
-    marginRight: 8,
-    borderRadius: 4,
-  },
-  legendText: {
-    fontSize: 14,
-    color: '#fff',
-  },
-  yAxisLabelContainer: {
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10, // Add space between the label and the chart
-  },
-  yAxisLabelOverlay: {
-    position: 'absolute',
-    transform: [{ rotate: '-90deg' }], // Rotate the label
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000',
-    textAlign: 'center',
-    top: '50%', // Center vertically on the chart
-    left: 10, // Position slightly inside the chart
-    zIndex: 10, // Ensure it appears above the chart
-  },
-  tableContainer: {
-    marginTop: 20,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    overflow: 'hidden',
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  tableRow: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  tableCell: {
-    flex: 1,
-    padding: 10,
-    textAlign: 'center',
-    fontSize: 14,
-    color: '#fff',
-  },
-  tableHeader: {
-    fontWeight: 'bold',
-    backgroundColor: '#f0f0f0',
-    color: '#000',
-  },
-  tooltip: {
-    position: 'absolute',
-    backgroundColor: 'rgba(0, 0, 0, 0.8)', // Semi-transparent background
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 12, // Rounded corners
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5, // For Android shadow
-  },
-  tooltipText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
+  headerRow: { paddingHorizontal: 12, paddingTop: 8, paddingBottom: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  headerAnchor: { flexDirection: 'row', alignItems: 'center' },
+  headerTitle: { fontSize: 16, fontWeight: 'bold', color: '#4CAF50', marginRight: 4 },
+  pageTitle: { fontSize: 16, fontWeight: '600', color: '#222' },
+  headerRight: { flexDirection: 'row', alignItems: 'center' },
+  timeAnchor: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 6, paddingVertical: 4, borderRadius: 6 },
+  timeText: { marginHorizontal: 4, color: '#4CAF50', fontWeight: '600' },
+  filterBtn: { marginLeft: 8, padding: 6, borderRadius: 6 },
+  chartContainer: { marginHorizontal: 6, marginTop: 6, backgroundColor: '#fff', borderRadius: 12, padding: 8, elevation: 2 },
+  chartStyle: { marginVertical: 8, borderRadius: 8 },
+  axisLabel: { textAlign: 'center', color: '#333', marginTop: -2, marginBottom: 6 },
+  legendRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, paddingHorizontal: 6, paddingTop: 6, paddingBottom: 4 },
+  legendItem: { flexDirection: 'row', alignItems: 'center', marginRight: 10, marginBottom: 6 },
+  legendSwatch: { width: 14, height: 14, borderRadius: 3, marginRight: 6 },
+  legendText: { color: '#333', fontSize: 12 },
+  totalsContainer: { marginTop: 12, marginHorizontal: 10 },
+  totalText: { fontSize: 16, fontWeight: '600', color: '#fff', marginBottom: 4 },
+  tableContainer: { marginTop: 16, marginHorizontal: 6, borderWidth: 1, borderColor: '#ccc', borderRadius: 10, overflow: 'hidden', backgroundColor: '#fafafa' },
+  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#eaeaea' },
+  tableCell: { minWidth: 120, padding: 10, textAlign: 'center', fontSize: 13, color: '#222' },
+  tableHeader: { fontWeight: 'bold', backgroundColor: '#f0f0f0', color: '#000' },
+  checkboxRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 4 },
+  checkboxLabelWrap: { flexDirection: 'row', alignItems: 'center' },
+  checkboxLabel: { fontSize: 15 },
 });
-
-// function ToolTip({ x, y }: { x: SharedValue<number>; y: SharedValue<number> }) {
-//   return <Circle cx={x} cy={y} r={8} color={"grey"} opacity={0.8} />;
-// }

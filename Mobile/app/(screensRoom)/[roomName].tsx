@@ -10,8 +10,6 @@ import Slider from '@react-native-community/slider';
 import { useEffect, useState } from 'react';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { View, Button, Pressable, Text, Switch } from 'react-native';
-  // ML Ambient Lighting Toggle
-  const [useMLAmbient, setUseMLAmbient] = useState(false);
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import { doc, getDocs, collection, getDoc } from "firebase/firestore";
 import { Modal as RNModal } from 'react-native';
@@ -34,6 +32,8 @@ import { router } from 'expo-router';
 const screenWidth = Dimensions.get('window').width;
 
 export default function MainScreen() {
+  // ML Ambient Lighting Toggle (must live inside component)
+  const [useMLAmbient, setUseMLAmbient] = useState(false);
   // Animation state for feedback
   const [animValue] = useState(new Animated.Value(0));
   const [offOnPress, setOffOnPress] = useState(0);
@@ -47,6 +47,11 @@ export default function MainScreen() {
   const [brightness, setBrightness] = useState(50);
   const [temperature, setTemperature] = useState(50);
   const [isOn, setIsOn] = useState(false);
+  const [boardId, setBoardId] = useState<string>('');
+  // Target lux for ML control (0 - 8190)
+  const [targetLux, setTargetLux] = useState<number>(650);
+  const [luxModalVisible, setLuxModalVisible] = useState<boolean>(false);
+  const [luxInput, setLuxInput] = useState<string>(String(650));
 
   // Remove Mode type and use string keys for modes
   const [currentMode, setCurrentMode] = useState<string | null>(null);
@@ -61,6 +66,9 @@ export default function MainScreen() {
   const [menuVisible, setMenuVisible] = useState(false);
   const openMenu = () => setMenuVisible(true);
   const closeMenu = () => setMenuVisible(false);
+
+  // MQTT mode: false = Manual (0), true = Auto (1)
+  const [mqttAuto, setMqttAuto] = useState<boolean>(false);
   
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -101,21 +109,21 @@ export default function MainScreen() {
     try {
       const docRef = doc(db, "users", userInfo.uid);
       const docSnap = await getDoc(docRef);
-
       if (docSnap.exists()) {
-        const data = docSnap.data();
+        const data: any = docSnap.data();
         setRooms(data.rooms || {});
         if (data.rooms && roomKey) {
-          setBrightness(data.rooms[roomKey]?.brightness ?? 50);
-          setTemperature(data.rooms[roomKey]?.temperature ?? 50);
-          setIsOn(data.rooms[roomKey]?.on ?? false);
+          const r = data.rooms[roomKey] || {};
+          setBrightness(r?.brightness ?? 50);
+          setTemperature(r?.temperature ?? 50);
+          setIsOn(r?.on ?? false);
+          setBoardId(r?.boardId ?? ''); // load Board ID
         }
       }
     } catch (error) {
       console.error("Error fetching rooms:", error);
     }
   };
-
 
   // Auto-save brightness, temperature, and on state to Firebase
   useEffect(() => {
@@ -124,10 +132,10 @@ export default function MainScreen() {
     getDoc(docRef)
       .then((docSnap) => {
         if (docSnap.exists()) {
-          const currentRooms = docSnap.data().rooms || {};
+          const currentRooms: any = docSnap.data().rooms || {};
           const updatedRooms = {
             ...currentRooms,
-            [roomKey]: { brightness, temperature, on: isOn }
+            [roomKey]: { brightness, temperature, on: isOn, boardId },
           };
           setRooms(updatedRooms);
           return updateDoc(docRef, { rooms: updatedRooms });
@@ -139,7 +147,9 @@ export default function MainScreen() {
       .catch((error) => {
         console.error("Error auto-saving room settings:", error);
       });
-  }, [brightness, temperature, isOn, userInfo, roomKey]);
+  }, [brightness, temperature, isOn, boardId, userInfo, roomKey]);
+
+  const topicPrefix = (boardId && boardId.trim().length > 0) ? boardId.trim() : (roomKey || 'room1');
 
   const saveCustomModes = async (modes: Record<string, { brightness: number; temperature: number; on: boolean }>) => {
     if (!userInfo) {
@@ -270,23 +280,6 @@ export default function MainScreen() {
     }
   };
 
-  const sendCommandToPi = async (command: string) => {
-    try {
-      const response = await fetch('http://192.168.5.30:5000/command', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ command }),
-      });
-      const data = await response.json();
-      console.log('Response from Pi:', data);
-    } catch (error) {
-      console.error('Error sending command:', error);
-    }
-  };
-
-// Usage example:
-// sendCommandToPi('turn_on_light');
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ height: 12 }} />
@@ -296,10 +289,35 @@ export default function MainScreen() {
           visible={menuVisible}
           onDismiss={closeMenu}
           anchor={
-            <Pressable onPress={openMenu} style={{ flexDirection: 'row', alignItems: 'center', padding: 8 }}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#c2c2c2ff', marginRight: 4 }}>{roomKey}</Text>
-              <Ionicons name="chevron-down" size={22} color="#c2c2c2ff" />
-            </Pressable>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingHorizontal: 8 }}>
+              <Pressable onPress={openMenu} style={{ flexDirection: 'row', alignItems: 'center', padding: 8 }}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#c2c2c2ff', marginRight: 4 }}>{roomKey}</Text>
+                <Ionicons name="chevron-down" size={22} color="#c2c2c2ff" />
+              </Pressable>
+
+              {/* Mode switch (Manual / Auto) */}
+              <View style={{ marginLeft: 'auto', marginRight: 8, alignItems: 'center', flexDirection: 'row' }}>
+                <Text style={{ color: '#c2c2c2ff', marginRight: 6 }}>{mqttAuto ? 'Auto' : 'Manual'}</Text>
+                <Switch
+                  value={mqttAuto}
+                  onValueChange={async (v) => {
+                    // optimistic UI update
+                    setMqttAuto(v);
+                    const newMode = v ? 1 : 0;
+                    try {
+                      await sendLightingCommand({
+                        topic: `lighting/${topicPrefix}/control/mode`,
+                        value: newMode,
+                      });
+                    } catch (err) {
+                      console.error('Failed to publish mode change:', err);
+                      // revert UI on failure
+                      setMqttAuto(!v);
+                    }
+                  }}
+                />
+                </View>
+            </View>
           }
         >
           {Object.keys(rooms).map(roomName => (
@@ -347,14 +365,29 @@ export default function MainScreen() {
                 </ThemedText>
               </Pressable>
             </ThemedView>
-
+            <ThemedView style={styles.stepContainer}>
+              <ThemedText type="subtitle">Board ID</ThemedText>
+              <TextInput
+                value={boardId}
+                onChangeText={setBoardId}
+                placeholder="e.g. room1, lab-01"
+                style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 10, marginHorizontal: 12 }}
+              />
+              <ThemedText style={{ marginLeft: 12, color: '#777' }}>
+                MQTT topics will use: lighting/{topicPrefix}/control/...
+              </ThemedText>
+            </ThemedView>
             <ThemedView style={styles.stepContainer}>
               <SafeAreaProvider>
                 <SafeAreaView>
                   <Pressable
                     onPress={() => {
+                      const newVal = isOn ? 0 : 1;
                       setIsOn(current => !current);
-                      sendCommandToPi(isOn ? 'turn_off_light' : 'turn_on_light');
+                      sendLightingCommand({
+                        topic: `lighting/${topicPrefix}/control/OnOFF`,
+                        value: newVal,
+                      });
                       Haptics.selectionAsync();
                     }}
                     style={({ pressed }) => [
@@ -435,6 +468,8 @@ export default function MainScreen() {
                 </View>
               </View>
             </ThemedView>
+
+            {/* Target Lux slider removed in favor of input modal */}
 
             <ThemedView style={styles.stepContainer}>
               <ThemedText type="subtitle">Modes</ThemedText>
@@ -529,10 +564,8 @@ export default function MainScreen() {
                 title="Send Brightness Command"
                 onPress={() => {
                   sendLightingCommand({
-                    command: "set_brightness",
-                    topic: "lighting/room1/control/brightness",
-                    value: brightness,
-                    target: 'pi'
+                    topic: `lighting/${topicPrefix}/control/brightness`,
+                    value: Math.round(brightness * 81.9),
                   });
                 }}
               />
@@ -540,21 +573,8 @@ export default function MainScreen() {
                 title="Send Temp Command"
                 onPress={() => {
                   sendLightingCommand({
-                    command: "set_temperature",
-                    topic: "lighting/room1/control/temperature",
-                    value: temperature,
-                    target: 'pi'
-                  });
-                }}
-              />
-              <Button
-                title="Send ML Command"
-                onPress={() => {
-                  sendLightingCommand({
-                    command: "set_ml_target_lux",
-                    topic: "lighting/room1/control/ML_Target_Lux",
-                    value: 2500,
-                    target: 'pi'
+                    topic: `lighting/${topicPrefix}/control/temperature`,
+                    value: temperature / 100,
                   });
                 }}
               />

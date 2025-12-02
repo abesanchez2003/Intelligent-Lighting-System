@@ -5,6 +5,8 @@ import { useNavigation } from "expo-router";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { app } from '../api/firebase';
 import { useColorScheme } from "react-native";
+import { TouchableOpacity } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
 const auth = getAuth(app);
 
@@ -28,6 +30,14 @@ export default function ForgotPasswordScreen() {
 
     return (
         <View style={[styles.container, {backgroundColor : colorScheme === 'dark' ? '#000' : '#fff'}]}>
+            {/* Back Button */}
+            <TouchableOpacity
+                style={styles.backButton}
+                onPress={() => navigation.goBack()} // Navigate back to the login screen
+            >
+                <Ionicons name="arrow-back" size={24} color="#4CAF50" />
+                <Text style={styles.backButtonText}>Back</Text>
+            </TouchableOpacity>
             <Text style={styles.title}>Forgot Password</Text>
             <Text style={{marginBottom: 20, color: "#555", textAlign: "center"}}>
                 Enter your email address and we'll send you a link to reset your password.
@@ -55,6 +65,18 @@ export default function ForgotPasswordScreen() {
 }
 
 const styles = StyleSheet.create({
+    backButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        position: "absolute",
+        top: 50, // Adjust based on your layout
+        left: 20,
+    },
+    backButtonText: {
+        fontSize: 16,
+        color: "#4CAF50",
+        marginLeft: 8,
+    },
     container: {
         flex: 1,
         width: '100%',

@@ -12,7 +12,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "../(component)/api/firebase";
 import { useState } from 'react';
 import { getDoc } from 'firebase/firestore';
-import { View, Text, Button, Pressable, FlatList } from 'react-native';
+import { View, Text, Button, Pressable, FlatList, Alert } from 'react-native';
 import { useEffect } from 'react';
 import { app } from '../(component)/api/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -20,6 +20,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from 'expo-router';
 import { Modal, TextInput } from 'react-native';
 import { router } from 'expo-router';
+import { Menu, Provider } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
+import { ActivityIndicator } from 'react-native';
 
 
 const auth = getAuth(app);
@@ -34,6 +37,10 @@ export default function HomeScreen() {
   const [renameRoomIndex, setRenameRoomIndex] = useState<number | null>(null);
   const [renameRoomValue, setRenameRoomValue] = useState('');
   const [renameRoomOldName, setRenameRoomOldName] = useState<string | null>(null);
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [roomKey, setRoomKey] = useState<string>('Home');
+  const [syncingVisible, setSyncingVisible] = useState(false);
+  const [syncingDone, setSyncingDone] = useState(false);
 
   useEffect(() => {
     const auth = getAuth();
@@ -62,6 +69,8 @@ export default function HomeScreen() {
         const data = docSnap.data();
         setRooms(data.rooms || {}); // Set rooms from Firestore or default to an empty array
         setUserName(data.Name); // Set userName from Firestore
+        const keys = Object.keys(data.rooms || {});
+        if (keys.length && !roomKey) setRoomKey(keys[0]);
       } else {
         console.log("No such document!");
       }
@@ -72,12 +81,10 @@ export default function HomeScreen() {
 
   const addRoom = async () => {
     try {
-      const newRoomName = `Room ${Object.keys(rooms).length + 1}`;
-      const updatedRooms = { ...rooms, [newRoomName]: { brightness: 50, temperature: 50 } };
+      const newRoomName = `Room`;
+      const updatedRooms = { ...rooms, [newRoomName]: { brightness: 50, temperature: 50, boardId: '' } };
       setRooms(updatedRooms);
-
-      // Update Firestore
-      const docRef = doc(db, "users", userInfo.uid); // Assuming userInfo contains uid
+      const docRef = doc(db, "users", userInfo.uid);
       await updateDoc(docRef, { rooms: updatedRooms });
     } catch (error) {
       console.error("Error adding room:", error);
@@ -117,9 +124,31 @@ export default function HomeScreen() {
     setRenameModalVisible(true);
   };
 
+  const handleSignOut = async () => {
+    Alert.alert(
+      'Auth App',
+      'Are you sure you want to sign out?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Logout',
+          onPress: async () => {
+            try {
+              await auth.signOut();
+              router.push({ pathname: '/(component)/(auth)/login' });
+            } catch (e) {
+              console.warn('Sign out failed', e);
+            }
+          },
+        },
+      ]
+    );
+  };
+
   const confirmRenameRoom = async () => {
     if (renameRoomOldName && renameRoomValue.trim() !== '' && renameRoomValue !== renameRoomOldName) {
-      const updatedRooms = { ...rooms };
+      const updatedRooms: any = { ...rooms };
+      // preserve brightness/temperature/boardId
       updatedRooms[renameRoomValue] = updatedRooms[renameRoomOldName];
       delete updatedRooms[renameRoomOldName];
       setRooms(updatedRooms);
@@ -138,11 +167,36 @@ export default function HomeScreen() {
   }, [userInfo]);
 
   return (
+    <Provider>
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Welcome, {userName || "User"}</Text>
       <FlatList
         data={Object.keys(rooms)}
         keyExtractor={(item) => item}
+        ListHeaderComponent={
+          <>
+              <View style={{ paddingHorizontal: 12, paddingTop: 8, paddingBottom: 4 }}>
+                <Menu
+                  visible={menuVisible}
+                  onDismiss={() => setMenuVisible(false)}
+                  anchor={
+                      <Pressable onPress={() => setMenuVisible(true)} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#4CAF50', marginRight: 4 }}>{roomKey}</Text>
+                        <Ionicons name="chevron-down" size={22} color="#4CAF50" />
+                      </Pressable>
+                  }
+                >
+                  <Menu.Item
+                    onPress={() => {
+                      setMenuVisible(false);
+                      handleSignOut();
+                    }}
+                    title="Sign Out"
+                  />
+                </Menu>
+              </View>
+            <Text style={[styles.title, { marginTop: 8 } ]}>Welcome, {userName || "User"}</Text>
+          </>
+        }
         renderItem={({ item }) => (
           <View style={styles.roomRow}>
             <Pressable
@@ -151,25 +205,39 @@ export default function HomeScreen() {
             >
               <Text style={styles.roomButtonText}>{item}</Text>
             </Pressable>
-            <Pressable
-              style={styles.renameButton}
-              onPress={() => handleRenameRoom(item)}
-            >
+            {/* Inline Board ID editor */}
+            <View style={{ flex: 1, marginLeft: 8 }}>
+              <Text style={{ fontSize: 12, color: '#555' }}>Board ID</Text>
+              <TextInput
+                value={(rooms as any)[item]?.boardId ?? ''}
+                onChangeText={async (txt) => {
+                  const updatedRooms: any = { ...rooms, [item]: { ...(rooms as any)[item], boardId: txt } };
+                  setRooms(updatedRooms);
+                  const docRef = doc(db, "users", userInfo.uid);
+                  await updateDoc(docRef, { rooms: updatedRooms });
+                  setSyncingDone(false);
+                  setSyncingVisible(true);
+                  setTimeout(() => setSyncingDone(true), 3000);
+                }}
+                style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 6, paddingHorizontal: 8, height: 36 }}
+                placeholder="e.g. room1, lab-01"
+                placeholderTextColor="#aaaaaa"
+              />
+            </View>
+            <Pressable style={styles.renameButton} onPress={() => handleRenameRoom(item)}>
               <Text style={styles.renameButtonText}>✏️</Text>
             </Pressable>
-            <Pressable
-              style={styles.deleteButton}
-              onPress={() => handleDeleteRoom(item)}
-            >
+            <Pressable style={styles.deleteButton} onPress={() => handleDeleteRoom(item)}>
               <Text style={styles.deleteButtonText}>🗑️</Text>
             </Pressable>
           </View>
         )}
-        
+        ListFooterComponent={
+          <View style={styles.actions}>
+            <Button title="Add Room" onPress={addRoom} />
+          </View>
+        }
       />
-      <View style={styles.actions}>
-        <Button title="Add Room" onPress={addRoom} />
-      </View>
       <Modal
         visible={renameModalVisible}
         transparent
@@ -208,7 +276,41 @@ export default function HomeScreen() {
           </View>
         </View>
       </Modal>
+      <Modal
+        visible={syncingVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => {
+          setSyncingVisible(false);
+          setSyncingDone(false);
+        }}
+      >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <View style={{ backgroundColor: '#1f1f1f', padding: 20, borderRadius: 12, width: '80%', alignItems: 'center' }}>
+            {!syncingDone ? (
+              <>
+                <Text style={{ color: '#fff', fontSize: 18, marginBottom: 12 }}>Syncing…</Text>
+                <ActivityIndicator size="large" color="#4CAF50" />
+              </>
+            ) : (
+              <>
+                <Text style={{ color: '#fff', fontSize: 18, marginBottom: 12 }}>Syncing Complete!</Text>
+                <Pressable
+                  style={{ marginTop: 8, backgroundColor: '#4CAF50', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}
+                  onPress={() => {
+                    setSyncingVisible(false);
+                    setSyncingDone(false);
+                  }}
+                >
+                  <Text style={{ color: '#fff', fontSize: 16 }}>✔ Close</Text>
+                </Pressable>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
+    </Provider>
   );
 }
 
@@ -222,9 +324,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 0,
     paddingBottom: 32, // Add some bottom padding
-    justifyContent: 'space-between', // Push content down
   },
   title: {
     fontSize: 32,
@@ -232,7 +333,7 @@ const styles = StyleSheet.create({
     color: '#4CAF50',
     marginBottom: 20,
     textAlign: 'left',
-    marginTop: 40,
+    marginTop: 8,
 },
   roomButton: {
     backgroundColor: '#007BFF',
