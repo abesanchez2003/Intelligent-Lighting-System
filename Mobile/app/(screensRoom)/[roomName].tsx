@@ -96,7 +96,6 @@ export default function MainScreen() {
   });
   
   useEffect(() => {
-    const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserInfo(user); // Set the user object

@@ -23,9 +23,7 @@ import { router } from 'expo-router';
 import { Menu, Provider } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { ActivityIndicator } from 'react-native';
-
-
-const auth = getAuth(app);
+import { auth } from '../(component)/api/firebase';
 
 
 export default function HomeScreen() {

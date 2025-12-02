@@ -5,20 +5,16 @@ import { Provider, Menu, Portal, Dialog, Button, Checkbox } from 'react-native-p
 import { Ionicons } from '@expo/vector-icons';
 import { LineChart } from 'react-native-chart-kit';
 import { doc, getDoc } from 'firebase/firestore';
-import { db, auth } from '../(component)/api/firebase';
+import { db, auth, app } from '../(component)/api/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { router, useNavigation } from 'expo-router';
 
 const screenWidth = Dimensions.get('window').width;
-const API_BASE = 'http://10.247.70.129:5001';
+const API_BASE = 'http://10.251.102.203:5001';
 const RESAMPLE_MINUTES = 15;
 
-type MetricKey =
-  | 'power_no_system'
-  | 'power_with_system'
-  | 'ambient_lux'
-  | 'occupancy'
-  | 'brightness_pct';
+type MetricKey = 'ambient_lux' | 'occupancy' | 'motion' | 'brightness_pct';
+
 
 type SamplePoint = { ts: number; metrics: Partial<Record<MetricKey, number>> };
 
@@ -28,10 +24,9 @@ interface ChartData {
 }
 
 const METRIC_DEFS: Record<MetricKey, { label: string; unit: string; color: string }> = {
-  power_no_system: { label: 'Power (No System)', unit: 'W', color: '#e53935' },
-  power_with_system: { label: 'Power (With System)', unit: 'W', color: '#43a047' },
   ambient_lux: { label: 'Ambient Light', unit: 'lux', color: '#fbc02d' },
   occupancy: { label: 'Occupancy', unit: '', color: '#3949ab' },
+  motion: { label: 'Motion', unit: '', color: '#8e24aa' },
   brightness_pct: { label: 'Brightness', unit: '%', color: '#26c6da' },
 };
 
@@ -89,8 +84,7 @@ export default function PowerAndSensorsScreen() {
   const [roomKey, setRoomKey] = useState<string>('Data');
 
   useEffect(() => {
-    const a = getAuth();
-    const unsub = onAuthStateChanged(a, (user) => user && setUserInfo(user));
+    const unsub = onAuthStateChanged(auth, (user) => user && setUserInfo(user));
     return () => unsub();
   }, []);
 
@@ -125,7 +119,7 @@ export default function PowerAndSensorsScreen() {
   const [timeMenuVisible, setTimeMenuVisible] = useState(false);
   const [timeRange, setTimeRange] = useState<TimeRange>(6);
   const [filterVisible, setFilterVisible] = useState(false);
-  const defaultSelected: MetricKey[] = ['power_no_system', 'power_with_system', 'ambient_lux', 'occupancy'];
+  const defaultSelected: MetricKey[] = ['ambient_lux', 'occupancy', 'motion', 'brightness_pct'];
   const [selectedMetrics, setSelectedMetrics] = useState<Set<MetricKey>>(new Set(defaultSelected));
   const [draftSelected, setDraftSelected] = useState<Set<MetricKey>>(new Set(defaultSelected));
 
@@ -144,20 +138,27 @@ export default function PowerAndSensorsScreen() {
     [recentBuffer]
   );
 
-  const fetchFromApi = async (hours: number) => {
-    try {
-      const res = await fetch(`${API_BASE}/api/samples?hours=${hours}`);
-      const j = await res.json();
-      const points: SamplePoint[] = (j.samples || []).map((s: any) => ({
+ const fetchFromApi = async (hours: number) => {
+   try {
+     const res = await fetch(`${API_BASE}/api/samples?hours=${hours}`);
+     const j = await res.json();
+     const points: SamplePoint[] = (j.samples || []).map((s: any) => {
+      const m = s.metrics || {};
+      // Derive motion from motion_detected if needed
+      if (m.motion === undefined && m.motion_detected !== undefined) {
+        m.motion = m.motion_detected ? 1 : 0;
+      }
+      return {
         ts: Date.parse(s.ts),
-        metrics: s.metrics,
-      }));
-      setBuffer(points);
-    } catch (e) {
-      console.warn('Fetch failed', e);
-      Alert.alert('Data fetch failed', String(e));
-    }
-  };
+        metrics: m,
+      };
+    });
+    setBuffer(points);
+  } catch (e) {
+    console.warn('Fetch failed', e);
+    Alert.alert('Data fetch failed', String(e));
+  }
+};
 
   useEffect(() => {
     fetchFromApi(timeRange);
@@ -180,7 +181,8 @@ export default function PowerAndSensorsScreen() {
     const datasets = Array.from(selectedMetrics).map((key) => {
       let data = resampled.map((p) => {
         const v = p.metrics[key];
-        const n = key === 'occupancy' ? (v && v > 0 ? 1 : 0) : typeof v === 'number' ? v : 0;
+        const isBinary = key === 'occupancy' || key === 'motion';
+        const n = isBinary ? (v && v > 0 ? 1 : 0) : typeof v === 'number' ? v : 0;
         return Number.isFinite(n) ? n : 0;
       });
       if (data.length === 0) data = [0, 0];
@@ -193,26 +195,6 @@ export default function PowerAndSensorsScreen() {
     });
     return { labels, datasets };
   }, [resampled, selectedMetrics]);
-
-  // Energy (Wh) from power series
-  const energyWh = useMemo(() => {
-    const calc = (key: MetricKey) => {
-      if (!resampled.length) return 0;
-      let wh = 0;
-      for (let i = 1; i < resampled.length; i++) {
-        const p0 = resampled[i - 1].metrics[key] ?? 0;
-        const p1 = resampled[i].metrics[key] ?? 0;
-        const dtHours = (resampled[i].ts - resampled[i - 1].ts) / (1000 * 60 * 60);
-        wh += ((p0 + p1) / 2) * dtHours;
-      }
-      return wh;
-    };
-    return {
-      withSystem: calc('power_with_system'),
-      noSystem: calc('power_no_system'),
-      saved: calc('power_no_system') - calc('power_with_system'),
-    };
-  }, [resampled]);
 
   const toggleDraftMetric = (key: MetricKey) => {
     setDraftSelected((prev) => {
@@ -321,11 +303,6 @@ export default function PowerAndSensorsScreen() {
             <Text style={styles.axisLabel}>Time</Text>
           </View>
 
-          <View style={styles.totalsContainer}>
-            <Text style={styles.totalText}>Energy (With System): {energyWh.withSystem.toFixed(1)} Wh</Text>
-            <Text style={styles.totalText}>Energy (No System): {energyWh.noSystem.toFixed(1)} Wh</Text>
-            <Text style={styles.totalText}>Estimated Saved: {Math.max(0, energyWh.saved).toFixed(1)} Wh</Text>
-          </View>
         </ScrollView>
 
         <Portal>
