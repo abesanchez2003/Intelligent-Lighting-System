@@ -5,7 +5,7 @@ import { Provider, Menu, Portal, Dialog, Button, Checkbox } from 'react-native-p
 import { Ionicons } from '@expo/vector-icons';
 import { LineChart } from 'react-native-chart-kit';
 import { doc, getDoc } from 'firebase/firestore';
-import { db, auth, app } from '../(component)/api/firebase';
+import { db, auth } from '../(component)/api/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { router, useNavigation } from 'expo-router';
 
