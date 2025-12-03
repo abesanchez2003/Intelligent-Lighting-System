@@ -15,7 +15,6 @@ import { getDoc } from 'firebase/firestore';
 import { View, Text, Button, Pressable, FlatList, Alert } from 'react-native';
 import { useEffect } from 'react';
 import { app } from '../(component)/api/firebase';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from 'expo-router';
 import { Modal, TextInput } from 'react-native';
@@ -24,6 +23,7 @@ import { Menu, Provider } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { ActivityIndicator } from 'react-native';
 import { auth } from '../(component)/api/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 export default function HomeScreen() {
@@ -43,7 +43,6 @@ export default function HomeScreen() {
   const REQUIRED_BOARD_ID = '8DNYTXQGVI';
 
   useEffect(() => {
-    const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserInfo(user); // Set the user object
