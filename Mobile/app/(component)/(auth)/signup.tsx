@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Octicons } from "@expo/vector-icons";
 import Ripple from "react-native-material-ripple";
 import { useNavigation } from "expo-router";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from '../api/firebase';
 import { useColorScheme } from "react-native";
 import { doc, setDoc } from "firebase/firestore";
@@ -13,7 +13,7 @@ import { KeyboardAvoidingView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
-const auth = getAuth(app);
+import { auth } from '../../(component)/api/firebase';
 
 const screenWidth = Dimensions.get('window').width;
 

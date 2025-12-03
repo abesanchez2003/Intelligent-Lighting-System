@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../(component)/api/firebase';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -29,8 +29,7 @@ export default function TabThreeScreen() {
   const [roomKey, setRoomKey] = useState<string>('About Us');
 
   useEffect(() => {
-    const a = getAuth();
-    const unsubscribe = onAuthStateChanged(a, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserInfo(user);
       }

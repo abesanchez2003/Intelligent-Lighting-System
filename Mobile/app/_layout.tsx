@@ -6,9 +6,9 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigation } from 'expo-router';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { router } from 'expo-router';
-
+import { auth } from './(component)/api/firebase';
 
 import 'react-native-reanimated';
 
@@ -16,7 +16,6 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-const auth = getAuth();
 
 export default function RootLayout() {
   // variables

@@ -2,13 +2,13 @@ import { StyleSheet, Text, TextInput, View, Alert } from "react-native";
 import React, { useState } from "react";
 import Ripple from "react-native-material-ripple";
 import { useNavigation } from "expo-router";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { app } from '../api/firebase';
 import { useColorScheme } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { auth } from '../../(component)/api/firebase';
 
-const auth = getAuth(app);
 
 export default function ForgotPasswordScreen() {
     const [email, setEmail] = useState('');

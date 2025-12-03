@@ -17,7 +17,7 @@ import { db } from "../(component)/api/firebase";
 import { auth } from "../(component)/api/firebase";
 import { Alert } from 'react-native';
 import { useNavigation } from 'expo-router';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { updateDoc } from 'firebase/firestore';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
