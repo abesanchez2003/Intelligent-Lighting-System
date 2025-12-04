@@ -24,12 +24,13 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 const screenWidth = Dimensions.get('window').width;
 const labels = [
-  'Plug in the system',
-  'Connect to Wi-Fi',
-  'Place sensors',
-  'Set preferences',
-  'Enable notifications',
-  'Run a test',
+  'Plug in',
+  'Wi-Fi',
+  'Sensors',
+  'Initialize',
+  'Preferences',
+  'Notifications',
+  'Test',
 ];
 
 const customStyles = {
@@ -167,19 +168,22 @@ export default function TabThreeScreen() {
             <Text style={styles.descriptionText}>Place the motion sensor, camera, and ambient light sensor in their respective locations.</Text>
           )}
           {currentPosition === 3 && (
-            <Text style={styles.descriptionText}>Set brightness preferences based on detected motion and ambient light levels.</Text>
+            <Text style={styles.descriptionText}>Initialize the app to connect with the control board.</Text>
           )}
           {currentPosition === 4 && (
-            <Text style={styles.descriptionText}>Enable notifications for detected movement.</Text>
+            <Text style={styles.descriptionText}>Set light brightness and temperature to your liking.</Text>
           )}
           {currentPosition === 5 && (
+            <Text style={styles.descriptionText}>Enable notifications for detected movement.</Text>
+          )}
+          {currentPosition === 6 && (
             <Text style={styles.descriptionText}>Run a test to ensure all sensors and automation features work correctly.</Text>
           )}
         </View>
 
         <ThemedView style={styles.stepContainer}>
           <ThemedText type="subtitle">How to use the app:</ThemedText>
-          <ThemedText type="default">Adding and Deleting Rooms:</ThemedText>
+          <ThemedText type="default">Adding, Deleting, and Initializing Rooms:</ThemedText>
           <Image
             source={require('@/assets/images/trim.D84CB4B8-4CE7-4AB7-9EB7-EF226F1301A0.gif')} // Replace with your GIF path
             style={styles.gifStyle}

@@ -675,24 +675,35 @@ export default function MainScreen() {
 
             {/* Firestore Command Buttons */}
             <ThemedView style={styles.stepContainer}>
+              {mode && (
+               <Text style={{ color: '#ffb300', marginBottom: 4 }}>
+                 Auto mode is enabled. Manual commands are disabled.
+               </Text>
+             )}
               <Button
-                title="Send Brightness Command"
+                title="Send Brightness & Temperature Command"
                 onPress={() => {
+                  if (mode) return;
                   sendLightingCommand({
                     topic: `lighting/${topicPrefix}/control/brightness`,
                     value: Math.round(brightness * 81.9),
                   });
-                }}
-              />
-              <Button
-                title="Send Temp Command"
-                onPress={() => {
                   sendLightingCommand({
                     topic: `lighting/${topicPrefix}/control/temperature`,
                     value: temperature / 100,
                   });
                 }}
               />
+              {/* <Button
+                title="Send Temp Command"
+                onPress={() => {
+                  if (mode) return;
+                  sendLightingCommand({
+                    topic: `lighting/${topicPrefix}/control/temperature`,
+                    value: temperature / 100,
+                  });
+                }}
+              /> */}
             </ThemedView>
 
           </ScrollView>
