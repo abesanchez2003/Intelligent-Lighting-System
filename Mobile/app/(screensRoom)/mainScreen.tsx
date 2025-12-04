@@ -681,20 +681,16 @@ export default function MainScreen() {
                </Text>
              )}
               <Button
-                title="Send Brightness & Temperature Command"
+                title="Send Brightness Command"
                 onPress={() => {
                   if (mode) return;
                   sendLightingCommand({
                     topic: `lighting/${topicPrefix}/control/brightness`,
                     value: Math.round(brightness * 81.9),
                   });
-                  sendLightingCommand({
-                    topic: `lighting/${topicPrefix}/control/temperature`,
-                    value: temperature / 100,
-                  });
                 }}
               />
-              {/* <Button
+              <Button
                 title="Send Temp Command"
                 onPress={() => {
                   if (mode) return;
@@ -703,7 +699,7 @@ export default function MainScreen() {
                     value: temperature / 100,
                   });
                 }}
-              /> */}
+              />
             </ThemedView>
 
           </ScrollView>
